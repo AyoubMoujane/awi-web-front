@@ -10,18 +10,18 @@ pipeline {
         CI = 'true'
         registry = "ayoubmoujane/awi-web-front"
     }
-    // stages {
+    stages {
     //     stage('Build') {
     //         steps {
     //             sh 'npm install'
     //         }
     //     }
-        stage('Test') {
-            steps {
-                sh 'npm test'
-            }
-        }
-    // }
+    //     stage('Test') {
+    //         steps {
+    //             sh 'npm test'
+    //         }
+    //     }
+    }
 }
 
 node {
