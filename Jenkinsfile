@@ -10,39 +10,39 @@ pipeline {
         CI = 'true'
         registry = "ayoubmoujane/awi-web-front"
     }
-    stages {
-        stage('Build') {
-            steps {
-                sh 'npm install'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'npm test'
-            }
-        }
-    }
+    // stages {
+    //     stage('Build') {
+    //         steps {
+    //             sh 'npm install'
+    //         }
+    //     }
+    //     stage('Test') {
+    //         steps {
+    //             sh 'npm test'
+    //         }
+    //     }
+    // }
 }
 
 node {
     def app
 
-    stage('Build image') {
-        app = docker.build("ayoubmoujane/awi-web-front")
-    }
+    // stage('Build image') {
+    //     app = docker.build("ayoubmoujane/awi-web-front")
+    // }
 
-    stage('Test image') {
-        app.inside {
-            sh 'echo "Tests passed"'
-        }
-    }
+    // stage('Test image') {
+    //     app.inside {
+    //         sh 'echo "Tests passed"'
+    //     }
+    // }
 
-    stage('Push image') {
-        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-ayoubmoujane') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
-        }
-    }
+    // stage('Push image') {
+    //     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-ayoubmoujane') {
+    //         app.push("${env.BUILD_NUMBER}")
+    //         app.push("latest")
+    //     }
+    // }
 
     stage('Deploy') {
         withCredentials([sshUserPrivateKey(credentialsId: "web-front-server", keyFileVariable: 'credentials')]) {
