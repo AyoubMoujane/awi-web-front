@@ -44,15 +44,12 @@ node {
         }
     }
 
-    withCredentials([sshUserPrivateKey(credentialsId: "web-front-server", keyFileVariable: 'credentials')]) {
-       stage('Deploy') {
-        steps {
+    stage('Deploy') {
+        withCredentials([sshUserPrivateKey(credentialsId: "web-front-server", keyFileVariable: 'credentials')]) {
             sh 'scp -i ${keyfile} deploy.sh ec2-user@13.36.72.231:~/'
-            sh 'ssh ec2-user@13.36.72.231 "chmod +x deploy.sh"'
-            sh 'ssh ec2-user@13.36.72.231 ./deploy.ssh'
-        }
-       }
-       
-   }
+            sh 'ssh -i ${keyfile} ec2-user@13.36.72.231 "chmod +x deploy.sh"'
+            sh 'ssh -i ${keyfile} ec2-user@13.36.72.231 ./deploy.sh'
+        }     
+    }
 
 }
