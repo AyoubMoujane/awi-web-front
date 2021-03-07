@@ -46,7 +46,6 @@ node {
 
     withCredentials([sshUserPrivateKey(credentialsId: "web-front-server", keyFileVariable: 'credentials')]) {
        stage('Deploy') {
-        sh "scp -i  do sth here"
         steps {
             sh 'scp -i ${keyfile} deploy.sh ec2-user@13.36.72.231:~/'
             sh 'ssh ec2-user@13.36.72.231 "chmod +x deploy.sh"'
