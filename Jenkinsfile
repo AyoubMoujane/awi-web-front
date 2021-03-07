@@ -46,7 +46,7 @@ node {
 
     stage('Deploy') {
         withCredentials([sshUserPrivateKey(credentialsId: "web-front-server", keyFileVariable: 'credentials')]) {
-            sh 'ssh -i ${credentials} ec2-user@13.36.72.231 ./deploy.sh'
+            sh 'ssh -o StrictHostKeyChecking=no -i ${credentials} ec2-user@13.36.72.231 ./deploy.sh'
         }     
     }
 
