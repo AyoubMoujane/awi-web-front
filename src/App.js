@@ -44,6 +44,7 @@ export default class App extends React.Component {
               <ul id="nav-mobile" className="right hide-on-med-and-down">
                 {currentUser ? (
                   <div>
+                    <li className="nav-item"><Link to={"/home"} >AdminHome</Link></li>
                     <li className="nav-item"><Link to={"/profile"} >{currentUser.username}</Link></li>
                     <li className="nav-item"><a href="/" onClick={this.logOut}>LogOut</a></li>
                   </div>

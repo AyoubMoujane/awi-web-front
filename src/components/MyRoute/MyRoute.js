@@ -6,14 +6,13 @@ import { getPath } from '../../routes'
 
 export function MyRoute ({component : Component, roles, path}) {
 
-    console.log(hasRoles(roles))
     
     return (
         <Route 
             path={path} 
             exact={true} 
             render = {(props) => 
-                (roles.length === 0 || isAuth())? (
+                (roles.length === 0 || (isAuth()) && hasRoles(roles))? (
                 <Component {...props} />
             ) : (
                 isAuth() ? (

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import AuthService from "../../services/authentification/auth";
 
 export function Profile() {
 
 
-    const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser())
+    const currentUser = AuthService.getCurrentUser()
 
     return (
         <div className="container">

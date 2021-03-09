@@ -43,7 +43,7 @@ export function Register() {
 
         console.log(data)
 
-        AuthService.register(data.username, data.email, data.password, data.password2).then(
+        AuthService.register(data.username, data.email, data.password, data.password2, data.role).then(
             () => {
                 history.push('/login')
                 window.location.reload();

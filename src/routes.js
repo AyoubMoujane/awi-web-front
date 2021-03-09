@@ -2,6 +2,7 @@ import { Login } from "./views/Login/Login"
 import { Landing } from "./views/Landing/Landing"
 import { Register } from "./views/Register/Register"
 import { Profile } from "./views/Profile/Profile"
+import { AdminHome } from "./views/Home/Admin/AdminHome"
 
 /*
 type Route :
@@ -35,6 +36,12 @@ const routes = [
         'component': Profile,
         'roles': ['ROLE_USER']
     },
+    {
+        'name': 'home',
+        'path': '/home',
+        'component': AdminHome,
+        'roles': ['ROLE_ADMIN']
+    }
 
 ]
 

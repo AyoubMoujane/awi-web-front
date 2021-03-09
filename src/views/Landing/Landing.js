@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom"
 
+
 export function Landing() {
 
     return (
@@ -12,9 +13,8 @@ export function Landing() {
                         <span style={{ fontFamily: "monospace" }}>MERN</span> stack from scratch
                             </h4>
                     <p className="flow-text grey-text text-darken-1">
-                        Create a (minimal) full-stack app with user authentication via
-                        passport and JWTs
-                        </p>
+                        Create a (minimal) full-stack app with user authentication via JWTs
+                    </p>
                     <br />
                     <div className="col s6">
                         <Link
