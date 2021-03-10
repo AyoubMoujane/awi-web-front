@@ -11,8 +11,9 @@ export function MyRoute ({component : Component, roles, path}) {
         <Route 
             path={path} 
             exact={true} 
-            render = {(props) => 
-                (roles.length === 0 || (isAuth()) && hasRoles(roles))? (
+            render={(props) =>
+                // TODO : Ask Pierre what should be done here
+                (roles.length === 0 || ((isAuth()) && hasRoles(roles)))? (
                 <Component {...props} />
             ) : (
                 isAuth() ? (
