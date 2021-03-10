@@ -2,5 +2,6 @@ FROM node:14
 WORKDIR /app
 ADD . /app
 RUN npm install
-EXPOSE 3000
-CMD npm start
+RUN npm run build
+EXPOSE 5000
+CMD server -s build
