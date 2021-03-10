@@ -40,7 +40,7 @@ export default class App extends React.Component {
         <Router>
           <nav className="blue accent-3">
             <div className="nav-wrapper">
-              <a href="/" className="brand-logo">Logo v2 {process.env.NODE_ENV}</a>
+              <a href="/" className="brand-logo">Logo dev/prod version {process.env.NODE_ENV}</a>
               <ul id="nav-mobile" className="right hide-on-med-and-down">
                 {currentUser ? (
                   <div>
