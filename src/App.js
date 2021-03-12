@@ -40,7 +40,17 @@ export default class App extends React.Component {
         <Router>
           <nav className="blue accent-3">
             <div className="nav-wrapper">
-              <a href="/" className="brand-logo">Logo dev/prod version {process.env.NODE_ENV}</a>
+              <ul id="nav-mobile" className="left hide-on-med-and-down">
+              <div>
+              <li href="/">Logo {process.env.NODE_ENV}</li>
+              <li className="nav-item"> <Link to={"/home"} >Suivi des éditeurs</Link> </li>
+                <li className="nav-item"> <Link to={"/home"} >Réservations</Link> </li>
+                <li className="nav-item"> <Link to={"/home"} >Liste des jeux</Link> </li>
+                <li className="nav-item"> <Link to={"/home"} >Facturation</Link> </li>
+                <li className="nav-item"> <Link to={"/home"} >Zones du festival</Link> </li>
+              </div>
+                
+              </ul>
               <ul id="nav-mobile" className="right hide-on-med-and-down">
                 {currentUser ? (
                   <div>
