@@ -7,7 +7,7 @@ const Config = function(){
 
         case 'production':
             return {
-                API_URL : "http://15.236.140.17:8080/api/auth"
+                API_URL : "http://15.236.140.17:8080/api/auth/"
             };
 
         default:
