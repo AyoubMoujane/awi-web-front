@@ -1,0 +1,142 @@
+@startuml festival
+
+class Zone {
+  idZone : Int
+  nomZone : String
+}
+
+class JeuExposé {
+   #idReservation : int
+   #idJeux : int
+   quantitéExposé : int
+   quantitéDonation : int
+   quantitéTombola : int
+   JeuAmenéParExp : bool
+   estRecu : bool
+   aRenvoyé : bool
+   placéSurPlan : bool
+   #idZone : int
+
+}
+
+class Facture {
+    idFacture : int
+    dateFacturation : Date
+    envoyé : boolean
+    prix : int
+}
+
+class Reservation {
+    idReservation : int
+    date : Date
+    remise : boolean
+    payée : boolean
+    nbDeJeuxRecu : int
+    EnvoieDesAnim : boolean
+    #idFacture : int
+    #idFestival : int
+    #idParticipant
+}
+
+class ReservationEspace {
+    #idEspace : int
+    #idReservation : int
+    nbTable : int
+    nbM2 : int
+}
+
+class Espace {
+    idEspace : int
+    nbMaxTable : int
+    prixUnitaireTable : int
+    prixM2 : int
+
+}
+
+class Festival {
+    idFestival : int
+    nomFestival : string
+    date : Date
+    #idEspace : int
+}
+
+class Participant {
+    idParticipant : int
+    nomParticipant : string
+    editeurOnly : bool
+}
+
+class Jeu {
+    idJeux : int
+    nomJeux : string
+    nbJoueurMin : int
+    nbJoueurMax : int
+    age : int
+    durée : int
+    type : TypeJeu
+    prototype : boolean
+    #idEditeur : int
+    #idReservation : int
+}
+
+class Contact {
+    idContact : int
+    nomContact : string
+    mailContact : string
+    adresseContact : Adresse
+    principal : boolean
+    #idParticipant : int
+}
+
+class Adresse {
+    rue : string
+    codePostale : string
+    ville : string
+    pays : string
+}
+
+class SuiviExposant {
+    #idFestival : int
+    #idPArticipant : int
+    status : TypeStatus
+    commentaire : string
+    JeuxRentrés : bool
+}
+
+enum TypeStatus {
+    CONTACTE
+    REPONDU
+    PRESENT
+}
+
+enum TypeJeu {
+    Famille
+    Expert
+    Ambiance
+    Tous
+}
+
+JeuExposé "0..*" -- "0,1" Zone
+Jeu "0..*" -- "0..*" Reservation
+(Jeu, Reservation) . JeuExposé
+Jeu "1,1" -- "0..*" Participant
+Participant "0,n" -- "0,n" Festival
+(Participant, Festival) . SuiviExposant
+Festival "3,3" -- "0,n" Espace
+Espace "0,n" -- "1,n" Reservation
+(Espace, Reservation) . ReservationEspace
+
+Adresse "1,1" -- "1,1" Contact
+Facture "1,1" -- "0,1" Reservation
+Participant "1,n" -- "1,1" Contact
+
+
+
+
+
+
+
+
+
+@enduml
+
