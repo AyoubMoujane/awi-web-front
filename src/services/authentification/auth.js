@@ -1,7 +1,7 @@
 import axios from "axios";
 const config = require('../../config')
 
-const API_URL = config.API_AUTH_URL
+const API_URL = config.API_URL
 
 class AuthService {
     login(username, password) {
