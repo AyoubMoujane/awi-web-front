@@ -109,6 +109,8 @@ CREATE TABLE `FestivalDuJeu`.`Festival` (
   `nomFestival` VARCHAR(100) NOT NULL,
   `dateFestival` DATE NOT NULL,
   `espace` INT NOT NULL,
+  `estCourant` TINYINT(1) NOT NULL,
+
   PRIMARY KEY (`idFestival`),
   INDEX `espace_idx` (`espace` ASC) VISIBLE, 
   CONSTRAINT `espace`
