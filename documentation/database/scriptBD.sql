@@ -17,14 +17,14 @@ DROP TABLE `FestivalDuJeu`.`Espace`;
 
 /* TYPEJEU */
 CREATE TABLE `FestivalDuJeu`.`TypeJeu` (
-  `idTypeJeu` INT NOT NULL,
+  `idTypeJeu` INT NOT NULL AUTO_INCREMENT,
   `nomType` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idTypeJeu`));
 
 
 /* PARTICIPANT */
 CREATE TABLE `FestivalDuJeu`.`Participant` (
-  `idParticipant` INT NOT NULL,
+  `idParticipant` INT NOT NULL AUTO_INCREMENT,
   `nomParticipant` VARCHAR(45) NOT NULL,
   `prenomParticipant` VARCHAR(45) NOT NULL,
   `editeurSeulement` TINYINT(1) NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE `FestivalDuJeu`.`Participant` (
 
 /* JEU */
 CREATE TABLE `FestivalDuJeu`.`Jeu` (
-  `idJeu` INT NOT NULL,
+  `idJeu` INT NOT NULL AUTO_INCREMENT,
   `nomJeu` VARCHAR(45) NOT NULL,
   `nbJoueurMin` INT NOT NULL,
   `nbJoueurMax` INT NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE `FestivalDuJeu`.`Jeu` (
 
 /* ADRESSE */
 CREATE TABLE `FestivalDuJeu`.`AdresseContact` (
-  `idAdresse` INT NOT NULL,
+  `idAdresse` INT NOT NULL AUTO_INCREMENT,
   `rue` VARCHAR(100) NOT NULL,
   `cp` VARCHAR(100) NOT NULL,
   `ville` VARCHAR(100) NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE `FestivalDuJeu`.`AdresseContact` (
 
 /* CONTACT */
 CREATE TABLE `FestivalDuJeu`.`Contact` (
-  `idContact` INT NOT NULL,
+  `idContact` INT NOT NULL AUTO_INCREMENT,
   `nomContact` VARCHAR(45) NOT NULL,
   `prenomContact` VARCHAR(45) NOT NULL,
   `emailContact` VARCHAR(100) NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE `FestivalDuJeu`.`Contact` (
 
 /* ESPACE */
 CREATE TABLE `FestivalDuJeu`.`Espace` (
-  `idEspace` INT NOT NULL,
+  `idEspace` INT NOT NULL AUTO_INCREMENT,
   `nbTableMAx` INT NOT NULL,
   `prixUnitaireTable` FLOAT NOT NULL,
   `prixM2` FLOAT NOT NULL,
@@ -106,7 +106,7 @@ CREATE TABLE `FestivalDuJeu`.`Espace` (
 
 /* FESTIVAL */
 CREATE TABLE `FestivalDuJeu`.`Festival` (
-  `idFestival` INT NOT NULL,
+  `idFestival` INT NOT NULL AUTO_INCREMENT,
   `nomFestival` VARCHAR(100) NOT NULL,
   `dateFestival` DATE NOT NULL,
   `espace` INT NOT NULL,
@@ -123,7 +123,7 @@ CREATE TABLE `FestivalDuJeu`.`Festival` (
 
 /* RESERVATION */
 CREATE TABLE `FestivalDuJeu`.`Reservation` (
-  `idReservation` INT NOT NULL,
+  `idReservation` INT NOT NULL AUTO_INCREMENT,
   `dateReservation` DATETIME NOT NULL,
   `prix` FLOAT NOT NULL,
   `remise` FLOAT NOT NULL,
@@ -148,7 +148,7 @@ CREATE TABLE `FestivalDuJeu`.`Reservation` (
 
 /* FACTURE */
 CREATE TABLE `FestivalDuJeu`.`Facture` (
-  `idFacture` INT NOT NULL,
+  `idFacture` INT NOT NULL AUTO_INCREMENT,
   `dateEmissionFacture` DATETIME NOT NULL,
   `datePaiementFacture` DATETIME NOT NULL,
   `resarvation` INT NOT NULL,
@@ -185,7 +185,7 @@ CREATE TABLE `FestivalDuJeu`.`ReservationEspace` (
 
 /* ZONE */
 CREATE TABLE `FestivalDuJeu`.`Zone` (
-  `idZone` INT NOT NULL,
+  `idZone` INT NOT NULL AUTO_INCREMENT,
   `nomZone` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`idZone`));
 
@@ -226,7 +226,7 @@ CREATE TABLE `FestivalDuJeu`.`JeuExpose` (
 
 /* STATUSEXPOSANT */
 CREATE TABLE `FestivalDuJeu`.`StatusExposant` (
-  `idStatusExposant` INT NOT NULL,
+  `idStatusExposant` INT NOT NULL AUTO_INCREMENT,
   `nomStatus` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`idStatusExposant`));
 
