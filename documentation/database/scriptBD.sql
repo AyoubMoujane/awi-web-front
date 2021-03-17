@@ -2,7 +2,6 @@ DROP TABLE `FestivalDuJeu`.`Facture`;
 DROP TABLE `FestivalDuJeu`.`JeuExpose`;
 DROP TABLE `FestivalDuJeu`.`StatusExposant`;
 DROP TABLE `FestivalDuJeu`.`Contact`;
-DROP TABLE `FestivalDuJeu`.`AdresseContact`;
 DROP TABLE `FestivalDuJeu`.`Jeu`;
 DROP TABLE `FestivalDuJeu`.`SuiviExposant`;
 DROP TABLE `FestivalDuJeu`.`TypeJeu`;
@@ -57,23 +56,16 @@ CREATE TABLE `FestivalDuJeu`.`Jeu` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-
-/* ADRESSE */
-CREATE TABLE `FestivalDuJeu`.`AdresseContact` (
-  `idAdresse` INT NOT NULL AUTO_INCREMENT,
-  `rue` VARCHAR(100) NOT NULL,
-  `cp` VARCHAR(100) NOT NULL,
-  `ville` VARCHAR(100) NOT NULL,
-  `pays` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`idAdresse`));
-
-
 /* CONTACT */
 CREATE TABLE `FestivalDuJeu`.`Contact` (
   `idContact` INT NOT NULL AUTO_INCREMENT,
   `nomContact` VARCHAR(45) NOT NULL,
   `prenomContact` VARCHAR(45) NOT NULL,
   `emailContact` VARCHAR(100) NOT NULL,
+  `rue` VARCHAR(100) NOT NULL,
+  `cp` VARCHAR(100) NOT NULL,
+  `ville` VARCHAR(100) NOT NULL,
+  `pays` VARCHAR(100) NOT NULL,
   `telContact` VARCHAR(20) NOT NULL,
   `telBureau` VARCHAR(20) NOT NULL,
   `fonctionContact` VARCHAR(100) NOT NULL,
@@ -82,15 +74,9 @@ CREATE TABLE `FestivalDuJeu`.`Contact` (
   `adresse` INT NOT NULL,
   PRIMARY KEY (`idContact`),
   INDEX `participant_idx` (`participant` ASC) VISIBLE, 
-  INDEX `adresse_idx` (`adresse` ASC) VISIBLE, 
   CONSTRAINT `participant`
     FOREIGN KEY (`participant`)
     REFERENCES `FestivalDuJeu`.`Participant` (`idParticipant`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `adresse`
-    FOREIGN KEY (`adresse`)
-    REFERENCES `FestivalDuJeu`.`AdresseContact` (`idAdresse`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
