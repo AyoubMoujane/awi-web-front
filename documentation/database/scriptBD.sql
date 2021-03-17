@@ -1,16 +1,17 @@
-DROP TABLE `FestivalDuJeu`.`Espace`;
-DROP TABLE `FestivalDuJeu`.`StatusExposant`;
-DROP TABLE `FestivalDuJeu`.`Zone`;
-DROP TABLE `FestivalDuJeu`.`Festival`;
-DROP TABLE `FestivalDuJeu`.`Reservation`;
 DROP TABLE `FestivalDuJeu`.`Facture`;
-DROP TABLE `FestivalDuJeu`.`ReservationEspace`;
 DROP TABLE `FestivalDuJeu`.`JeuExpose`;
-DROP TABLE `FestivalDuJeu`.`SuiviExposant`;
-DROP TABLE `FestivalDuJeu`.`Jeu`;
-DROP TABLE `FestivalDuJeu`.`TypeJeu`;
-DROP TABLE `FestivalDuJeu`.`Participant`;
+DROP TABLE `FestivalDuJeu`.`StatusExposant`;
+DROP TABLE `FestivalDuJeu`.`Contact`;
 DROP TABLE `FestivalDuJeu`.`AdresseContact`;
+DROP TABLE `FestivalDuJeu`.`Jeu`;
+DROP TABLE `FestivalDuJeu`.`SuiviExposant`;
+DROP TABLE `FestivalDuJeu`.`TypeJeu`;
+DROP TABLE `FestivalDuJeu`.`Zone`;
+DROP TABLE `FestivalDuJeu`.`ReservationEspace`;
+DROP TABLE `FestivalDuJeu`.`Reservation`;
+DROP TABLE `FestivalDuJeu`.`Participant`;
+DROP TABLE `FestivalDuJeu`.`Festival`;
+DROP TABLE `FestivalDuJeu`.`Espace`;
 
 
 
