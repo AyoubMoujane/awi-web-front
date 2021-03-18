@@ -81,13 +81,28 @@ CREATE TABLE `FestivalDuJeu`.`Contact` (
     ON UPDATE NO ACTION);
 
 
+/* TYPE ESPACE */
+CREATE TABLE `FestivalDuJeu`.`TypeEspace` (
+  `idTypeEspace` INT NOT NULL AUTO_INCREMENT,
+  `nomEspace` INT NOT NULL,
+  PRIMARY KEY (`idTypeEspace`));
+
+
 /* ESPACE */
 CREATE TABLE `FestivalDuJeu`.`Espace` (
   `idEspace` INT NOT NULL AUTO_INCREMENT,
   `nbTableMAx` INT NOT NULL,
   `prixUnitaireTable` FLOAT NOT NULL,
   `prixM2` FLOAT NOT NULL,
+  `typeEspace` INT NOT NULL,
+
   PRIMARY KEY (`idEspace`));
+  INDEX `typeEspace_idx` (`typeEspace` ASC) VISIBLE, 
+  CONSTRAINT `espace`
+    FOREIGN KEY (`espace`)
+    REFERENCES `FestivalDuJeu`.`TypeEspace` (`idTypeEspace`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
 
 
 /* FESTIVAL */
