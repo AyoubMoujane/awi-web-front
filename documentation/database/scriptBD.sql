@@ -127,7 +127,6 @@ CREATE TABLE `FestivalDuJeu`.`Reservation` (
   `prix` FLOAT NOT NULL,
   `remise` FLOAT NOT NULL,
   `factureEnvoye` TINYINT(1) NOT NULL,
-  `facture` INT,
   `festival` INT NOT NULL,
   `participantReservation` INT NOT NULL,
   PRIMARY KEY (`idReservation`),
@@ -150,11 +149,11 @@ CREATE TABLE `FestivalDuJeu`.`Facture` (
   `idFacture` INT NOT NULL AUTO_INCREMENT,
   `dateEmissionFacture` DATETIME NOT NULL,
   `datePaiementFacture` DATETIME NOT NULL,
-  `resarvation` INT NOT NULL,
+  `reservation` INT NOT NULL,
   PRIMARY KEY (`idFacture`),
-  INDEX `resarvation_idx` (`resarvation` ASC) VISIBLE, 
-  CONSTRAINT `resarvation`
-    FOREIGN KEY (`resarvation`)
+  INDEX `reservation_idx` (`reservation` ASC) VISIBLE, 
+  CONSTRAINT `reservation`
+    FOREIGN KEY (`reservation`)
     REFERENCES `FestivalDuJeu`.`Reservation` (`idReservation`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
