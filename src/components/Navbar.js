@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
+/* TO DO : Faire les liens dans la SideBar et pas ici */
 export default function NavBar(props) {
   const user = AuthService.getCurrentUser()
   const classes = useStyles();
