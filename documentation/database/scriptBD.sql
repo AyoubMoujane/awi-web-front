@@ -10,8 +10,8 @@ DROP TABLE IF EXISTS `FestivalDuJeu`.`ReservationEspace`;
 DROP TABLE IF EXISTS `FestivalDuJeu`.`Reservation`;
 DROP TABLE IF EXISTS `FestivalDuJeu`.`Participant`;
 DROP TABLE IF EXISTS `FestivalDuJeu`.`Festival`;
+DROP TABLE IF EXISTS `FestivalDuJeu`.`TypeEspace`;
 DROP TABLE IF EXISTS `FestivalDuJeu`.`Espace`;
-
 
 
 /* TYPEJEU */
@@ -96,10 +96,10 @@ CREATE TABLE `FestivalDuJeu`.`Espace` (
   `prixM2` FLOAT NOT NULL,
   `typeEspace` INT NOT NULL,
 
-  PRIMARY KEY (`idEspace`));
+  PRIMARY KEY (`idEspace`),
   INDEX `typeEspace_idx` (`typeEspace` ASC) VISIBLE, 
-  CONSTRAINT `espace`
-    FOREIGN KEY (`espace`)
+  CONSTRAINT `typeEspace`
+    FOREIGN KEY (`typeEspace`)
     REFERENCES `FestivalDuJeu`.`TypeEspace` (`idTypeEspace`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
