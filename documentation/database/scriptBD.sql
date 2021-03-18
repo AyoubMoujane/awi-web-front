@@ -1,16 +1,16 @@
-DROP TABLE `FestivalDuJeu`.`Facture`;
-DROP TABLE `FestivalDuJeu`.`JeuExpose`;
-DROP TABLE `FestivalDuJeu`.`StatusExposant`;
-DROP TABLE `FestivalDuJeu`.`Contact`;
-DROP TABLE `FestivalDuJeu`.`Jeu`;
-DROP TABLE `FestivalDuJeu`.`SuiviExposant`;
-DROP TABLE `FestivalDuJeu`.`TypeJeu`;
-DROP TABLE `FestivalDuJeu`.`Zone`;
-DROP TABLE `FestivalDuJeu`.`ReservationEspace`;
-DROP TABLE `FestivalDuJeu`.`Reservation`;
-DROP TABLE `FestivalDuJeu`.`Participant`;
-DROP TABLE `FestivalDuJeu`.`Festival`;
-DROP TABLE `FestivalDuJeu`.`Espace`;
+DROP TABLE IF EXISTS `FestivalDuJeu`.`Facture`;
+DROP TABLE IF EXISTS `FestivalDuJeu`.`JeuExpose`;
+DROP TABLE IF EXISTS `FestivalDuJeu`.`StatusExposant`;
+DROP TABLE IF EXISTS `FestivalDuJeu`.`Contact`;
+DROP TABLE IF EXISTS `FestivalDuJeu`.`Jeu`;
+DROP TABLE IF EXISTS `FestivalDuJeu`.`SuiviExposant`;
+DROP TABLE IF EXISTS `FestivalDuJeu`.`TypeJeu`;
+DROP TABLE IF EXISTS `FestivalDuJeu`.`Zone`;
+DROP TABLE IF EXISTS `FestivalDuJeu`.`ReservationEspace`;
+DROP TABLE IF EXISTS `FestivalDuJeu`.`Reservation`;
+DROP TABLE IF EXISTS `FestivalDuJeu`.`Participant`;
+DROP TABLE IF EXISTS `FestivalDuJeu`.`Festival`;
+DROP TABLE IF EXISTS `FestivalDuJeu`.`Espace`;
 
 
 
