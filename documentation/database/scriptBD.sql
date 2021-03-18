@@ -9,9 +9,11 @@ DROP TABLE IF EXISTS `FestivalDuJeu`.`Zone`;
 DROP TABLE IF EXISTS `FestivalDuJeu`.`ReservationEspace`;
 DROP TABLE IF EXISTS `FestivalDuJeu`.`Reservation`;
 DROP TABLE IF EXISTS `FestivalDuJeu`.`Participant`;
+DROP TABLE IF EXISTS `FestivalDuJeu`.`Espace`;
 DROP TABLE IF EXISTS `FestivalDuJeu`.`Festival`;
 DROP TABLE IF EXISTS `FestivalDuJeu`.`TypeEspace`;
-DROP TABLE IF EXISTS `FestivalDuJeu`.`Espace`;
+
+
 
 
 /* TYPEJEU */
@@ -25,7 +27,6 @@ CREATE TABLE `FestivalDuJeu`.`TypeJeu` (
 CREATE TABLE `FestivalDuJeu`.`Participant` (
   `idParticipant` INT NOT NULL AUTO_INCREMENT,
   `nomParticipant` VARCHAR(45) NOT NULL,
-  `prenomParticipant` VARCHAR(45) NOT NULL,
   `editeurSeulement` TINYINT(1) NOT NULL,
   PRIMARY KEY (`idParticipant`));
 
@@ -71,7 +72,6 @@ CREATE TABLE `FestivalDuJeu`.`Contact` (
   `fonctionContact` VARCHAR(100) NOT NULL,
   `estPrincipal` TINYINT(1) NOT NULL,
   `participant` INT NOT NULL,
-  `adresse` INT NOT NULL,
   PRIMARY KEY (`idContact`),
   INDEX `participant_idx` (`participant` ASC) VISIBLE, 
   CONSTRAINT `participant`
@@ -81,10 +81,19 @@ CREATE TABLE `FestivalDuJeu`.`Contact` (
     ON UPDATE NO ACTION);
 
 
+/* FESTIVAL */
+CREATE TABLE `FestivalDuJeu`.`Festival` (
+  `idFestival` INT NOT NULL AUTO_INCREMENT,
+  `nomFestival` VARCHAR(100) NOT NULL,
+  `dateFestival` DATE NOT NULL,
+  `estCourant` TINYINT(1) NOT NULL,
+  PRIMARY KEY (`idFestival`));
+
+
 /* TYPE ESPACE */
 CREATE TABLE `FestivalDuJeu`.`TypeEspace` (
   `idTypeEspace` INT NOT NULL AUTO_INCREMENT,
-  `nomEspace` INT NOT NULL,
+  `nomEspace` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`idTypeEspace`));
 
 
@@ -94,33 +103,22 @@ CREATE TABLE `FestivalDuJeu`.`Espace` (
   `nbTableMAx` INT NOT NULL,
   `prixUnitaireTable` FLOAT NOT NULL,
   `prixM2` FLOAT NOT NULL,
+  `festivalE` INT NOT NULL,
   `typeEspace` INT NOT NULL,
 
   PRIMARY KEY (`idEspace`),
   INDEX `typeEspace_idx` (`typeEspace` ASC) VISIBLE, 
+  INDEX `festival_idx` (`festivalE` ASC) VISIBLE,
   CONSTRAINT `typeEspace`
     FOREIGN KEY (`typeEspace`)
     REFERENCES `FestivalDuJeu`.`TypeEspace` (`idTypeEspace`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
-
-/* FESTIVAL */
-CREATE TABLE `FestivalDuJeu`.`Festival` (
-  `idFestival` INT NOT NULL AUTO_INCREMENT,
-  `nomFestival` VARCHAR(100) NOT NULL,
-  `dateFestival` DATE NOT NULL,
-  `espace` INT NOT NULL,
-  `estCourant` TINYINT(1) NOT NULL,
-
-  PRIMARY KEY (`idFestival`),
-  INDEX `espace_idx` (`espace` ASC) VISIBLE, 
-  CONSTRAINT `espace`
-    FOREIGN KEY (`espace`)
-    REFERENCES `FestivalDuJeu`.`Espace` (`idEspace`)
+    ON UPDATE NO ACTION,
+  CONSTRAINT `festivalE`
+    FOREIGN KEY (`festivalE`)
+    REFERENCES `FestivalDuJeu`.`Festival` (`idFestival`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-
 
 /* RESERVATION */
 CREATE TABLE `FestivalDuJeu`.`Reservation` (
