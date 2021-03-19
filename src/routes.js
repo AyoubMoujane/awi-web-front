@@ -3,6 +3,7 @@ import { Landing } from "./views/Landing/Landing"
 import { Register } from "./views/Register/Register"
 import { Profile } from "./views/Profile/Profile"
 import { AdminHome } from "./views/Home/Admin/AdminHome"
+import { ParticipantsView } from "./views/Participant/ParticipantsView"
 
 /*
 type Route :
@@ -40,6 +41,12 @@ const routes = [
         'name': 'home',
         'path': '/home',
         'component': AdminHome,
+        'roles': ['ROLE_ADMIN']
+    },
+    {
+        'name': 'participants',
+        'path': '/participants',
+        'component': ParticipantsView,
         'roles': ['ROLE_ADMIN']
     }
 
