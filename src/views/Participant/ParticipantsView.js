@@ -3,6 +3,7 @@ import { DataGrid } from '@material-ui/data-grid';
 
 
 import ParticipantItem from "../../components/Participant/ParticipantItem"
+import ParticipantForm from "../../components/Participant/ParticipantForm"
 
 export function ParticipantsView() {
 
@@ -44,15 +45,9 @@ export function ParticipantsView() {
 
     return (
         <div style={{ height: 400, width: '100%' }}>
+            <ParticipantForm />
             <p>Participants</p>
-            {/* 
-            {fakeParticipants.map(function (item, i) {
-                return <ParticipantItem key={i} data={item} />
-            })} */}
-
             <DataGrid rows={fakeParticipants} columns={columns} pageSize={5} checkboxSelection />
-
-
         </div>
     )
 }
