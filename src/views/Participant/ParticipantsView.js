@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { DataGrid } from '@material-ui/data-grid';
+
 
 import ParticipantItem from "../../components/Participant/ParticipantItem"
 
@@ -7,30 +9,48 @@ export function ParticipantsView() {
     const [errors, setErrors] = useState(null)
     const [loading, setLoading] = useState(false)
 
+    const columns = [
+        { field: 'id', headerName: 'ID', width: 70 },
+        { field: 'nomParticipant', headerName: 'Nom', width: 130 },
+        { field: 'editeurSeulement', headerName: 'Éditeur seulement', width: 130 }
+        // {
+        //     field: 'fullName',
+        //     headerName: 'Full name',
+        //     description: 'This column has a value getter and is not sortable.',
+        //     sortable: false,
+        //     width: 160,
+        //     valueGetter: (params) =>
+        //         `${params.getValue('firstName') || ''} ${params.getValue('lastName') || ''}`,
+        // },
+    ];
+
     const fakeParticipants = [
         {
-            idParticipant: 1,
+            id: 1,
             nomParticipant: "Ankama",
             editeurSeulement: 0
         }, {
-            idParticipant: 2,
+            id: 2,
             nomParticipant: "Asmodee",
             editeurSeulement: 0
         }, {
-            idParticipant: 3,
+            id: 3,
             nomParticipant: "Gigamic",
             editeurSeulement: 1
         }
     ]
 
 
-    return (
-        <div>
-            <p>Participants</p>
 
+    return (
+        <div style={{ height: 400, width: '100%' }}>
+            <p>Participants</p>
+            {/* 
             {fakeParticipants.map(function (item, i) {
                 return <ParticipantItem key={i} data={item} />
-            })}
+            })} */}
+
+            <DataGrid rows={fakeParticipants} columns={columns} pageSize={5} checkboxSelection />
 
 
         </div>
