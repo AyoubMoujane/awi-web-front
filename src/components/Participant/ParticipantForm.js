@@ -1,9 +1,14 @@
 import React from 'react'
-import { TextField, Button, MenuItem, InputLabel, Select, FormHelperText } from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 
-function ParticipantForm() {
+export default function ParticipantForm() {
 
     const useStyles = makeStyles((theme) => ({
         formControl: {
@@ -15,41 +20,55 @@ function ParticipantForm() {
         },
     }));
 
+    const choices = [
+        {
+            value: 1,
+            label: "Oui"
+        },
+        {
+            value: 0,
+            label: "Non"
+        }
+    ]
+
     const classes = useStyles();
-    const [age, setAge] = React.useState('');
+    const [editeurOnly, setEditeurOnly] = React.useState(0);
 
     const handleChange = (event) => {
-        setAge(event.target.value);
+        setEditeurOnly(event.target.value);
     };
 
+    const handleSubmit = (event) => {
+        console.log("Submitted form")
+    }
+
     return (
-        <form className="container mt-4 center-align">
-            <h2>Ajouter exposant/éditeur</h2>
+        <form onSubmit={handleSubmit} className="container mt-4 center-align">
+            <h2>Ajouter un participant</h2>
             <ul>
                 <li>
-                    <TextField className="row" id="outlined-basic" label="Nom" variant="outlined" />
+                    <TextField id="outlined-basic" label="Nom" variant="outlined" />
                 </li>
                 <li>
-                    <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-helper-label"
-                        id="demo-simple-select-helper"
-                        value={age}
-                        onChange={handleChange}
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                    </Select>
-                    <FormHelperText>Some important helper text</FormHelperText>
+                    <FormControl variant="outlined" className={classes.formControl}>
+                        <TextField
+                            id="standard-select-currency"
+                            select
+                            label="Select"
+                            value={editeurOnly}
+                            onChange={handleChange}
+                            helperText="Participant exclusivement éditeur ?"
+                        >
+                            {choices.map((option) => (
+                                <MenuItem key={option.value} value={option.value}>
+                                    {option.label}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+                    </FormControl>
                 </li>
             </ul>
-            <Button variant="contained" color="primary">Ajouter</Button>
+            <Button variant="contained" color="primary" type="submit" value="Submit">Ajouter</Button>
         </form>
     )
 }
-
-export default ParticipantForm
