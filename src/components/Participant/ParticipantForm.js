@@ -54,7 +54,7 @@ export default function ParticipantForm() {
                         <TextField
                             id="standard-select-currency"
                             select
-                            label="Select"
+                            label="Éditeur only"
                             value={editeurOnly}
                             onChange={handleChange}
                             helperText="Participant exclusivement éditeur ?"
