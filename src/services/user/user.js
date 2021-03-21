@@ -9,12 +9,16 @@ class UserService {
         return axios.get(API_URL + 'landing');
     }
 
+    getOrganisatorHome() {
+        return axios.get(API_URL + 'organisator/home', { headers: authHeader() });
+    }
+
     getAdminHome() {
         return axios.get(API_URL + 'admin/home', { headers: authHeader() });
     }
 
-    getOrganisatorHome() {
-        return axios.get(API_URL + 'organisator/home', { headers: authHeader() });
+    getFestivals() {
+        return axios.get('http://localhost:8080/api/festivals', { headers: authHeader() });
     }
 }
 

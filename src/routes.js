@@ -4,6 +4,7 @@ import { Register } from "./views/Register/Register"
 import { Profile } from "./views/Profile/Profile"
 import { AdminHome } from "./views/Home/Admin/AdminHome"
 import { JeuForm } from "./components/Jeux/JeuForm"
+import { Festivals } from "./views/Festival/Festivals"
 
 
 /*
@@ -42,6 +43,12 @@ const routes = [
         'name': 'home',
         'path': '/home',
         'component': AdminHome,
+        'roles': ['ROLE_ADMIN']
+    },
+    {
+        'name': 'festivals',
+        'path': '/festivals',
+        'component': Festivals,
         'roles': ['ROLE_ADMIN']
     },
    
