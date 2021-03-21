@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 import ParticipantService from "../../services/participant/participant"
 
@@ -88,7 +90,7 @@ export default function ParticipantForm() {
                     </FormControl>
                 </li>
             </ul>
-            <Button variant="contained" color="primary" onClick={handleSubmit}>Ajouter</Button>
+            {loading ? <CircularProgress /> : <Button variant="contained" color="primary" onClick={handleSubmit}>Ajouter</Button>}
         </form>
     )
 }

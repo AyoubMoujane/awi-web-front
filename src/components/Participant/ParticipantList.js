@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import PersonIcon from '@material-ui/icons/Person';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import DeleteIcon from '@material-ui/icons/Delete';
+import RefreshIcon from '@material-ui/icons/Refresh';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import ParticipantService from "../../services/participant/participant"
 
@@ -77,10 +79,11 @@ export default function ParticipantList() {
             <Typography variant="h6" className={classes.title}>
                 Éditeurs et exposants
             </Typography>
+            <RefreshIcon onClick={fetchParticipants} />
             <List dense={dense}>
                 <div className={classes.demo}>
                     {
-                        loading ? <p>Loading...</p> :
+                        loading ? <CircularProgress /> :
                             participants.map((participant) => (
                                 <ListItem key={participant.idParticipant}>
                                     <ListItemAvatar>
