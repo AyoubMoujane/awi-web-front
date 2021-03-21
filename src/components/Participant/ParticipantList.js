@@ -34,7 +34,7 @@ export default function ParticipantList() {
     const [participants, setParticipants] = useState([])
 
     const classes = useStyles();
-    const [dense, setDense] = React.useState(false);
+    const [dense, setDense] = useState(false);
 
     useEffect(() => {
         fetchParticipants()

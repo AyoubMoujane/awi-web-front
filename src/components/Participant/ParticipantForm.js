@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
+import Typography from '@material-ui/core/Typography';
+
+import ParticipantService from "../../services/participant/participant"
 
 export default function ParticipantForm() {
 
@@ -28,22 +31,43 @@ export default function ParticipantForm() {
     ]
 
     const classes = useStyles();
-    const [editeurOnly, setEditeurOnly] = React.useState(0);
+    const [editeurOnly, setEditeurOnly] = useState(0);
+    const [nomParticipant, setNomParticipant] = useState("");
+    const [loading, setLoading] = useState(false)
 
-    const handleChange = (event) => {
+    const handleChangeEditeurOnly = (event) => {
         setEditeurOnly(event.target.value);
     };
 
+    const handleChangeNomParticipant = (event) => {
+        setNomParticipant(event.target.value);
+    };
+
+    const createParticipant = () => {
+        setLoading(true)
+        ParticipantService.create(nomParticipant, editeurOnly)
+            .then(data => {
+                console.log(data)
+                setLoading(false)
+            })
+            .catch(err => {
+                console.log(err)
+                setLoading(false)
+            })
+    }
+
     const handleSubmit = (event) => {
-        console.log("Submitted form")
+        createParticipant()
     }
 
     return (
-        <form onSubmit={handleSubmit} className="container mt-4 center-align">
-            <h2>Ajouter un participant</h2>
+        <form className="container mt-4 center-align">
+            <Typography variant="h6" className={classes.title}>
+                Créer des participants
+            </Typography>
             <ul>
                 <li>
-                    <TextField id="outlined-basic" label="Nom" variant="outlined" />
+                    <TextField id="outlined-basic" label="Nom" variant="outlined" value={nomParticipant} onChange={handleChangeNomParticipant} />
                 </li>
                 <li>
                     <FormControl variant="outlined" className={classes.formControl}>
@@ -52,7 +76,7 @@ export default function ParticipantForm() {
                             select
                             label="Éditeur only"
                             value={editeurOnly}
-                            onChange={handleChange}
+                            onChange={handleChangeEditeurOnly}
                             helperText="Participant exclusivement éditeur ?"
                         >
                             {choices.map((option) => (
@@ -64,7 +88,7 @@ export default function ParticipantForm() {
                     </FormControl>
                 </li>
             </ul>
-            <Button variant="contained" color="primary" type="submit" value="Submit">Ajouter</Button>
+            <Button variant="contained" color="primary" onClick={handleSubmit}>Ajouter</Button>
         </form>
     )
 }
