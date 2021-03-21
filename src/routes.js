@@ -3,7 +3,7 @@ import { Landing } from "./views/Landing/Landing"
 import { Register } from "./views/Register/Register"
 import { Profile } from "./views/Profile/Profile"
 import { AdminHome } from "./views/Home/Admin/AdminHome"
-import { JeuForm } from "./components/Jeux/JeuForm"
+import Jeu from "./views/Jeux/Jeu"
 
 
 /*
@@ -42,6 +42,12 @@ const routes = [
         'name': 'home',
         'path': '/home',
         'component': AdminHome,
+        'roles': ['ROLE_ADMIN']
+    },
+    {
+        'name': 'jeux',
+        'path': '/jeux',
+        'component': Jeu,
         'roles': ['ROLE_ADMIN']
     },
    

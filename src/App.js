@@ -1,8 +1,7 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import AuthService from "./services/authentification/auth"
 import SideBar from './components/SideBar'
-import JeuForm from './components/Jeux/JeuForm'
+
 
 
 export default class App extends React.Component {
@@ -35,7 +34,7 @@ export default class App extends React.Component {
     return (
       <div>
       <SideBar></SideBar>
-      <JeuForm></JeuForm>
+
       </div>
     )
   }
