@@ -9,7 +9,6 @@ export default function App() {
     <div>
       <SideBar/>
       <JeuForm/>
-      <FestivalForm/>
     </div>
   )
 }

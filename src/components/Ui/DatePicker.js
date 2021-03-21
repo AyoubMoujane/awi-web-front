@@ -9,7 +9,7 @@ import {
 
 
 export function DatePicker() {
-    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState(Date.now);
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
@@ -22,7 +22,7 @@ export function DatePicker() {
                     margin="normal"
                     id="date-picker-dialog"
                     label="Date"
-                    format="MM/dd/yyyy"
+                    format="yyyy-MM-dd"
                     value={selectedDate}
                     onChange={handleDateChange}
                     KeyboardButtonProps={{
