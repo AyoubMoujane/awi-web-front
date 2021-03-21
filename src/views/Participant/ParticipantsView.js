@@ -94,10 +94,10 @@ export function ParticipantsView() {
     }
 
     const handleDelete = (participant) => {
+
         ParticipantService.delete(participant.idParticipant)
             .then((data) => {
                 // Successfully deleted participant
-                console.log(data)
                 setLoading(false)
                 var filteredParticipants = participants.filter((item) => {
                     return item != participant
@@ -106,7 +106,7 @@ export function ParticipantsView() {
                 setParticipants(filteredParticipants)
             })
             .catch(err => {
-                console.log(err)
+                // Error while attempting delete
                 setLoading(false)
             })
     }

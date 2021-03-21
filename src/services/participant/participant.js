@@ -12,7 +12,7 @@ class ParticipantService {
                 return response.data;
             })
             .catch(err => {
-                return err
+                throw err
             })
     }
 
@@ -23,7 +23,7 @@ class ParticipantService {
                 return response.data;
             })
             .catch(err => {
-                return err
+                throw err
             })
     }
 
