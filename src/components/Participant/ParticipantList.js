@@ -48,12 +48,23 @@ export default function ParticipantList() {
             .then(data => {
                 console.log(data)
                 setLoading(false)
+                data.sort(compare)
                 setParticipants(data)
             })
             .catch(err => {
                 console.log(err)
                 setLoading(false)
             })
+    }
+
+    function compare(a, b) {
+        if (a.nomParticipant < b.nomParticipant) {
+            return -1;
+        }
+        if (a.nomParticipant > b.nomParticipant) {
+            return 1;
+        }
+        return 0;
     }
 
     const handleDelete = (participant) => {
