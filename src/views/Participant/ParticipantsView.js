@@ -93,8 +93,22 @@ export function ParticipantsView() {
         setLoadingParticipantUpdate(true)
     }
 
-    const handleDelete = () => {
-        console.log("Delete attempt")
+    const handleDelete = (participant) => {
+        ParticipantService.delete(participant.idParticipant)
+            .then((data) => {
+                // Successfully deleted participant
+                console.log(data)
+                setLoading(false)
+                var filteredParticipants = participants.filter((item) => {
+                    return item != participant
+                })
+                console.log(filteredParticipants)
+                setParticipants(filteredParticipants)
+            })
+            .catch(err => {
+                console.log(err)
+                setLoading(false)
+            })
     }
 
     return (
@@ -116,8 +130,8 @@ export function ParticipantsView() {
                                     </ListItemAvatar>
                                     <ListItemText primary={participant.nomParticipant} />
                                     <ListItemSecondaryAction>
-                                        <IconButton edge="end" aria-label="delete" onClick={handleDelete}>
-                                            <DeleteIcon />
+                                        <IconButton edge="end" aria-label="delete" >
+                                            <DeleteIcon onClick={() => handleDelete(participant)} />
                                         </IconButton>
                                     </ListItemSecondaryAction>
                                 </ListItem>

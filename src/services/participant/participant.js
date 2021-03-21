@@ -16,6 +16,17 @@ class ParticipantService {
             })
     }
 
+    delete(id) {
+        return axios
+            .post(`http://localhost:8080/api/participants/${id}`, { headers: authHeader() })
+            .then(response => {
+                return response.data;
+            })
+            .catch(err => {
+                return err
+            })
+    }
+
 }
 
 export default new ParticipantService();
