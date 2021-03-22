@@ -3,6 +3,11 @@ import { Landing } from "./views/Landing/Landing"
 import { Register } from "./views/Register/Register"
 import { Profile } from "./views/Profile/Profile"
 import { AdminHome } from "./views/Home/Admin/AdminHome"
+import { Festivals } from "./views/Festival/Festivals"
+import { ParticipantsView } from "./views/Participant/ParticipantsView"
+// import Jeu from "./views/Jeux/Jeu"
+import Jeu from "./views/Jeux/Jeu"
+
 
 /*
 type Route :
@@ -41,7 +46,28 @@ const routes = [
         'path': '/home',
         'component': AdminHome,
         'roles': ['ROLE_ADMIN']
-    }
+    },
+    {
+        'name': 'festivals',
+        'path': '/festivals',
+        'component': Festivals,
+        'roles': ['ROLE_ADMIN']
+    },
+    {
+
+        'name': 'participants',
+        'path': '/participants',
+        'component': ParticipantsView,
+        'roles': ['ROLE_ADMIN']
+    },
+    {
+
+        'name': 'jeux',
+        'path': '/jeux',
+        'component': Jeu,
+        'roles': ['ROLE_ADMIN']
+    },
+   
 
 ]
 
