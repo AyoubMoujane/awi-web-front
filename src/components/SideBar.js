@@ -169,21 +169,47 @@ export function SideBar() {
           </div>
           <Divider />
           <List>
-            {['Festivals', 'Organisateurs'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <StorefrontIcon /> : <PeopleAltIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
+            <Link color="black" to={"/"}>
+              <ListItem >
+                <ListItemIcon><StorefrontIcon /></ListItemIcon>
+                <ListItemText primary='Festivals' />
               </ListItem>
-            ))}
+            </Link>
+            <Link color="black" to={"/"}>
+              <ListItem >
+                <ListItemIcon><PeopleAltIcon /></ListItemIcon>
+                <ListItemText primary='Organisateurs' />
+              </ListItem>
+            </Link>
           </List>
+          
+
           <Divider />
           <List>
-            {['Jeux', 'Editeurs', 'Contacts', 'Type de jeux'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{[<GamepadIcon />, <BorderColorIcon />, <PermContactCalendarIcon />, <CategoryIcon />][index]}</ListItemIcon>
-                <ListItemText primary={text} />
+            <Link color="black" to={"/jeux"}>
+              <ListItem button key='jeux'>
+                <ListItemIcon><GamepadIcon /></ListItemIcon>
+                <ListItemText primary='Jeux' />
               </ListItem>
-            ))}
+            </Link>
+            <Link color="black" to={"/editeurs"}>
+              <ListItem button key='editeurs'>
+                <ListItemIcon><BorderColorIcon /></ListItemIcon>
+                <ListItemText primary='Éditeurs' />
+              </ListItem>
+            </Link>
+            <Link color="black" to={"/contacts"}>
+              <ListItem button key='contacts'>
+                <ListItemIcon><PermContactCalendarIcon /></ListItemIcon>
+                <ListItemText primary='Contacts' />
+              </ListItem>
+            </Link>
+            <Link color="black" to={"/types"}>
+              <ListItem button key='types'>
+                <ListItemIcon><CategoryIcon /></ListItemIcon>
+                <ListItemText primary='Type de jeux' />
+              </ListItem>
+            </Link>
           </List>
         </Drawer>
         <main
