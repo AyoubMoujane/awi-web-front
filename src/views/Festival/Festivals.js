@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Festival } from "../../components/Festival/Festival"
 import { FestivalForm } from "../../components/Festival/FestivalForm"
-import UserService from "../../services/user/user"
+import FestivalService from "../../services/festival/festival"
 
 
 
@@ -12,7 +12,7 @@ export function Festivals() {
     // const [error, setError] = useState(null)
 
     useEffect(function () {
-        UserService.getFestivals().then(
+        FestivalService.getFestivals().then(
             response => {
                 setFestivals(response.data)
             },
@@ -34,7 +34,7 @@ export function Festivals() {
 function FestivalList({ festivals }) {
     return (
         <div>
-            {festivals.map(festival => <Festival key={festival.id} festival={festival} />)}
+            {festivals.map(festival => <Festival key={festival.idFestival} festival={festival} />)}
         </div>
     )
 }

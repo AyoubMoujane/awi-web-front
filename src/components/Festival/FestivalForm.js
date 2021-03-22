@@ -19,7 +19,9 @@ import {
 
 import { makeStyles } from '@material-ui/core/styles';
 // import { DatePicker } from '../Ui/DatePicker'
-import UserService from "../../services/user/user"
+
+
+import FestivalService from "../../services/festival/festival"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -105,21 +107,8 @@ export function FestivalForm() {
       prixM2Buvette: prixM2Buvette
     }
 
-    console.log(data)
-
-    UserService.setFestival(
-      data.nomFestival,
-      data.dateFestival,
-      data.estCourant,
-      data.nbTableEntree,
-      data.nbTableAccueil,
-      data.nbTableBuvette,
-      data.prixTableEntree,
-      data.prixTableAccueil,
-      data.prixTableBuvette,
-      data.prixM2Entree,
-      data.prixM2Accueil,
-      data.prixM2Buvette
+    FestivalService.setFestival(
+      data
     ).then(
       () => {
         handleClose()
@@ -128,8 +117,6 @@ export function FestivalForm() {
         setError(error.response.data.message)
       }
     )
-
-    console.log("ee")
     setLoading(false)
 
   }
@@ -236,7 +223,7 @@ export function FestivalForm() {
               <Button onClick={handleClose} color="secondary">
                 Annuler
               </Button>
-              <Button onClick={handleSubmit} disable={loading} color="primary">
+              <Button onClick={handleSubmit} disabled={loading} color="primary">
                 Enregistrer
               </Button>
             </DialogActions>
