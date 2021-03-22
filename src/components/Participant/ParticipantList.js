@@ -38,10 +38,6 @@ export default function ParticipantList() {
     const classes = useStyles();
     const [dense] = useState(false);
 
-    useEffect(() => {
-        fetchParticipants()
-    });
-
     const fetchParticipants = () => {
         setLoading(true)
         ParticipantService.findAll()
@@ -56,6 +52,8 @@ export default function ParticipantList() {
                 setLoading(false)
             })
     }
+
+    useEffect(fetchParticipants, []);
 
     function compare(a, b) {
         if (a.nomParticipant < b.nomParticipant) {
