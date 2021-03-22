@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -60,7 +60,7 @@ const useStyles = makeStyles({
 export function Festival({ festival }) {
     const classes = useStyles();
 
-    const [loading, setLoading] = useState(false)
+    // const [loading, setLoading] = useState(false)
 
 
     return (

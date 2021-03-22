@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from '@material-ui/data-grid';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Grid } from "@material-ui/core";
 
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
-      '& > * + *': {
-        marginLeft: theme.spacing(2),
-      },
-    },
-  }));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     display: 'flex',
+//     '& > * + *': {
+//       marginLeft: theme.spacing(2),
+//     },
+//   },
+// }));
 
 const columns = [
   { field: 'idJeu', headerName: 'ID', width: 70 },
@@ -59,25 +59,25 @@ const columns = [
 
 
 export default function JeuList() {
-    const classes = useStyles();
-    const [jeux, setJeux] = useState(null)
-    const [isLoading, setIsLoading] = useState(true)
-    useEffect(() => {
-        fetch("http://localhost:8080/api/jeux")
-        .then(resp => resp.json())
-        .then(data => {
-          setJeux(data);
-          setIsLoading(false);
-        })
-      }, [setJeux])
-      console.log(jeux)
+  // const classes = useStyles();
+  const [jeux, setJeux] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  useEffect(() => {
+    fetch("http://localhost:8080/api/jeux")
+      .then(resp => resp.json())
+      .then(data => {
+        setJeux(data);
+        setIsLoading(false);
+      })
+  }, [setJeux])
+  console.log(jeux)
 
   return (
     <div style={{ height: 400, width: '100%' }}>
-    {isLoading && <Grid alignItems = 'center' ><CircularProgress/></Grid>}
-    {jeux &&
-      <DataGrid getRowId = {(row => row.idJeu)} rows={jeux} columns={columns} pageSize={5} checkboxSelection loading = {isLoading} />
-    }
+      {isLoading && <Grid alignItems='center' ><CircularProgress /></Grid>}
+      {jeux &&
+        <DataGrid getRowId={(row => row.idJeu)} rows={jeux} columns={columns} pageSize={5} checkboxSelection loading={isLoading} />
+      }
     </div>
   );
 }

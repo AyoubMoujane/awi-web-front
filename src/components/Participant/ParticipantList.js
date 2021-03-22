@@ -31,16 +31,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ParticipantList() {
 
-    const [error, setError] = useState(null)
+    // const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
     const [participants, setParticipants] = useState([])
 
     const classes = useStyles();
-    const [dense, setDense] = useState(false);
+    const [dense] = useState(false);
 
     useEffect(() => {
         fetchParticipants()
-    }, []);
+    });
 
     const fetchParticipants = () => {
         setLoading(true)
@@ -74,7 +74,7 @@ export default function ParticipantList() {
                 // Successfully deleted participant
                 setLoading(false)
                 var filteredParticipants = participants.filter((item) => {
-                    return item != participant
+                    return item !== participant
                 })
                 console.log(filteredParticipants)
                 setParticipants(filteredParticipants)

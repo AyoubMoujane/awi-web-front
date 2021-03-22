@@ -18,7 +18,7 @@ import {
 } from '@material-ui/pickers';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { DatePicker } from '../Ui/DatePicker'
+// import { DatePicker } from '../Ui/DatePicker'
 import UserService from "../../services/user/user"
 
 const useStyles = makeStyles((theme) => ({
@@ -106,29 +106,29 @@ export function FestivalForm() {
     }
 
     console.log(data)
-    
-        UserService.setFestival(
-          data.nomFestival, 
-          data.dateFestival, 
-          data.estCourant,   
-          data.nbTableEntree,
-          data.nbTableAccueil,
-          data.nbTableBuvette,
-          data.prixTableEntree,
-          data.prixTableAccueil,
-          data.prixTableBuvette,
-          data.prixM2Entree,
-          data.prixM2Accueil,
-          data.prixM2Buvette 
-        ).then(
-          () => {
-            handleClose()
-          },
-          error => {
-            setError(error.response.data.message)
-          }
-        )
-    
+
+    UserService.setFestival(
+      data.nomFestival,
+      data.dateFestival,
+      data.estCourant,
+      data.nbTableEntree,
+      data.nbTableAccueil,
+      data.nbTableBuvette,
+      data.prixTableEntree,
+      data.prixTableAccueil,
+      data.prixTableBuvette,
+      data.prixM2Entree,
+      data.prixM2Accueil,
+      data.prixM2Buvette
+    ).then(
+      () => {
+        handleClose()
+      },
+      error => {
+        setError(error.response.data.message)
+      }
+    )
+
     console.log("ee")
     setLoading(false)
 
@@ -144,7 +144,7 @@ export function FestivalForm() {
             Pour créer un festival, veuillez renseigner les champs ci-dessous
           </DialogContentText>
           <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
-            <TextField id="standard-required" label="Nom du Festival" value={nom} onChange={(e) => setNom(e.target.value)} required/>
+            <TextField id="standard-required" label="Nom du Festival" value={nom} onChange={(e) => setNom(e.target.value)} required />
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <Grid container justify="space-around">
                 <KeyboardDatePicker
@@ -226,11 +226,11 @@ export function FestivalForm() {
               />
             </div>
             {error && (
-                <div className="form-group">
-                    <div className="alert alert-danger" role="alert">
-                        {error}
-                    </div>
+              <div className="form-group">
+                <div className="alert alert-danger" role="alert">
+                  {error}
                 </div>
+              </div>
             )}
             <DialogActions>
               <Button onClick={handleClose} color="secondary">

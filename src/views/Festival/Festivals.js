@@ -9,7 +9,7 @@ export function Festivals() {
 
 
     const [festivals, setFestivals] = useState(null)
-    const [error, setError] = useState(null)
+    // const [error, setError] = useState(null)
 
     useEffect(function () {
         UserService.getFestivals().then(
@@ -17,7 +17,7 @@ export function Festivals() {
                 setFestivals(response.data)
             },
             error => {
-                setError(error.response.data.message)
+                // setError(error.response.data.message)
             }
 
         )
@@ -25,7 +25,7 @@ export function Festivals() {
 
     return (
         <div>
-            <FestivalForm/>
+            <FestivalForm />
             {festivals === null ? null : <FestivalList festivals={festivals} />}
         </div>
     )
