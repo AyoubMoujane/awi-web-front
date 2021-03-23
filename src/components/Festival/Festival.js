@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,7 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
+
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -46,18 +46,31 @@ const useStyles = makeStyles({
     },
     pos: {
         marginBottom: 12,
-    },
-    txtField: {
-        width: 10,
     }
 });
 
 export function Festival({ festival }) {
     const classes = useStyles();
+/*
+    const [nom, setNom] = useState('')
+    const [selectedDate, setSelectedDate] = useState('');
+    const [nbTableEntree, setNbTableEntree] = useState('')
+    const [nbTableAccueil, setNbTableAccueil] = useState('')
+    const [nbTableBuvette, setNbTableBuvette] = useState('')
+    const [prixTableEntree, setPrixTableEntree] = useState('')
+    const [prixTableAccueil, setPrixTableAccueil] = useState('')
+    const [prixTableBuvette, setPrixTableBuvette] = useState('')
+    const [prixM2Entree, setPrixM2Entree] = useState('')
+    const [prixM2Accueil, setPrixM2Accueil] = useState('')
+    const [prixM2Buvette, setPrixM2Buvette] = useState('')
+*/
+    console.log(festival.espaces[0]) 
 
     return (
         <div>
             <h2>{festival.nomFestival}</h2>
+            <h3>{festival.dateFestival}</h3>
+            {JSON.stringify(festival.espaces[0])}
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="customized table">
                     <TableHead>
@@ -72,42 +85,19 @@ export function Festival({ festival }) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                            <StyledTableRow key={"Espace de l'entrée"} className={classes.txtField}>
+                        {festival.espaces.map((espace) => (
+                            <StyledTableRow key={espace.typeEspace}>
                                 <StyledTableCell component="th" scope="row">
-                                    {"Espace de l'entrée"}
+                                    {espace.typeEspace}
                                 </StyledTableCell>
-                                <StyledTableCell align="right"> <TextField id="outlined-basic" variant="outlined" width={5}/></StyledTableCell>
-                                <StyledTableCell align="right"><TextField id="outlined-basic" variant="outlined" width={5}/></StyledTableCell>
-                                <StyledTableCell align="right"><TextField id="outlined-basic" variant="outlined" width={5}/></StyledTableCell>
-                                <StyledTableCell align="right"><TextField id="outlined-basic" variant="outlined" width={5}/></StyledTableCell>
+                                <StyledTableCell align="right">{espace.nbTableMax}</StyledTableCell>
+                                <StyledTableCell align="right">{espace.prixUnitaireTable}</StyledTableCell>
+                                <StyledTableCell align="right">{espace.prixM2}</StyledTableCell>
+                                <StyledTableCell align="right"></StyledTableCell>
+                                <StyledTableCell align="right"></StyledTableCell>
+                                <StyledTableCell align="right"></StyledTableCell>
                             </StyledTableRow>
-                            <StyledTableRow key={"Espace de l'entrée"} className={classes.txtField}>
-                                <StyledTableCell component="th" scope="row">
-                                    {"Espace de l'entrée"}
-                                </StyledTableCell>
-                                <StyledTableCell align="right"> <TextField id="outlined-basic" variant="outlined" width={5}/></StyledTableCell>
-                                <StyledTableCell align="right"><TextField id="outlined-basic" variant="outlined" width={5}/></StyledTableCell>
-                                <StyledTableCell align="right"><TextField id="outlined-basic" variant="outlined" width={5}/></StyledTableCell>
-                                <StyledTableCell align="right"><TextField id="outlined-basic" variant="outlined" width={5}/></StyledTableCell>
-                            </StyledTableRow>
-                            <StyledTableRow key={"Espace de l'entrée"} className={classes.txtField}>
-                                <StyledTableCell component="th" scope="row">
-                                    {"Espace de l'entrée"}
-                                </StyledTableCell>
-                                <StyledTableCell align="right"> <TextField id="outlined-basic" variant="outlined" width={5}/></StyledTableCell>
-                                <StyledTableCell align="right"><TextField id="outlined-basic" variant="outlined" width={5}/></StyledTableCell>
-                                <StyledTableCell align="right"><TextField id="outlined-basic" variant="outlined" width={5}/></StyledTableCell>
-                                <StyledTableCell align="right"><TextField id="outlined-basic" variant="outlined" width={5}/></StyledTableCell>
-                            </StyledTableRow>
-                            <StyledTableRow key={"Espace de l'entrée"} className={classes.txtField}>
-                                <StyledTableCell component="th" scope="row">
-                                    {"Espace de l'entrée"}
-                                </StyledTableCell>
-                                <StyledTableCell align="right"> <TextField id="outlined-basic" variant="outlined" width={5}/></StyledTableCell>
-                                <StyledTableCell align="right"><TextField id="outlined-basic" variant="outlined" width={5}/></StyledTableCell>
-                                <StyledTableCell align="right"><TextField id="outlined-basic" variant="outlined" width={5}/></StyledTableCell>
-                                <StyledTableCell align="right"><TextField id="outlined-basic" variant="outlined" width={5}/></StyledTableCell>
-                            </StyledTableRow>
+                        ))}
                     </TableBody>
                 </Table>
             </TableContainer>
