@@ -49,12 +49,12 @@ CREATE TABLE `FestivalDuJeu`.`Jeu` (
   CONSTRAINT `type`
     FOREIGN KEY (`type`)
     REFERENCES `FestivalDuJeu`.`TypeJeu` (`idTypeJeu`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `editeur`
     FOREIGN KEY (`editeur`)
     REFERENCES `FestivalDuJeu`.`Participant` (`idParticipant`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION);
 
 /* CONTACT */
@@ -77,7 +77,7 @@ CREATE TABLE `FestivalDuJeu`.`Contact` (
   CONSTRAINT `participant`
     FOREIGN KEY (`participant`)
     REFERENCES `FestivalDuJeu`.`Participant` (`idParticipant`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION);
 
 
@@ -112,12 +112,12 @@ CREATE TABLE `FestivalDuJeu`.`Espace` (
   CONSTRAINT `typeEspace`
     FOREIGN KEY (`typeEspace`)
     REFERENCES `FestivalDuJeu`.`TypeEspace` (`idTypeEspace`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `festivalE`
     FOREIGN KEY (`festivalE`)
     REFERENCES `FestivalDuJeu`.`Festival` (`idFestival`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION);
 
 /* RESERVATION */
@@ -135,12 +135,12 @@ CREATE TABLE `FestivalDuJeu`.`Reservation` (
   CONSTRAINT `festival`
     FOREIGN KEY (`festival`)
     REFERENCES `FestivalDuJeu`.`Festival` (`idFestival`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `participantReservation`
     FOREIGN KEY (`participantReservation`)
     REFERENCES `FestivalDuJeu`.`Participant` (`idParticipant`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION);
 
 
@@ -155,7 +155,7 @@ CREATE TABLE `FestivalDuJeu`.`Facture` (
   CONSTRAINT `reservation`
     FOREIGN KEY (`reservation`)
     REFERENCES `FestivalDuJeu`.`Reservation` (`idReservation`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION);
 
 
@@ -172,12 +172,12 @@ CREATE TABLE `FestivalDuJeu`.`ReservationEspace` (
   CONSTRAINT `idEspace`
     FOREIGN KEY (`idEspace`)
     REFERENCES `FestivalDuJeu`.`Espace` (`idEspace`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `idReservation`
     FOREIGN KEY (`idReservation`)
     REFERENCES `FestivalDuJeu`.`Reservation` (`idReservation`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION);
 
 
@@ -208,17 +208,17 @@ CREATE TABLE `FestivalDuJeu`.`JeuExpose` (
   CONSTRAINT `idReservationR`
     FOREIGN KEY (`idReservation`)
     REFERENCES `FestivalDuJeu`.`Reservation` (`idReservation`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `idJeuJ`
     FOREIGN KEY (`idJeu`)
     REFERENCES `FestivalDuJeu`.`Jeu` (`idJeu`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `zone`
     FOREIGN KEY (`zone`)
     REFERENCES `FestivalDuJeu`.`Zone` (`idZone`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION);
 
 
@@ -245,11 +245,11 @@ CREATE TABLE `FestivalDuJeu`.`SuiviExposant` (
   CONSTRAINT `idFestival`
     FOREIGN KEY (`idFestival`)
     REFERENCES `FestivalDuJeu`.`Festival` (`idFestival`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `idParticipant`
     FOREIGN KEY (`idParticipant`)
     REFERENCES `FestivalDuJeu`.`Participant` (`idParticipant`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION);
 
