@@ -8,6 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import { Alert, AlertTitle } from '@material-ui/lab';
 import 'date-fns';
 import { format } from 'date-fns'
 import Grid from '@material-ui/core/Grid';
@@ -83,6 +84,7 @@ export function FestivalForm() {
     setPrixM2Entree('')
     setPrixM2Accueil('')
     setPrixM2Buvette('')
+    setError(null)
 
   };
 
@@ -213,11 +215,10 @@ export function FestivalForm() {
               />
             </div>
             {error && (
-              <div className="form-group">
-                <div className="alert alert-danger" role="alert">
-                  {error}
-                </div>
-              </div>
+              <Alert severity="error">
+                <AlertTitle>Error</AlertTitle>
+                <strong>{error}</strong>
+              </Alert>
             )}
             <DialogActions>
               <Button onClick={handleClose} color="secondary">
