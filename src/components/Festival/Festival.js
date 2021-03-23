@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,6 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -26,16 +27,7 @@ const StyledTableRow = withStyles((theme) => ({
     },
 }))(TableRow);
 
-function createData(espace, tables, prix, reserves, restant) {
-    return { espace, tables, prix, reserves, restant };
-}
 
-const rows = [
-    createData("Espace de l'entrée ", 159, 6.0, 24, 4.0),
-    createData('Espace étage accueil', 237, 9.0, 37, 4.3),
-    createData('Espace étage buvette', 262, 16.0, 24, 6.0),
-    createData('Total', 305, 3.7, 67, 4.3),
-];
 
 const useStyles = makeStyles({
     table: {
@@ -54,39 +46,56 @@ const useStyles = makeStyles({
     },
     pos: {
         marginBottom: 12,
-    },
+    }
 });
 
 export function Festival({ festival }) {
     const classes = useStyles();
-
-    // const [loading, setLoading] = useState(false)
-
+/*
+    const [nom, setNom] = useState('')
+    const [selectedDate, setSelectedDate] = useState('');
+    const [nbTableEntree, setNbTableEntree] = useState('')
+    const [nbTableAccueil, setNbTableAccueil] = useState('')
+    const [nbTableBuvette, setNbTableBuvette] = useState('')
+    const [prixTableEntree, setPrixTableEntree] = useState('')
+    const [prixTableAccueil, setPrixTableAccueil] = useState('')
+    const [prixTableBuvette, setPrixTableBuvette] = useState('')
+    const [prixM2Entree, setPrixM2Entree] = useState('')
+    const [prixM2Accueil, setPrixM2Accueil] = useState('')
+    const [prixM2Buvette, setPrixM2Buvette] = useState('')
+*/
+    console.log(festival.espaces[0]) 
 
     return (
         <div>
             <h2>{festival.nomFestival}</h2>
+            <h3>{festival.dateFestival}</h3>
+            {JSON.stringify(festival.espaces[0])}
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="customized table">
                     <TableHead>
                         <TableRow>
                             <StyledTableCell>Espace</StyledTableCell>
                             <StyledTableCell align="right">tables</StyledTableCell>
-                            <StyledTableCell align="right">prix(€)</StyledTableCell>
-                            <StyledTableCell align="right">réservés</StyledTableCell>
+                            <StyledTableCell align="right">prix table (€)</StyledTableCell>
+                            <StyledTableCell align="right">prix m2 (€)</StyledTableCell>
+                            <StyledTableCell align="right">réservés tables</StyledTableCell>
+                            <StyledTableCell align="right">réservés m2</StyledTableCell>
                             <StyledTableCell align="right">restant</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
-                            <StyledTableRow key={row.name}>
+                        {festival.espaces.map((espace) => (
+                            <StyledTableRow key={espace.typeEspace}>
                                 <StyledTableCell component="th" scope="row">
-                                    {row.espace}
+                                    {espace.typeEspace}
                                 </StyledTableCell>
-                                <StyledTableCell align="right">{row.tables}</StyledTableCell>
-                                <StyledTableCell align="right">{row.prix}</StyledTableCell>
-                                <StyledTableCell align="right">{row.reserves}</StyledTableCell>
-                                <StyledTableCell align="right">{row.restant}</StyledTableCell>
+                                <StyledTableCell align="right">{espace.nbTableMax}</StyledTableCell>
+                                <StyledTableCell align="right">{espace.prixUnitaireTable}</StyledTableCell>
+                                <StyledTableCell align="right">{espace.prixM2}</StyledTableCell>
+                                <StyledTableCell align="right"></StyledTableCell>
+                                <StyledTableCell align="right"></StyledTableCell>
+                                <StyledTableCell align="right"></StyledTableCell>
                             </StyledTableRow>
                         ))}
                     </TableBody>

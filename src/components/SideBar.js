@@ -168,7 +168,7 @@ export function SideBar() {
           </div>
           <Divider />
           <List>
-            <Link color="black" to={"/"}>
+            <Link color="black" to={"/festivals"}>
               <ListItem >
                 <ListItemIcon><StorefrontIcon /></ListItemIcon>
                 <ListItemText primary='Festivals' />
@@ -216,7 +216,7 @@ export function SideBar() {
             [classes.contentShift]: open,
           })}
         >
-          <div />
+          <div className={classes.drawerHeader} />
           <Switch>
             {
               getRoutes().map((route, index) => {
