@@ -2,7 +2,7 @@ const Config = function(){
     switch(process.env.NODE_ENV){
         case 'development':
             return {
-                API_URL : "http://localhost:8080/api/auth/",
+                API_URL : "http://localhost:8080/api",
             };
 
         case 'production':

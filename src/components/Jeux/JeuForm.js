@@ -5,6 +5,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { InputAdornment, Input, Paper, Grid, Avatar, Button } from '@material-ui/core';
 import GamepadIcon from '@material-ui/icons/Gamepad';
 import { useHistory } from 'react-router-dom'
+import JeuService from "../../services/jeu/jeu"
+
 
 
 
@@ -59,25 +61,14 @@ export default function JeuForm() {
 
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(nom, nbMin, nbMax, age,prototype, type , editeur)
-    if (nom && editeur) {
-      fetch('http://localhost:8080/api/jeux', {
-        method: 'POST',
-        headers: {"Content-type": "application/json"},
-        body: JSON.stringify({
-          "nomJeu": nom,
-          "nbJoueurMin": nbMin,
-          "nbJoueurMax": nbMin,
-          "age" : age,
-          "duree": duree,
-          "consigne": consigne,
-          "prototype": prototype,
-          "type": 1,
-          "editeur": 1
-  })
-      }).then(() => history.push('/'))
-    } 
+    JeuService.createJeu(nom,nbMin,nbMax,age,duree,consigne,prototype,1,1)
+    .then(data => {
+      console.log(data)
+    })
+    .catch(err => {
+      console.log(err.message)
+    })
+
   }
 
   const paperStyle = { padding: 20, height: '125vh', width: 280, margin: "20px auto" }

@@ -76,7 +76,7 @@ export default function JeuList() {
     <div style={{ height: 400, width: '100%' }}>
       {isLoading && <Grid alignItems='center' ><CircularProgress /></Grid>}
       {jeux &&
-        <DataGrid getRowId={(row => row.idJeu)} rows={jeux} columns={columns} pageSize={5} checkboxSelection loading={isLoading} />
+        <DataGrid getRowId={(row => row.idJeu)} rows={jeux} columns={columns} pageSize={20} checkboxSelection loading={isLoading} />
       }
     </div>
   );
