@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -6,12 +6,6 @@ import { InputAdornment, Input, Paper, Grid, Avatar, Button } from '@material-ui
 import GamepadIcon from '@material-ui/icons/Gamepad';
 import { useHistory } from 'react-router-dom'
 import JeuService from "../../services/jeu/jeu"
-
-
-
-
-
-
 
 const bool = [
   {
@@ -24,17 +18,8 @@ const bool = [
   }
 ];
 
-const typeJeu = [
-  {
-    value: 'Famille',
-    label: 'Famille',
-  },
-  {
-    value: 'Arcade',
-    label: 'Arcade',
-  }
-];
-const editeurs = ['Bla', 'Bli', 'Blo']
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
@@ -57,6 +42,26 @@ export default function JeuForm() {
   const [type, setType] = useState('')
   const [editeur, setEditeur] = useState(null)
   const [consigne, setConsigne] = useState('')
+  const [editeurs, setEditeurs] = useState([])
+  const [jeuTypes, setJeuTypes] = useState([])
+
+const fetch = () => {
+  JeuService.getEditeurs()
+      .then(data => {
+          setEditeurs(data)          
+      })
+      .catch(err => {
+          console.log(err)
+      })
+      JeuService.getJeuType()
+      .then(data => {
+          setJeuTypes(data)          
+      })
+      .catch(err => {
+          console.log(err)
+      })
+  }
+  useEffect(fetch, []);
   const history = useHistory()
 
 
@@ -81,7 +86,7 @@ export default function JeuForm() {
     <Paper  elevation = {10}  style = {paperStyle}>
     <Grid align='center'>
                      <Avatar><GamepadIcon/></Avatar>
-                    <h2>Ajouter un jeu</h2>
+                    <h2>Jeu</h2>
                 </Grid>
     <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
       <TextField id="standard-basic" label="Nom du jeu" onChange={(e) => setNom(e.target.value)} />
@@ -140,9 +145,9 @@ export default function JeuForm() {
           label="Type de jeu"
           onChange={(e) => setType(e.target.value)}
         >
-          {typeJeu.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
+          {jeuTypes.map((type) => (
+            <MenuItem key={type} value={type}>
+              {type}
             </MenuItem>
           ))}
         </TextField>

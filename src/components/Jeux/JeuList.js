@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-// import { DataGrid } from '@material-ui/data-grid';
-// import CircularProgress from '@material-ui/core/CircularProgress';
-// import { Grid } from "@material-ui/core";
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { Grid } from "@material-ui/core";
 
 
 
@@ -81,13 +80,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
+import JeuDetail from './JeuDetail'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
       maxWidth: 360,
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: "white",
     },
   }),
 );
@@ -96,7 +96,7 @@ function ListItemLink(props: ListItemProps<'a', { button?: true }>) {
   return <ListItem button component="a" {...props} />;
 }
 
-export default function SimpleList() {
+export default function JeuList() {
   const classes = useStyles();
   const [jeux, setJeux] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -110,14 +110,16 @@ export default function SimpleList() {
   }, [setJeux])
 
   return (
+    <div>
+    {isLoading && <Grid alignItems='center' ><CircularProgress /></Grid>}
+
+    {jeux && 
     <div className={classes.root}>
       <List component="nav" aria-label="secondary mailbox folders">
 
       {jeux.map((jeu) => (
           <ListItem button key={jeu}>
-          <ListItemLink href="#simple-list">
-            <ListItemText primary={jeu.idJeu} />
-          </ListItemLink>
+          <JeuDetail jeu = {jeu}/>
           </ListItem>
         ))}
 
@@ -128,6 +130,8 @@ export default function SimpleList() {
           <ListItemText primary="Spam" />
         </ListItemLink>
       </List>
+    </div>
+    }
     </div>
   );
 }

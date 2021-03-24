@@ -1,7 +1,7 @@
 import * as React from 'react';
 import JeuList from '../../components/Jeux/JeuList';
 import JeuForm from '../../components/Jeux/JeuForm';
-import JeuDetail from '../../components/Jeux/JeuDetail';
+import JeuL from '../../components/Jeux/JeuL';
 
 
 
@@ -10,9 +10,10 @@ import JeuDetail from '../../components/Jeux/JeuDetail';
 export default function Jeu() {
   return (
     <div>
-      <JeuList></JeuList>
+      {/* <JeuList></JeuList> */}
       <JeuForm></JeuForm>
-      <JeuDetail></JeuDetail>
+      <JeuL></JeuL>
+
     </div>
   );
 }
