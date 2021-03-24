@@ -13,6 +13,8 @@ import MenuBookIcon from '@material-ui/icons/MenuBook';
 import DeleteIcon from '@material-ui/icons/Delete';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import CheckBox from '@material-ui/core/Checkbox'
+import Container from '@material-ui/core/Container'
 
 import ParticipantService from "../../services/participant/participant"
 
@@ -84,33 +86,37 @@ export default function ParticipantList() {
     }
 
     return (
-        <div style={{ height: 400, width: '100%' }}>
-            <Typography variant="h6" className={classes.title}>
-                Éditeurs et exposants
+        <div>
+            <Container maxWidth="sm">
+                <Typography variant="h6" className={classes.title}>
+                    Éditeurs et exposants
             </Typography>
-            <RefreshIcon onClick={fetchParticipants} />
-            <List dense={dense}>
-                <div className={classes.demo}>
-                    {
-                        loading ? <CircularProgress /> :
-                            participants.map((participant) => (
-                                <ListItem key={participant.idParticipant}>
-                                    <ListItemAvatar>
-                                        <Avatar>
-                                            {participant.editeurSeulement ? <MenuBookIcon /> : <PersonIcon />}
-                                        </Avatar>
-                                    </ListItemAvatar>
-                                    <ListItemText primary={participant.nomParticipant} />
-                                    <ListItemSecondaryAction>
-                                        <IconButton edge="end" aria-label="delete" >
-                                            <DeleteIcon onClick={() => handleDelete(participant)} />
-                                        </IconButton>
-                                    </ListItemSecondaryAction>
-                                </ListItem>
-                            ))
-                    }
-                </div>
-            </List>
+                <RefreshIcon onClick={fetchParticipants} />
+                <List dense={dense}>
+                    <div className={classes.demo}>
+                        {
+                            loading ? <CircularProgress /> :
+                                participants.map((participant) => (
+                                    <ListItem key={participant.idParticipant}>
+                                        <ListItemAvatar>
+                                            <Avatar>
+                                                {participant.editeurSeulement ? <MenuBookIcon /> : <PersonIcon />}
+                                            </Avatar>
+                                        </ListItemAvatar>
+                                        <ListItemText primary={participant.nomParticipant} />
+                                        <CheckBox></CheckBox>
+                                        <ListItemSecondaryAction>
+                                            <IconButton edge="end" aria-label="delete" >
+                                                <DeleteIcon onClick={() => handleDelete(participant)} />
+                                            </IconButton>
+                                        </ListItemSecondaryAction>
+                                    </ListItem>
+                                ))
+                        }
+                    </div>
+                </List>
+            </Container>
+
         </div>
     )
 }

@@ -5,9 +5,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import SaveIcon from "@material-ui/icons/Save"
 
 
 import ParticipantService from "../../services/participant/participant"
+import { Save } from '@material-ui/icons';
 
 export default function ParticipantForm() {
 
@@ -90,7 +92,7 @@ export default function ParticipantForm() {
                     </FormControl>
                 </li>
             </ul>
-            {loading ? <CircularProgress /> : <Button variant="contained" color="primary" onClick={handleSubmit}>Ajouter</Button>}
+            {loading ? <CircularProgress /> : <Button startIcon={<SaveIcon />} variant="contained" color="primary" onClick={handleSubmit}>Ajouter</Button>}
         </form>
     )
 }
