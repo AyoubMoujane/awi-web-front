@@ -7,12 +7,13 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 
+import { format } from 'date-fns'
 
-export function DatePicker() {
-    const [selectedDate, setSelectedDate] = useState(Date.now);
+export function DatePicker({dateFestival, onDateChange}) {
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
+    const handleChange = (date) => {
+        const dateSelected =  date? format(date, 'yyyy-MM-dd') : null
+        onDateChange(dateSelected)
     };
 
     return (
@@ -23,8 +24,8 @@ export function DatePicker() {
                     id="date-picker-dialog"
                     label="Date"
                     format="yyyy-MM-dd"
-                    value={selectedDate}
-                    onChange={handleDateChange}
+                    value={dateFestival}
+                    onChange={handleChange}
                     KeyboardButtonProps={{
                         'aria-label': 'change date',
                     }}

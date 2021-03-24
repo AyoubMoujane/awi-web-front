@@ -18,6 +18,15 @@ class FestivalService {
                 { headers: authHeader() }
             )
     }
+
+    updateFestival(data){
+
+        return axios
+            .put(`${API_URL}/festivals/${data.idFestival}`,
+                data,
+                { headers: authHeader() }
+            )
+    }
 }
 
 export default new FestivalService();

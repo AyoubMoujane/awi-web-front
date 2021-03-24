@@ -13,8 +13,11 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContentText from '@material-ui/core/DialogContentText';
 import Grid from '@material-ui/core/Grid';
 
+import FestivalService from "../../services/festival/festival"
+import {DatePicker} from "../Ui/DatePicker"
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -66,7 +69,10 @@ export function Festival({ festival }) {
 
     const handleClose = () => {
         setOpen(false);
+
     };
+
+    const [loading, setLoading] = useState(false);
 
     const [nom, setNom] = useState('')
     const [selectedDate, setSelectedDate] = useState('');
@@ -91,6 +97,10 @@ export function Festival({ festival }) {
     const [tableRestanteAccueil, setTableRestanteAccueil] = useState(0)
     const [tableRestanteBuvette, setTableRestanteBuvette] = useState(0)
 
+
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+    };
 
 
     useEffect(function () {
@@ -119,7 +129,29 @@ export function Festival({ festival }) {
 
 
     const handleSubmit = (e) => {
+
         e.preventDefault();
+        setLoading(true)
+
+        const data = {
+            idFestival: festival.idFestival,
+            nomFestival: nom,
+            dateFestival: selectedDate,
+            nbTableEntree: nbTableEntree,
+            nbTableAccueil: nbTableAccueil,
+            nbTableBuvette: nbTableBuvette
+        }
+
+        FestivalService.updateFestival(
+            data
+        ).then(
+            () => {
+                handleClose()
+            }
+        )
+
+        setLoading(false)
+
 
     }
 
@@ -137,13 +169,10 @@ export function Festival({ festival }) {
         prixM2Buvette: prixM2Buvette
     }
 
-    console.log(dataFestival)
-
     return (
         <div>
-            <h2>{festival.nomFestival}</h2>
-            <h3>{festival.dateFestival}</h3>
-            {JSON.stringify(festival.espaces[0])}
+            <h2>{nom}</h2>
+            <h3>{selectedDate}</h3>
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="customized table">
                     <TableHead>
@@ -196,8 +225,11 @@ export function Festival({ festival }) {
             </TableContainer>
             <Button variant="contained" color="primary" onClick={handleClickOpen}>Modifier</Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">{nom}</DialogTitle>
+                <DialogTitle id="form-dialog-title"><TextField id="standard-full-width" label="Nom du festival" fullWidth value={nom} onChange={(e) => setNom(e.target.value)} /></DialogTitle>
                 <DialogContent>
+                    <DialogContentText>
+                        <DatePicker dateFestival={selectedDate} onDateChange={handleDateChange}/>
+                    </DialogContentText>
                     <Grid container spacing={3}>
 
                         <Grid container item xs={12} spacing={3}>
@@ -239,7 +271,7 @@ export function Festival({ festival }) {
                     <Button onClick={handleClose} color="primary">
                         Annuler
                     </Button>
-                    <Button onClick={handleSubmit} color="primary">
+                    <Button onClick={handleSubmit} color="primary" disabled={loading}>
                         Modifier
                     </Button>
                 </DialogActions>
