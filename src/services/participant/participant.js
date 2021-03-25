@@ -38,6 +38,17 @@ class ParticipantService {
             })
     }
 
+    update(participant) {
+        return axios
+            .put(`${API_URL}/participants/${participant.idParticipant}`, { headers: authHeader(), participant })
+            .then(response => {
+                return response.data;
+            })
+            .catch(err => {
+                throw err
+            })
+    }
+
 }
 
 export default new ParticipantService();

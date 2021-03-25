@@ -10,52 +10,76 @@ import MenuBookIcon from '@material-ui/icons/MenuBook';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CheckBox from '@material-ui/core/Checkbox'
 import CircularProgress from '@material-ui/core/CircularProgress';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
 
 import ParticipantService from "../../services/participant/participant"
 
 
 export default function ParticipantItem(props) {
-    const { idParticipant, nomParticipant, editeurSeulement } = props.data
-    const [loading, setLoading] = useState(false)
+    const [participant, setParticipant] = useState(props.data)
+    const [isLoading, setIsLoading] = useState(false)
+    const [isRemoved, setIsRemoved] = useState(false)
 
 
-    const updateParticipant = (participant) => {
+    const handleCheckBox = () => {
+        console.log("handlecheckbox")
+        let updatedParticipant = {
+            ...participant,
+            editeurSeulement: !participant.editeurSeulement
+        }
 
+        handleUpdate(updatedParticipant)
     }
 
-    const handleDelete = (participant) => {
-        setLoading(true)
-        ParticipantService.delete(idParticipant)
+    const handleDelete = () => {
+        setIsLoading(true)
+        ParticipantService.delete(participant.idParticipant)
             .then((data) => {
                 console.log("data")
                 // Successfully deleted participant
-                setLoading(false)
-                // var filteredParticipants = participants.filter((item) => {
-                //     return item !== participant
-                // })
-                // console.log(filteredParticipants)
-                // setParticipants(filteredParticipants)
+                setIsRemoved(true)
+                setIsLoading(false)
             })
             .catch(err => {
                 console.log("error")
                 // Error while attempting delete
-                setLoading(false)
+                setIsLoading(false)
+            })
+    }
+
+    const handleUpdate = (updatedParticipant) => {
+        setIsLoading(true)
+        ParticipantService.update(updatedParticipant)
+            .then((data) => {
+                // Successfully updated participant
+                console.log("success")
+                setParticipant(updatedParticipant)
+                setIsLoading(false)
+            })
+            .catch(err => {
+                // Error while attempting update
+                console.log("error")
+                setIsLoading(false)
             })
     }
 
     return (
-        loading ? <CircularProgress /> : (
-            <ListItem key={idParticipant}>
+        isLoading ? <CircularProgress /> : (
+            <ListItem key={participant.idParticipant} disabled={isRemoved}>
                 <ListItemAvatar>
                     <Avatar>
-                        {editeurSeulement ? <MenuBookIcon /> : <PersonIcon />}
+                        {participant.editeurSeulement ? <MenuBookIcon /> : <PersonIcon />}
                     </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary={nomParticipant} />
+                <ListItemText primary={participant.nomParticipant} />
                 <ListItemText primary="Editeur seulement" />
-                <CheckBox checked={editeurSeulement} onChange={updateParticipant} />
+                <FormControlLabel control={
+                    <CheckBox checked={participant.editeurSeulement} onChange={handleCheckBox} />
+                }>
+                </FormControlLabel>
                 <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(idParticipant)}>
+                    <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(participant.idParticipant)}>
                         <DeleteIcon />
                     </IconButton>
                 </ListItemSecondaryAction>
