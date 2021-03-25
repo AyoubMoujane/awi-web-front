@@ -18,7 +18,7 @@ class ParticipantService {
 
     delete(id) {
         return axios
-            .post(`${API_URL}/participants/${id}`, { headers: authHeader() })
+            .delete(`${API_URL}/participants/${id}`, { headers: authHeader() })
             .then(response => {
                 return response.data;
             })
