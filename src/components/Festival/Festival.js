@@ -17,6 +17,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import Box from '@material-ui/core/Box';
 
 import FestivalService from "../../services/festival/festival"
 import {DatePicker} from "../Ui/DatePicker"
@@ -173,6 +174,7 @@ export function Festival({ festival }) {
 
     return (
         <div>
+            <Box component="span" m={1}>
             <Card>
             <CardContent>
             <h2>{nom}</h2>
@@ -283,6 +285,7 @@ export function Festival({ festival }) {
             </Dialog>
             </CardContent>
             </Card>
+            </Box>
         </div>
     );
 }

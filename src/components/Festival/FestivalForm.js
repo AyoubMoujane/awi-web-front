@@ -6,7 +6,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import AddBoxIcon from '@material-ui/icons/AddBox';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import 'date-fns';
@@ -112,6 +111,8 @@ export function FestivalForm() {
       prixM2Accueil: prixM2Accueil,
       prixM2Buvette: prixM2Buvette
     }
+
+    console.log(data)
 
     FestivalService.setFestival(
       data

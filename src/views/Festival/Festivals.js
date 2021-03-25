@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Festival } from "../../components/Festival/Festival"
 import { FestivalForm } from "../../components/Festival/FestivalForm"
 import FestivalService from "../../services/festival/festival"
-
+import Container from '@material-ui/core/Container';
 
 
 export function Festivals() {
@@ -25,8 +25,10 @@ export function Festivals() {
 
     return (
         <div>
-            <FestivalForm />
-            {festivals === null ? null : <FestivalList festivals={festivals} />}
+            <Container maxWidth="xl">
+                <FestivalForm />
+                {festivals === null ? null : <FestivalList festivals={festivals} />}
+            </Container>
         </div>
     )
 }
