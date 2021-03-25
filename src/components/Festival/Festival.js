@@ -15,6 +15,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 import FestivalService from "../../services/festival/festival"
 import {DatePicker} from "../Ui/DatePicker"
@@ -171,6 +173,8 @@ export function Festival({ festival }) {
 
     return (
         <div>
+            <Card>
+            <CardContent>
             <h2>{nom}</h2>
             <h3>{selectedDate}</h3>
             <TableContainer component={Paper}>
@@ -223,7 +227,8 @@ export function Festival({ festival }) {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Button variant="contained" color="primary" onClick={handleClickOpen}>Modifier</Button>
+            <br/>
+            <Button variant="contained" color="primary" size="small" onClick={handleClickOpen}>Modifier</Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title"><TextField id="standard-full-width" label="Nom du festival" fullWidth value={nom} onChange={(e) => setNom(e.target.value)} /></DialogTitle>
                 <DialogContent>
@@ -234,35 +239,35 @@ export function Festival({ festival }) {
 
                         <Grid container item xs={12} spacing={3}>
                             <Grid item xs={4}>
-                                <TextField id="outlined-basic" label="Nombre Table Entree" variant="outlined" value={nbTableEntree} onChange={(e) => setNbTableEntree(e.target.value)} />
+                                <TextField label="Nombre Table Entree" variant="outlined" value={nbTableEntree} onChange={(e) => setNbTableEntree(e.target.value)} />
                             </Grid>
                             <Grid item xs={4}>
-                                <TextField id="outlined-basic" label="Prix Table Entree" variant="outlined" value={prixTableEntree} disabled />
+                                <TextField label="Prix Table Entree" variant="outlined" value={prixTableEntree} disabled />
                             </Grid>
                             <Grid item xs={4}>
-                                <TextField id="outlined-basic" label="Prix m2 Entree" variant="outlined" value={prixM2Entree} disabled />
-                            </Grid>
-                        </Grid>
-                        <Grid container item xs={12} spacing={3}>
-                            <Grid item xs={4}>
-                                <TextField id="outlined-basic" label="Nombre Table Acceuil" variant="outlined" value={nbTableAccueil} onChange={(e) => setNbTableAccueil(e.target.value)} />
-                            </Grid>
-                            <Grid item xs={4}>
-                                <TextField id="outlined-basic" label="Prix Table Accueil" variant="outlined" value={prixTableAccueil} disabled />
-                            </Grid>
-                            <Grid item xs={4}>
-                                <TextField id="outlined-basic" label="Prix m2 Accueil" variant="outlined" value={prixM2Accueil} disabled />
+                                <TextField label="Prix m2 Entree" variant="outlined" value={prixM2Entree} disabled />
                             </Grid>
                         </Grid>
                         <Grid container item xs={12} spacing={3}>
                             <Grid item xs={4}>
-                                <TextField id="outlined-basic" label="Nombre Table Buvette" variant="outlined" value={nbTableBuvette} onChange={(e) => setNbTableBuvette(e.target.value)} />
+                                <TextField label="Nombre Table Acceuil" variant="outlined" value={nbTableAccueil} onChange={(e) => setNbTableAccueil(e.target.value)} />
                             </Grid>
                             <Grid item xs={4}>
-                                <TextField id="outlined-basic" label="Prix Table Buvette" variant="outlined" value={prixTableBuvette} disabled />
+                                <TextField label="Prix Table Accueil" variant="outlined" value={prixTableAccueil} disabled />
                             </Grid>
                             <Grid item xs={4}>
-                                <TextField id="outlined-basic" label="Prix m2 Buvette" variant="outlined" value={prixM2Buvette} disabled />
+                                <TextField label="Prix m2 Accueil" variant="outlined" value={prixM2Accueil} disabled />
+                            </Grid>
+                        </Grid>
+                        <Grid container item xs={12} spacing={3}>
+                            <Grid item xs={4}>
+                                <TextField label="Nombre Table Buvette" variant="outlined" value={nbTableBuvette} onChange={(e) => setNbTableBuvette(e.target.value)} />
+                            </Grid>
+                            <Grid item xs={4}>
+                                <TextField label="Prix Table Buvette" variant="outlined" value={prixTableBuvette} disabled />
+                            </Grid>
+                            <Grid item xs={4}>
+                                <TextField label="Prix m2 Buvette" variant="outlined" value={prixM2Buvette} disabled />
                             </Grid>
                         </Grid>
                     </Grid>
@@ -276,6 +281,8 @@ export function Festival({ festival }) {
                     </Button>
                 </DialogActions>
             </Dialog>
+            </CardContent>
+            </Card>
         </div>
     );
 }

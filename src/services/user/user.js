@@ -17,6 +17,13 @@ class UserService {
         return axios.get(`${API_URL}/admin/home`, { headers: authHeader() });
     }
 
+    getAllOrganisators() {
+        return axios.get(`${API_URL}/admin/organisators`, { headers: authHeader() })
+    }
+
+    deleteOrganisator(data) {
+        return axios.delete(`${API_URL}/admin/organisator/${data._id}`, { headers: authHeader() })
+    }
 }
 
 export default new UserService();

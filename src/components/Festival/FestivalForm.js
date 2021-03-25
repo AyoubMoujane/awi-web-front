@@ -18,6 +18,10 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
+import Tooltip from '@material-ui/core/Tooltip';
+
 import { makeStyles } from '@material-ui/core/styles';
 // import { DatePicker } from '../Ui/DatePicker'
 
@@ -125,7 +129,15 @@ export function FestivalForm() {
 
   return (
     <div>
-      <AddBoxIcon onClick={handleClickOpen} />
+      <Grid container justify="center">
+      <Grid item>
+      <Tooltip title="Add" aria-label="add" placement="top-end">
+        <Fab color="primary">
+          <AddIcon onClick={handleClickOpen}/>
+        </Fab>
+      </Tooltip>
+      </Grid>
+      </Grid>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Créer un Festival</DialogTitle>
         <DialogContent>

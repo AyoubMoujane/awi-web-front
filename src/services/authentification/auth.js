@@ -1,5 +1,7 @@
 import axios from "axios";
+import authHeader from './auth-header';
 const config = require('../../config')
+
 
 const API_URL = config.API_URL
 
@@ -26,13 +28,11 @@ class AuthService {
         localStorage.removeItem("user");
     }
 
-    register(username, email, password, password2) {
-        return axios.post(`${API_URL}/auth/signup`, {
-            username,
-            email,
-            password,
-            password2
-        });
+    registerOrganisator(data) {
+        return axios.post(`${API_URL}/auth/signup`, 
+            data,
+            { headers: authHeader() }
+        );
     }
 
     getCurrentUser() {

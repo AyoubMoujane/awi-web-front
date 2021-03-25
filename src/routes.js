@@ -5,6 +5,8 @@ import { Profile } from "./views/Profile/Profile"
 import { AdminHome } from "./views/Home/Admin/AdminHome"
 import { Festivals } from "./views/Festival/Festivals"
 import { ParticipantsView } from "./views/Participant/ParticipantsView"
+import { ZonesView } from "./views/Zone/ZonesView"
+import { OrganisatorView } from "./views/Organisateur/OrganisatorView"
 // import Jeu from "./views/Jeux/Jeu"
 import Jeu from "./views/Jeux/Jeu"
 
@@ -67,6 +69,18 @@ const routes = [
         'component': Jeu,
         'roles': ['ROLE_ADMIN']
     },
+    {
+        'name': 'zones',
+        'path': '/zones',
+        'component': ZonesView,
+        'roles': ['ROLE_ADMIN']
+    },
+    {
+        'name': 'organisateurs',
+        'path': '/organisateurs',
+        'component': OrganisatorView,
+        'roles': ['ROLE_ADMIN']
+    }
    
 
 ]

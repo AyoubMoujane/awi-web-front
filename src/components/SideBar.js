@@ -136,7 +136,7 @@ export function SideBar() {
             <Button ><Link to={"/"}>Réservations</Link></Button>
             <Button ><Link to={"/"}>Liste des jeux</Link></Button>
             <Button ><Link to={"/"}>Facturation</Link></Button>
-            <Button ><Link to={"/"}>Zones du festival</Link></Button>
+            <Button ><Link to={"/zones"}>Zones du festival</Link></Button>
             {currentUser ? (
               <div>
                 <Button color="inherit"><a href="/" onClick={AuthService.logout}>LogOut</a></Button>
@@ -174,7 +174,7 @@ export function SideBar() {
                 <ListItemText primary='Festivals' />
               </ListItem>
             </Link>
-            <Link color="black" to={"/"}>
+            <Link color="black" to={"/organisateurs"}>
               <ListItem >
                 <ListItemIcon><PeopleAltIcon /></ListItemIcon>
                 <ListItemText primary='Organisateurs' />
