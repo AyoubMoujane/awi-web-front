@@ -1,4 +1,8 @@
 import React from "react";
+import Container from '@material-ui/core/Container';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+
 import AuthService from "../../services/authentification/auth";
 
 export function Profile() {
@@ -7,29 +11,24 @@ export function Profile() {
     const currentUser = AuthService.getCurrentUser()
 
     return (
-        <div className="container">
-            <header className="jumbotron">
-                <h3>
-                    <strong>{currentUser.username}</strong> Profile
-                    </h3>
-            </header>
-            <p>
-                <strong>Token:</strong>{" "}
-                {currentUser.accessToken}
-            </p>
-            <p>
-                <strong>Id:</strong>{" "}
-                {currentUser.id}
-            </p>
-            <p>
-                <strong>Email:</strong>{" "}
-                {currentUser.email}
-            </p>
-            <strong>Authorities:</strong>
-            <ul>
-                {currentUser.roles &&
-                    currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-            </ul>
+        <div>
+            <Container maxWidth="sm">
+                <Card>
+                    <CardContent>
+
+                        <h3>
+                            <strong>{currentUser.username}</strong> Profile
+                        </h3>
+                        <strong>Email:</strong>{" "}
+                        {currentUser.email}
+                        <strong>Authorities:</strong>
+                        <ul>
+                            {currentUser.roles &&
+                                currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
+                        </ul>
+                    </CardContent>
+                </Card>
+            </Container>
         </div>
     )
 }

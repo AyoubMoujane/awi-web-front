@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export function FestivalForm() {
+export function FestivalForm({ fetchFestivals }) {
 
   const classes = useStyles();
 
@@ -91,6 +91,26 @@ export function FestivalForm() {
 
   };
 
+  const addFestival = (festival) => {
+    setError(null)
+    setLoading(true)
+
+    FestivalService.setFestival(
+      festival
+    ).then(
+      () => {
+        fetchFestivals()
+        handleClose()
+      },
+      error => {
+        console.log(error)
+        setError(error.response.data.message)
+      }
+    )
+
+    setLoading(false)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -112,32 +132,20 @@ export function FestivalForm() {
       prixM2Buvette: prixM2Buvette
     }
 
-    console.log(data)
-
-    FestivalService.setFestival(
-      data
-    ).then(
-      () => {
-        handleClose()
-      },
-      error => {
-        setError(error.response.data.message)
-      }
-    )
-    setLoading(false)
+    addFestival(data)
 
   }
 
   return (
     <div>
       <Grid container justify="center">
-      <Grid item>
-      <Tooltip title="Add" aria-label="add" placement="top-end">
-        <Fab color="primary">
-          <AddIcon onClick={handleClickOpen}/>
-        </Fab>
-      </Tooltip>
-      </Grid>
+        <Grid item>
+          <Tooltip title="Add" aria-label="add" placement="top-end">
+            <Fab color="primary">
+              <AddIcon onClick={handleClickOpen} />
+            </Fab>
+          </Tooltip>
+        </Grid>
       </Grid>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Créer un Festival</DialogTitle>

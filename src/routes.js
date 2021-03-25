@@ -7,6 +7,7 @@ import { Festivals } from "./views/Festival/Festivals"
 import { ParticipantsView } from "./views/Participant/ParticipantsView"
 import { ZonesView } from "./views/Zone/ZonesView"
 import { OrganisatorView } from "./views/Organisateur/OrganisatorView"
+import { SuiviExposantView } from "./views/Participant/SuiviExposantView"
 // import Jeu from "./views/Jeux/Jeu"
 import Jeu from "./views/Jeux/Jeu"
 // import Zone from "./views/Zone/Zone"
@@ -62,7 +63,7 @@ const routes = [
         'name': 'participants',
         'path': '/participants',
         'component': ParticipantsView,
-        'roles': ['ROLE_ADMIN']
+        'roles': ['ROLE_ADMIN','ROLE_ORGANISATOR']
     },
     {
 
@@ -81,6 +82,12 @@ const routes = [
         'name': 'organisateurs',
         'path': '/organisateurs',
         'component': OrganisatorView,
+        'roles': ['ROLE_ADMIN']
+    },
+    {
+        'name': 'suiviExposant',
+        'path': '/suiviExposant',
+        'component': SuiviExposantView,
         'roles': ['ROLE_ADMIN']
     }
    

@@ -137,13 +137,14 @@ export function SideBar() {
             >
               <MenuIcon />
             </IconButton>
-            <Button ><Link to={"/participants"}>Suivi des éditeurs</Link></Button>
+            <Button ><Link to={"/suiviExposant"}>Suivi des exposants</Link></Button>
             <Button ><Link to={"/"}>Réservations</Link></Button>
             <Button ><Link to={"/"}>Liste des jeux</Link></Button>
             <Button ><Link to={"/"}>Facturation</Link></Button>
             <Button ><Link to={"/zones"}>Zones du festival</Link></Button>
             {currentUser ? (
               <div>
+                <Button color="inherit"><Link to={"/profile"}>Profile</Link></Button>
                 <Button color="inherit"><a href="/" onClick={AuthService.logout}>LogOut</a></Button>
               </div>
 
@@ -151,8 +152,6 @@ export function SideBar() {
             ) : (
               <div>
                 <Button color="inherit"><Link to={"/login"}>LogIn</Link></Button>
-                <Button color="inherit"><Link to={"/register"}>SignUp</Link></Button>
-
               </div>
             )}
           </Toolbar>
@@ -196,10 +195,10 @@ export function SideBar() {
                 <ListItemText primary='Jeux' />
               </ListItem>
             </Link>
-            <Link color="black" to={"/editeurs"}>
+            <Link color="black" to={"/participants"}>
               <ListItem button key='editeurs'>
                 <ListItemIcon><BorderColorIcon /></ListItemIcon>
-                <ListItemText primary='Éditeurs' />
+                <ListItemText primary='Éditeurs/Exposants' />
               </ListItem>
             </Link>
             <Link color="black" to={"/contacts"}>

@@ -34,20 +34,6 @@ export function OrganisatorView() {
 
     useEffect(fetchOrganisators, [])
 
-    // const [organisators, setOrganisators] = useState(null)
-
-    // const deleteOrganisator = (organisator) => {
-    //     setLoading(true)
-    //     UserService.deleteOrganisator(organisator).then(
-    //         () => {
-    //             // handleClose()
-    //         }
-    //     )
-    //     setLoading(false)
-
-    // }
-
-
     return (
         <div>
             <Container maxWidth="xl">
@@ -55,7 +41,7 @@ export function OrganisatorView() {
                 <br/>
                 <Typography variant="h3" gutterBottom>
                     Liste des organisateurs
-            </Typography>
+                </Typography>
                 {loading ?
                     <CircularProgress />
                     :
