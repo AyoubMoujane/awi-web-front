@@ -96,8 +96,9 @@ export default function JeuDetail(props) {
   const [type, setType] = useState('')
   const [editeur, setEditeur] = useState(null)
   const [consigne, setConsigne] = useState('')
-  const paperStyle = { padding: 20, height: '125vh', width: 280, margin: "20px auto" }
+  const paperStyle = { padding: 20, height: '100vh', width: 500, margin: "20px auto" }
   const btnstyle = { margin: '8px 0' }
+
 
   const handleSubmit = (e) => {
     JeuService.update(jeu.idJeu,nomJeu,nbJoueurMin,nbJoueurMax,age,duree,consigne,prototype,1,1)
@@ -115,28 +116,7 @@ export default function JeuDetail(props) {
     {isLoading && <Grid alignItems='center' ><CircularProgress /></Grid>}
     {jeu &&
     <div>
-    <Card className={classes.root} variant="outlined">
-      <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Editeur : {jeu.editeur}
-        </Typography>
-        <Typography variant="h5" component="h2">
-          Nom du jeu {jeu.nomJeu}
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          Age : {jeu.age}
-        </Typography>
-        <Typography variant="body2" component="p">
-          consigne : {jeu.consigne}
-          <br />
-          {'consigne ....'}
-        </Typography>
-        <Button ><Link to={"/jeux/"+jeu.idJeu}>Details</Link></Button>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Modifier</Button>
-      </CardActions>
-    </Card>
+    
     <Grid>
     <Paper  elevation = {10}  style = {paperStyle}>
     <Grid align='center'>

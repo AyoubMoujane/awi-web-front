@@ -10,9 +10,8 @@ import JeuL from '../../components/Jeux/JeuL';
 export default function Jeu() {
   return (
     <div>
-      {/* <JeuList></JeuList> */}
+      <JeuList></JeuList>
       <JeuForm></JeuForm>
-      <JeuL></JeuL>
 
     </div>
   );

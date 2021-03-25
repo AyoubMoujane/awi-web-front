@@ -5,8 +5,9 @@ import { Profile } from "./views/Profile/Profile"
 import { AdminHome } from "./views/Home/Admin/AdminHome"
 import { Festivals } from "./views/Festival/Festivals"
 import { ParticipantsView } from "./views/Participant/ParticipantsView"
-// import Jeu from "./views/Jeux/Jeu"
 import Jeu from "./views/Jeux/Jeu"
+import Zone from "./views/Zone/Zone"
+
 
 
 /*
@@ -65,6 +66,13 @@ const routes = [
         'name': 'jeux',
         'path': '/jeux',
         'component': Jeu,
+        'roles': ['ROLE_ADMIN']
+    },
+    {
+
+        'name': 'zones',
+        'path': '/zones',
+        'component': Zone,
         'roles': ['ROLE_ADMIN']
     },
    

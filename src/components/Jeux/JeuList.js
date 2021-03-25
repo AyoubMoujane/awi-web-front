@@ -1,138 +1,116 @@
-import { useState, useEffect } from "react";
+import React, {useState, useEffect} from 'react';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Grid } from "@material-ui/core";
+import JeuService from '../../services/jeu/jeu'
+import { useHistory,Link } from 'react-router-dom'
 
 
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
 
-
-// const columns = [
-//   { field: 'idJeu', headerName: 'ID', width: 70 },
-//   { field: 'nomJeu', headerName: 'Nom du jeu', width: 130 },
-//   { field: 'editeur', headerName: 'Éditeur', width: 95 },
-//   { field: 'type', headerName: 'Type de jeu', width: 150 },
-
-//   {
-//     field: 'age',
-//     headerName: 'Age',
-//     type: 'number',
-//     width: 90,
-//   },
-//   {
-//     field: 'nbJoueurMin',
-//     headerName: 'Min joueurs',
-//     description: 'Nombre de joueurs minimum pour jouer à ce jeu.',
-//     type: 'number',
-//     width: 125,
-//   },
-//   {
-//     field: 'nbJoueurMax',
-//     headerName: 'Max joueurs',
-//     description: 'Nombre de joueurs maximal pour jouer à ce jeu.',
-//     type: 'number',
-//     width: 125,
-//   },
-//   {
-//     field: 'duree',
-//     headerName: 'Durée',
-//     description: 'Durée moyenne en minutes du jeu estimée.',
-//     type: 'number',
-//     width: 90,
-//   },
-//   {
-//     field: 'prototype',
-//     headerName: 'Avant-première ?',
-//     type: 'boolean',
-
-//     width: 180,
-//   },
-// ];
-
-
-// export default function JeuList() {
-//   const [jeux, setJeux] = useState(null)
-//   const [isLoading, setIsLoading] = useState(true)
-//   useEffect(() => {
-//     fetch("http://localhost:8080/api/jeux")
-//       .then(resp => resp.json())
-//       .then(data => {
-//         setJeux(data);
-//         setIsLoading(false);
-//       })
-//   }, [setJeux])
-//   console.log(jeux)
-
-//   return (
-//     <div style={{ height: 400, width: '100%' }}>
-//       {isLoading && <Grid alignItems='center' ><CircularProgress /></Grid>}
-//       {jeux &&
-//         <DataGrid getRowId={(row => row.idJeu)} rows={jeux} columns={columns} pageSize={20} checkboxSelection loading={isLoading} />
-//       }
-//     </div>
-//   );
-// }
-
-import React from 'react';
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-import InboxIcon from '@material-ui/icons/Inbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import JeuDetail from './JeuDetail'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      width: '100%',
-      maxWidth: 360,
-      backgroundColor: "white",
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
     },
-  }),
-);
+  },
+}))(TableRow);
 
-function ListItemLink(props: ListItemProps<'a', { button?: true }>) {
-  return <ListItem button component="a" {...props} />;
+function createData(name, calories, fat, carbs, protein) {
+  return { name, calories, fat, carbs, protein };
 }
 
-export default function JeuList() {
+const rows = [
+  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+  createData('Eclair', 262, 16.0, 24, 6.0),
+  createData('Cupcake', 305, 3.7, 67, 4.3),
+  createData('Gingerbread', 356, 16.0, 49, 3.9),
+];
+
+const useStyles = makeStyles({
+  table: {
+    minWidth: 700,
+  },
+});
+
+export default function CustomizedTables() {
   const classes = useStyles();
-  const [jeux, setJeux] = useState(null)
+  const [rows, setRows] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
-  useEffect(() => {
-    fetch("http://localhost:8080/api/jeux")
-      .then(resp => resp.json())
-      .then(data => {
-        setJeux(data);
-        setIsLoading(false);
-      })
-  }, [setJeux])
+  const fetchJeux = () => {
+    JeuService.findAll()
+        .then(data => {
+            setRows(data)
+            setIsLoading(false)
+            
+        })
+        .catch(err => {
+            console.log(err)
+            setIsLoading(false)
+        })
+    }
+    useEffect(fetchJeux, []);
+    let history = useHistory();
+
+  const handleClick = (event, idJeu) => {
+    console.log(idJeu)
+    history.push('/jeux/'+idJeu)
+    }
 
   return (
     <div>
     {isLoading && <Grid alignItems='center' ><CircularProgress /></Grid>}
+    {rows && 
+    <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>Nom du jeu</StyledTableCell>
+            <StyledTableCell align="right">Editeur</StyledTableCell>
+            <StyledTableCell align="right">Type de jeu</StyledTableCell>
+            <StyledTableCell align="right">Age</StyledTableCell>
+            <StyledTableCell align="right">Min joueurs</StyledTableCell>
+            <StyledTableCell align="right">Max joueurs</StyledTableCell>
+            <StyledTableCell align="right">Durée</StyledTableCell>
+            <StyledTableCell align="right">Avant-première</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <StyledTableRow onClick={(event) => handleClick(event, row.idJeu)} key={row.nomJeu}>
+              <StyledTableCell component="th" scope="row">
+                {row.nomJeu}
+              </StyledTableCell>
+              <StyledTableCell align="right">{row.participant.nomParticipant}</StyledTableCell>
+              <StyledTableCell align="right">{row.jeuType.nomType}</StyledTableCell>
+              <StyledTableCell align="right">{row.age}</StyledTableCell>
+              <StyledTableCell align="right">{row.nbJoueurMin}</StyledTableCell>
+              <StyledTableCell align="right">{row.nbJoueurMax}</StyledTableCell>
+              <StyledTableCell align="right">{row.duree}</StyledTableCell>
+              <StyledTableCell align="right">{row.prototype}</StyledTableCell>
 
-    {jeux && 
-    <div className={classes.root}>
-      <List component="nav" aria-label="secondary mailbox folders">
-
-      {jeux.map((jeu) => (
-          <ListItem button key={jeu}>
-          <JeuDetail jeu = {jeu}/>
-          </ListItem>
-        ))}
-
-        <ListItem button>
-          <ListItemText primary="Trash" />
-        </ListItem>
-        <ListItemLink href="#simple-list">
-          <ListItemText primary="Spam" />
-        </ListItemLink>
-      </List>
-    </div>
-    }
+            </StyledTableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+}
     </div>
   );
 }
-

@@ -4,8 +4,12 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import { InputAdornment, Input, Paper, Grid, Avatar, Button } from '@material-ui/core';
 import GamepadIcon from '@material-ui/icons/Gamepad';
-import { useHistory } from 'react-router-dom'
 import JeuService from "../../services/jeu/jeu"
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 const bool = [
   {
@@ -44,6 +48,9 @@ export default function JeuForm() {
   const [consigne, setConsigne] = useState('')
   const [editeurs, setEditeurs] = useState([])
   const [jeuTypes, setJeuTypes] = useState([])
+  const handleChange = (event) => {
+    setPrototype(event.target.value);
+  };
 
 const fetch = () => {
   JeuService.getEditeurs()
@@ -55,18 +62,17 @@ const fetch = () => {
       })
       JeuService.getJeuType()
       .then(data => {
-          setJeuTypes(data)          
+          setJeuTypes(data)        
       })
       .catch(err => {
           console.log(err)
       })
   }
   useEffect(fetch, []);
-  const history = useHistory()
 
 
   const handleSubmit = (e) => {
-    JeuService.createJeu(nom,nbMin,nbMax,age,duree,consigne,prototype,1,1)
+    JeuService.createJeu(nom,nbMin,nbMax,age,duree,consigne,prototype,type,editeur)
     .then(data => {
       console.log(data)
     })
@@ -76,14 +82,14 @@ const fetch = () => {
 
   }
 
-  const paperStyle = { padding: 20, height: '125vh', width: 280, margin: "20px auto" }
+  const paperStyle = { padding: 20, height: '100vh', width: 500, margin: "20px auto" }
   const btnstyle = { margin: '8px 0' }
 
 
   return (
     <div>
     <Grid>
-    <Paper  elevation = {10}  style = {paperStyle}>
+    <Paper  elevation = {5}  style = {paperStyle}>
     <Grid align='center'>
                      <Avatar><GamepadIcon/></Avatar>
                     <h2>Jeu</h2>
@@ -139,15 +145,24 @@ const fetch = () => {
             </MenuItem>
           ))}
         </TextField>
+        <FormControl component="fieldset">
+      <FormLabel component="legend">Avant-Première ?</FormLabel>
+      <RadioGroup aria-label="gender" name="gender1" value={prototype} onChange={handleChange}>
+        <FormControlLabel value="true" control={<Radio />} label="Oui" />
+        <FormControlLabel value="false" control={<Radio />} label="Non" />
+        
+      </RadioGroup>
+    </FormControl>
         <TextField
           id="standard-select-currency"
           select
           label="Type de jeu"
           onChange={(e) => setType(e.target.value)}
         >
-          {jeuTypes.map((type) => (
-            <MenuItem key={type} value={type}>
-              {type}
+          {
+            jeuTypes.map((jeu) => (
+            <MenuItem key={jeu.idTypeJeu} value={jeu.idTypeJeu}>
+              {jeu.nomType}
             </MenuItem>
           ))}
         </TextField>
@@ -157,9 +172,9 @@ const fetch = () => {
           label="Editeur"
           onChange={(e) => setEditeur(e.target.value)}
         >
-          {editeurs.map((option) => (
-            <MenuItem key={option} value={option}>
-              {option}
+          {editeurs.map((edit) => (
+            <MenuItem key={edit.idParticipant} value={edit.idParticipant}>
+              {edit.nomParticipant}
             </MenuItem>
           ))}
         </TextField>

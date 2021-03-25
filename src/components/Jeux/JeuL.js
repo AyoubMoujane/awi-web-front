@@ -97,8 +97,8 @@ export default function CustomizedTables() {
               <StyledTableCell component="th" scope="row">
                 {row.nomJeu}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.editeur}</StyledTableCell>
-              <StyledTableCell align="right">{row.type}</StyledTableCell>
+              <StyledTableCell align="right">{row.participant.nomParticipant}</StyledTableCell>
+              <StyledTableCell align="right">{row.jeuType.nomType}</StyledTableCell>
               <StyledTableCell align="right">{row.age}</StyledTableCell>
               <StyledTableCell align="right">{row.nbJoueurMin}</StyledTableCell>
               <StyledTableCell align="right">{row.nbJoueurMax}</StyledTableCell>

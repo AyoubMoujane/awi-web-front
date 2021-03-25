@@ -28,6 +28,9 @@ import { getRoutes } from '../routes'
 import { MyRoute } from './MyRoute/MyRoute'
 import { NotFound } from '../views/NotFound/NotFound'
 import JeuDetail  from '../components/Jeux/JeuDetail'
+import Zone from '../views/Zone/Zone'
+
+
 
 
 const drawerWidth = 240;
@@ -138,7 +141,7 @@ export function SideBar() {
             <Button ><Link to={"/"}>Réservations</Link></Button>
             <Button ><Link to={"/"}>Liste des jeux</Link></Button>
             <Button ><Link to={"/"}>Facturation</Link></Button>
-            <Button ><Link to={"/"}>Zones du festival</Link></Button>
+            <Button ><Link to={"/zones"}>Zones du festival</Link></Button>
             {currentUser ? (
               <div>
                 <Button color="inherit"><a href="/" onClick={AuthService.logout}>LogOut</a></Button>
