@@ -9,6 +9,8 @@ import { ZonesView } from "./views/Zone/ZonesView"
 import { OrganisatorView } from "./views/Organisateur/OrganisatorView"
 // import Jeu from "./views/Jeux/Jeu"
 import Jeu from "./views/Jeux/Jeu"
+// import Zone from "./views/Zone/Zone"
+
 
 
 /*

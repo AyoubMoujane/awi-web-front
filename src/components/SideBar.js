@@ -27,6 +27,11 @@ import AuthService from "../services/authentification/auth";
 import { getRoutes } from '../routes'
 import { MyRoute } from './MyRoute/MyRoute'
 import { NotFound } from '../views/NotFound/NotFound'
+import JeuDetail  from '../components/Jeux/JeuDetail'
+// import Zone from '../views/Zone/Zone'
+
+
+
 
 const drawerWidth = 240;
 
@@ -223,7 +228,9 @@ export function SideBar() {
                 return <MyRoute exact {...route} key={index} />
               })
             }
+            <Route path='/jeux/:id' component = {JeuDetail}/>
             <Route component={NotFound} />
+            
           </Switch>
         </main>
 
