@@ -18,7 +18,7 @@ class ParticipantService {
 
     delete(id) {
         return axios
-            .post(`${API_URL}/participants/${id}`, { headers: authHeader() })
+            .delete(`${API_URL}/participants/${id}`, { headers: authHeader() })
             .then(response => {
                 return response.data;
             })
@@ -30,6 +30,17 @@ class ParticipantService {
     create(nomParticipant, editeurSeulement) {
         return axios
             .post(`${API_URL}/participants`, { headers: authHeader(), nomParticipant, editeurSeulement })
+            .then(response => {
+                return response.data;
+            })
+            .catch(err => {
+                throw err
+            })
+    }
+
+    update(participant) {
+        return axios
+            .put(`${API_URL}/participants/${participant.idParticipant}`, { headers: authHeader(), participant })
             .then(response => {
                 return response.data;
             })

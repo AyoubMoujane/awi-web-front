@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import PersonIcon from '@material-ui/icons/Person';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-import DeleteIcon from '@material-ui/icons/Delete';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Container from '@material-ui/core/Container'
+// import Divider from '@material-ui/core/Divider';
 
 import ParticipantService from "../../services/participant/participant"
+import ParticipantItem from "./ParticipantItem"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -65,52 +59,25 @@ export default function ParticipantList() {
         return 0;
     }
 
-    const handleDelete = (participant) => {
-
-        ParticipantService.delete(participant.idParticipant)
-            .then((data) => {
-                // Successfully deleted participant
-                setLoading(false)
-                var filteredParticipants = participants.filter((item) => {
-                    return item !== participant
-                })
-                console.log(filteredParticipants)
-                setParticipants(filteredParticipants)
-            })
-            .catch(err => {
-                // Error while attempting delete
-                setLoading(false)
-            })
-    }
-
     return (
-        <div style={{ height: 400, width: '100%' }}>
-            <Typography variant="h6" className={classes.title}>
-                Éditeurs et exposants
+        <div>
+            <Container maxWidth="sm">
+                <Typography variant="h6" className={classes.title}>
+                    Éditeurs et exposants
             </Typography>
-            <RefreshIcon onClick={fetchParticipants} />
-            <List dense={dense}>
-                <div className={classes.demo}>
-                    {
-                        loading ? <CircularProgress /> :
-                            participants.map((participant) => (
-                                <ListItem key={participant.idParticipant}>
-                                    <ListItemAvatar>
-                                        <Avatar>
-                                            {participant.editeurSeulement ? <MenuBookIcon /> : <PersonIcon />}
-                                        </Avatar>
-                                    </ListItemAvatar>
-                                    <ListItemText primary={participant.nomParticipant} />
-                                    <ListItemSecondaryAction>
-                                        <IconButton edge="end" aria-label="delete" >
-                                            <DeleteIcon onClick={() => handleDelete(participant)} />
-                                        </IconButton>
-                                    </ListItemSecondaryAction>
-                                </ListItem>
-                            ))
-                    }
-                </div>
-            </List>
+                <RefreshIcon onClick={fetchParticipants} />
+                <List dense={dense}>
+                    <div className={classes.demo}>
+                        {
+                            loading ? <CircularProgress /> :
+                                participants.map((participant) => (
+                                    <ParticipantItem data={participant} key={participant.idParticipant} />
+                                ))
+                        }
+                    </div>
+                </List>
+            </Container>
+
         </div>
     )
 }
