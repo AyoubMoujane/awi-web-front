@@ -15,6 +15,8 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CheckBox from '@material-ui/core/Checkbox'
 import Container from '@material-ui/core/Container'
+import ListSubheader from '@material-ui/core/ListSubheader';
+// import Divider from '@material-ui/core/Divider';
 
 import ParticipantService from "../../services/participant/participant"
 
@@ -55,6 +57,10 @@ export default function ParticipantList() {
             })
     }
 
+    const updateParticipant = (participant) => {
+
+    }
+
     useEffect(fetchParticipants, []);
 
     function compare(a, b) {
@@ -87,7 +93,7 @@ export default function ParticipantList() {
 
     return (
         <div>
-            <Container maxWidth="sm">
+            <Container maxWidth="m">
                 <Typography variant="h6" className={classes.title}>
                     Éditeurs et exposants
             </Typography>
@@ -104,7 +110,8 @@ export default function ParticipantList() {
                                             </Avatar>
                                         </ListItemAvatar>
                                         <ListItemText primary={participant.nomParticipant} />
-                                        <CheckBox></CheckBox>
+                                        <ListItemText primary="Editeur seulement" />
+                                        <CheckBox checked={participant.editeurSeulement} />
                                         <ListItemSecondaryAction>
                                             <IconButton edge="end" aria-label="delete" >
                                                 <DeleteIcon onClick={() => handleDelete(participant)} />
