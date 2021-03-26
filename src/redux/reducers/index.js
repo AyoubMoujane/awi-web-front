@@ -1,4 +1,4 @@
-import festivalReducer from "./festival"
+import festivalReducer from "./festivalReducer"
 import { combineReducers } from "redux"
 
 const allReducers = combineReducers({
