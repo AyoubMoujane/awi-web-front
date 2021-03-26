@@ -5,11 +5,12 @@ import FestivalService from "../../services/festival/festival"
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography'
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Button from '@material-ui/core/Button';
 
 export function Festivals() {
 
 
-    const [festivals, setFestivals] = useState(null)
+    const [festivals, setFestivals] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
@@ -28,11 +29,20 @@ export function Festivals() {
         )
     })
 
+    const maintainOneCurrentFestival = () => {
+        let currentFestival = festivals.filter((festival) => {
+            return festival.estCourant
+        })
+    }
+
     useEffect(fetchFestivals, [])
 
     return (
         <div>
             <Container maxWidth="xl">
+                <Button onClick={maintainOneCurrentFestival} color="primary">
+                    Test
+                    </Button>
                 <Typography variant="h3" gutterBottom>
                     Les festivals
                 </Typography>
