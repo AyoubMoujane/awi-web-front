@@ -68,6 +68,8 @@ export function Festival({ festival }) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
 
+
+
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -197,6 +199,7 @@ export function Festival({ festival }) {
 
     return (
         <div>
+
             <Box component="span" m={1}>
                 <FormControlLabel
                     control={
