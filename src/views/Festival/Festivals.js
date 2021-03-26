@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Festival } from "../../components/Festival/Festival"
 import { FestivalForm } from "../../components/Festival/FestivalForm"
+import { FestivalList } from "../../components/Festival/FestivalList"
 import FestivalService from "../../services/festival/festival"
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography'
@@ -38,7 +38,7 @@ export function Festivals() {
                 </Typography>
                 <br />
                 <br />
-                <FestivalForm fetchFestivals={fetchFestivals}/>
+                <FestivalForm fetchFestivals={fetchFestivals} />
                 <br />
                 <br />
                 {loading ?
@@ -46,16 +46,9 @@ export function Festivals() {
                     :
                     festivals === null ? null : <FestivalList festivals={festivals} fetchFestivals={fetchFestivals} />
                 }
-                
+
             </Container>
         </div>
     )
 }
 
-function FestivalList({ festivals, fetchFestivals }) {
-    return (
-        <div>
-            {festivals.map(festival => <Festival key={festival.idFestival} festival={festival} fetchFestivals={fetchFestivals}/>)}
-        </div>
-    )
-}
