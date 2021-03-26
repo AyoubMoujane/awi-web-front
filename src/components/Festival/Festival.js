@@ -78,7 +78,23 @@ export function Festival({ festival }) {
     };
 
     const handleSwitch = () => {
-        setEstCourant(!estCourant)
+        setLoading(true)
+        let updatedFestival = {
+            ...festival, estCourant: !estCourant,
+            nbTableEntree: nbTableEntree,
+            nbTableAccueil: nbTableAccueil,
+            nbTableBuvette: nbTableBuvette
+        }
+        FestivalService.updateFestival(updatedFestival)
+            .then((data) => {
+                console.log("ok")
+                setEstCourant(!estCourant)
+                setLoading(false)
+            })
+            .catch(err => {
+                console.log(err.message)
+                setLoading(false)
+            })
     }
 
     const [loading, setLoading] = useState(false);
@@ -144,7 +160,7 @@ export function Festival({ festival }) {
         setLoading(true)
 
         const data = {
-            idFestival: festival.idFestival,
+            ...festival,
             nomFestival: nom,
             dateFestival: selectedDate,
             nbTableEntree: nbTableEntree,
