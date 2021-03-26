@@ -43,7 +43,7 @@ export function FestivalForm({ fetchFestivals }) {
 
   const [nom, setNom] = useState('Festival du Jeu Montpellier')
   const [selectedDate, setSelectedDate] = useState(Date.now);
-  const [estCourant, setEstCourant] = useState(true)
+  const [estCourant, setEstCourant] = useState(false)
   const [nbTableEntree, setNbTableEntree] = useState('')
   const [nbTableAccueil, setNbTableAccueil] = useState('')
   const [nbTableBuvette, setNbTableBuvette] = useState('')
@@ -77,7 +77,7 @@ export function FestivalForm({ fetchFestivals }) {
     setOpen(false);
     setNom('Festival du Jeu Montpellier')
     setSelectedDate(Date.now)
-    setEstCourant(true)
+    setEstCourant(false)
     setNbTableEntree('')
     setNbTableAccueil('')
     setNbTableBuvette('')
