@@ -18,9 +18,11 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Box from '@material-ui/core/Box';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
 import FestivalService from "../../services/festival/festival"
-import {DatePicker} from "../Ui/DatePicker"
+import { DatePicker } from "../Ui/DatePicker"
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -75,6 +77,10 @@ export function Festival({ festival }) {
 
     };
 
+    const handleSwitch = () => {
+        setEstCourant(!estCourant)
+    }
+
     const [loading, setLoading] = useState(false);
 
     const [nom, setNom] = useState('')
@@ -88,6 +94,7 @@ export function Festival({ festival }) {
     const [prixM2Entree, setPrixM2Entree] = useState('')
     const [prixM2Accueil, setPrixM2Accueil] = useState('')
     const [prixM2Buvette, setPrixM2Buvette] = useState('')
+    const [estCourant, setEstCourant] = useState(festival.estCourant)
 
     // variables calculées
     const [tableReserveEntree, setTableReserveEntree] = useState(0)
@@ -175,116 +182,128 @@ export function Festival({ festival }) {
     return (
         <div>
             <Box component="span" m={1}>
-            <Card>
-            <CardContent>
-            <h2>{nom}</h2>
-            <h3>{selectedDate}</h3>
-            <TableContainer component={Paper}>
-                <Table className={classes.table} aria-label="customized table">
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell>Espace</StyledTableCell>
-                            <StyledTableCell align="right">tables</StyledTableCell>
-                            <StyledTableCell align="right">prix table (€)</StyledTableCell>
-                            <StyledTableCell align="right">prix m2 (€)</StyledTableCell>
-                            <StyledTableCell align="right">réservés tables</StyledTableCell>
-                            <StyledTableCell align="right">réservés m2</StyledTableCell>
-                            <StyledTableCell align="right">restant</StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        <StyledTableRow>
-                            <StyledTableCell component="th" scope="row">
-                                {"Espace Entrée"}
-                            </StyledTableCell>
-                            <StyledTableCell align="right">{nbTableEntree}</StyledTableCell>
-                            <StyledTableCell align="right">{prixTableEntree}</StyledTableCell>
-                            <StyledTableCell align="right">{prixM2Entree}</StyledTableCell>
-                            <StyledTableCell align="right">{tableReserveEntree}</StyledTableCell>
-                            <StyledTableCell align="right">{m2reserveEntree}</StyledTableCell>
-                            <StyledTableCell align="right">{tableRestanteEntree}</StyledTableCell>
-                        </StyledTableRow>
-                        <StyledTableRow>
-                            <StyledTableCell component="th" scope="row">
-                                {"Espace Accueil"}
-                            </StyledTableCell>
-                            <StyledTableCell align="right">{nbTableAccueil}</StyledTableCell>
-                            <StyledTableCell align="right">{prixTableAccueil}</StyledTableCell>
-                            <StyledTableCell align="right">{prixM2Accueil}</StyledTableCell>
-                            <StyledTableCell align="right">{tableReserveAccueil}</StyledTableCell>
-                            <StyledTableCell align="right">{m2reserveAccueil}</StyledTableCell>
-                            <StyledTableCell align="right">{tableRestanteAccueil}</StyledTableCell>
-                        </StyledTableRow>
-                        <StyledTableRow >
-                            <StyledTableCell component="th" scope="row">
-                                {"Espace Buvette"}
-                            </StyledTableCell>
-                            <StyledTableCell align="right">{nbTableBuvette}</StyledTableCell>
-                            <StyledTableCell align="right">{prixTableBuvette}</StyledTableCell>
-                            <StyledTableCell align="right">{prixM2Buvette}</StyledTableCell>
-                            <StyledTableCell align="right">{tableReserveBuvette}</StyledTableCell>
-                            <StyledTableCell align="right">{m2reserveBuvette}</StyledTableCell>
-                            <StyledTableCell align="right">{tableRestanteBuvette}</StyledTableCell>
-                        </StyledTableRow>
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <br/>
-            <Button variant="contained" color="primary" size="small" onClick={handleClickOpen}>Modifier</Button>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title"><TextField id="standard-full-width" label="Nom du festival" fullWidth value={nom} onChange={(e) => setNom(e.target.value)} /></DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        <DatePicker dateFestival={selectedDate} onDateChange={handleDateChange}/>
-                    </DialogContentText>
-                    <Grid container spacing={3}>
+                <FormControlLabel
+                    control={
+                        <Switch
+                            checked={estCourant}
+                            onChange={handleSwitch}
+                            name="estCourant"
+                            color="primary"
+                        />
+                    }
+                    label="estCourant"
+                />
+                <Card>
+                    <CardContent>
+                        <h2>{nom}</h2>
+                        <h3>{selectedDate}</h3>
+                        <TableContainer component={Paper}>
+                            <Table className={classes.table} aria-label="customized table">
+                                <TableHead>
+                                    <TableRow>
+                                        <StyledTableCell>Espace</StyledTableCell>
+                                        <StyledTableCell align="right">tables</StyledTableCell>
+                                        <StyledTableCell align="right">prix table (€)</StyledTableCell>
+                                        <StyledTableCell align="right">prix m2 (€)</StyledTableCell>
+                                        <StyledTableCell align="right">réservés tables</StyledTableCell>
+                                        <StyledTableCell align="right">réservés m2</StyledTableCell>
+                                        <StyledTableCell align="right">restant</StyledTableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    <StyledTableRow>
+                                        <StyledTableCell component="th" scope="row">
+                                            {"Espace Entrée"}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="right">{nbTableEntree}</StyledTableCell>
+                                        <StyledTableCell align="right">{prixTableEntree}</StyledTableCell>
+                                        <StyledTableCell align="right">{prixM2Entree}</StyledTableCell>
+                                        <StyledTableCell align="right">{tableReserveEntree}</StyledTableCell>
+                                        <StyledTableCell align="right">{m2reserveEntree}</StyledTableCell>
+                                        <StyledTableCell align="right">{tableRestanteEntree}</StyledTableCell>
+                                    </StyledTableRow>
+                                    <StyledTableRow>
+                                        <StyledTableCell component="th" scope="row">
+                                            {"Espace Accueil"}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="right">{nbTableAccueil}</StyledTableCell>
+                                        <StyledTableCell align="right">{prixTableAccueil}</StyledTableCell>
+                                        <StyledTableCell align="right">{prixM2Accueil}</StyledTableCell>
+                                        <StyledTableCell align="right">{tableReserveAccueil}</StyledTableCell>
+                                        <StyledTableCell align="right">{m2reserveAccueil}</StyledTableCell>
+                                        <StyledTableCell align="right">{tableRestanteAccueil}</StyledTableCell>
+                                    </StyledTableRow>
+                                    <StyledTableRow >
+                                        <StyledTableCell component="th" scope="row">
+                                            {"Espace Buvette"}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="right">{nbTableBuvette}</StyledTableCell>
+                                        <StyledTableCell align="right">{prixTableBuvette}</StyledTableCell>
+                                        <StyledTableCell align="right">{prixM2Buvette}</StyledTableCell>
+                                        <StyledTableCell align="right">{tableReserveBuvette}</StyledTableCell>
+                                        <StyledTableCell align="right">{m2reserveBuvette}</StyledTableCell>
+                                        <StyledTableCell align="right">{tableRestanteBuvette}</StyledTableCell>
+                                    </StyledTableRow>
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                        <br />
+                        <Button variant="contained" color="primary" size="small" onClick={handleClickOpen}>Modifier</Button>
 
-                        <Grid container item xs={12} spacing={3}>
-                            <Grid item xs={4}>
-                                <TextField label="Nombre Table Entree" variant="outlined" value={nbTableEntree} onChange={(e) => setNbTableEntree(e.target.value)} />
-                            </Grid>
-                            <Grid item xs={4}>
-                                <TextField label="Prix Table Entree" variant="outlined" value={prixTableEntree} disabled />
-                            </Grid>
-                            <Grid item xs={4}>
-                                <TextField label="Prix m2 Entree" variant="outlined" value={prixM2Entree} disabled />
-                            </Grid>
-                        </Grid>
-                        <Grid container item xs={12} spacing={3}>
-                            <Grid item xs={4}>
-                                <TextField label="Nombre Table Acceuil" variant="outlined" value={nbTableAccueil} onChange={(e) => setNbTableAccueil(e.target.value)} />
-                            </Grid>
-                            <Grid item xs={4}>
-                                <TextField label="Prix Table Accueil" variant="outlined" value={prixTableAccueil} disabled />
-                            </Grid>
-                            <Grid item xs={4}>
-                                <TextField label="Prix m2 Accueil" variant="outlined" value={prixM2Accueil} disabled />
-                            </Grid>
-                        </Grid>
-                        <Grid container item xs={12} spacing={3}>
-                            <Grid item xs={4}>
-                                <TextField label="Nombre Table Buvette" variant="outlined" value={nbTableBuvette} onChange={(e) => setNbTableBuvette(e.target.value)} />
-                            </Grid>
-                            <Grid item xs={4}>
-                                <TextField label="Prix Table Buvette" variant="outlined" value={prixTableBuvette} disabled />
-                            </Grid>
-                            <Grid item xs={4}>
-                                <TextField label="Prix m2 Buvette" variant="outlined" value={prixM2Buvette} disabled />
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Annuler
+                        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                            <DialogTitle id="form-dialog-title"><TextField id="standard-full-width" label="Nom du festival" fullWidth value={nom} onChange={(e) => setNom(e.target.value)} /></DialogTitle>
+                            <DialogContent>
+                                <DialogContentText>
+                                    <DatePicker dateFestival={selectedDate} onDateChange={handleDateChange} />
+                                </DialogContentText>
+                                <Grid container spacing={3}>
+
+                                    <Grid container item xs={12} spacing={3}>
+                                        <Grid item xs={4}>
+                                            <TextField label="Nombre Table Entree" variant="outlined" value={nbTableEntree} onChange={(e) => setNbTableEntree(e.target.value)} />
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <TextField label="Prix Table Entree" variant="outlined" value={prixTableEntree} disabled />
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <TextField label="Prix m2 Entree" variant="outlined" value={prixM2Entree} disabled />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid container item xs={12} spacing={3}>
+                                        <Grid item xs={4}>
+                                            <TextField label="Nombre Table Acceuil" variant="outlined" value={nbTableAccueil} onChange={(e) => setNbTableAccueil(e.target.value)} />
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <TextField label="Prix Table Accueil" variant="outlined" value={prixTableAccueil} disabled />
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <TextField label="Prix m2 Accueil" variant="outlined" value={prixM2Accueil} disabled />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid container item xs={12} spacing={3}>
+                                        <Grid item xs={4}>
+                                            <TextField label="Nombre Table Buvette" variant="outlined" value={nbTableBuvette} onChange={(e) => setNbTableBuvette(e.target.value)} />
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <TextField label="Prix Table Buvette" variant="outlined" value={prixTableBuvette} disabled />
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <TextField label="Prix m2 Buvette" variant="outlined" value={prixM2Buvette} disabled />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleClose} color="primary">
+                                    Annuler
                     </Button>
-                    <Button onClick={handleSubmit} color="primary" disabled={loading}>
-                        Modifier
+                                <Button onClick={handleSubmit} color="primary" disabled={loading}>
+                                    Modifier
                     </Button>
-                </DialogActions>
-            </Dialog>
-            </CardContent>
-            </Card>
+                            </DialogActions>
+                        </Dialog>
+                    </CardContent>
+                </Card>
             </Box>
         </div>
     );
