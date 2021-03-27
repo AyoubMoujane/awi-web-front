@@ -22,7 +22,7 @@ export const fetchFestivalsFailure = (error) => {
 }
 
 export const fetchFestivals = () => {
-    return (dispatch) => {
+    return function (dispatch) {
         dispatch(fetchFestivalsRequest())
         FestivalService.getFestivals()
             .then(response => {

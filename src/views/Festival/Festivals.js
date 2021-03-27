@@ -7,7 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchFestivalsRequest } from "../../redux/actions/festival/festivalActions"
+import { fetchFestivals } from "../../redux/actions/festival/festivalActions"
 import { connect } from 'react-redux'
 import { Festival } from "../../components/Festival/Festival";
 
@@ -16,58 +16,32 @@ export function Festivals() {
     const festivalReducer = useSelector(state => state.festivalReducer)
     const dispatch = useDispatch()
 
-    const [festivals, setFestivals] = useState([])
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
+    // const maintainOneCurrentFestival = () => {
+    //     let currentFestival = festivals.filter((festival) => {
+    //         return festival.estCourant
+    //     })
+    // }
 
-    const maintainOneCurrentFestival = () => {
-        let currentFestival = festivals.filter((festival) => {
-            return festival.estCourant
-        })
-    }
-
-    // useEffect(fetchFestivals, [])
+    useEffect(() => dispatch(fetchFestivals()), [])
 
     return (
         <div>
-            <p>{festivalReducer.idFestival}</p>
-            <Button onClick={() => dispatch(fetchFestivalsRequest())}>Dispatch Fetch</Button>
-
             <Container maxWidth="xl">
-                <Button onClick={maintainOneCurrentFestival} color="primary">
-                    Test
-                    </Button>
                 <Typography variant="h3" gutterBottom>
                     Les festivals
                 </Typography>
                 <br />
                 <br />
-                {/* <FestivalForm fetchFestivals={fetchFestivals} /> */}
+                <FestivalForm /*fetchFestivals={fetchFestivals}*/ />
                 <br />
                 <br />
-                {loading ?
+                {festivalReducer.loading ?
                     <CircularProgress />
-                    :
-                    // festivals === null ? null : <FestivalList festivals={festivals} fetchFestivals={fetchFestivals} />
-                    festivals === null ? null : <FestivalList festivals={festivals} />
-
+                    : (festivalReducer.data ? <FestivalList festivals={festivalReducer.data} /> :
+                        <div>Aucun festival...</div>)
                 }
 
             </Container>
-        </div>
+        </div >
     )
 }
-
-// const mapStateToProps = state => {
-//     return {
-//         festivals: state.festivals
-//     }
-// }
-
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         fetchFestivalsRequest: dispatch(fetchFestivalsRequest())
-//     }
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Festivals)
