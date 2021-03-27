@@ -8,8 +8,6 @@ import Button from '@material-ui/core/Button';
 
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchFestivals } from "../../redux/actions/festival/festivalActions"
-import { connect } from 'react-redux'
-import { Festival } from "../../components/Festival/Festival";
 
 export function Festivals() {
 
@@ -40,7 +38,6 @@ export function Festivals() {
                     : (festivalReducer.data ? <FestivalList festivals={festivalReducer.data} /> :
                         <div>Aucun festival...</div>)
                 }
-
             </Container>
         </div >
     )

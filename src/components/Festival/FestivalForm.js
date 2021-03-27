@@ -22,9 +22,9 @@ import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import { makeStyles } from '@material-ui/core/styles';
-// import { DatePicker } from '../Ui/DatePicker'
+import { useSelector, useDispatch } from 'react-redux'
 
-
+import { fetchFestivals } from "../../redux/actions/festival/festivalActions"
 import FestivalService from "../../services/festival/festival"
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +37,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export function FestivalForm({ fetchFestivals }) {
+export function FestivalForm() {
+
+  const dispatch = useDispatch()
 
   const classes = useStyles();
 
@@ -65,9 +67,6 @@ export function FestivalForm({ fetchFestivals }) {
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
-
-
-
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -99,7 +98,7 @@ export function FestivalForm({ fetchFestivals }) {
       festival
     ).then(
       () => {
-        fetchFestivals()
+        dispatch(fetchFestivals())
         handleClose()
       },
       error => {
