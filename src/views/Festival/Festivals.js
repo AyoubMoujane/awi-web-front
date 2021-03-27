@@ -8,22 +8,22 @@ import Button from '@material-ui/core/Button';
 
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchFestivals } from "../../redux/actions/festival/festivalActions"
+import filterGetCurrentFestival from "../../utils/filterCurrentFestival"
 
 export function Festivals() {
 
     const festivalReducer = useSelector(state => state.festivalReducer)
     const dispatch = useDispatch()
 
-    // const maintainOneCurrentFestival = () => {
-    //     let currentFestival = festivals.filter((festival) => {
-    //         return festival.estCourant
-    //     })
-    // }
+
 
     useEffect(() => dispatch(fetchFestivals()), [])
 
     return (
         <div>
+            <Button onClick={filterGetCurrentFestival}>
+                Test
+        </Button>
             <Container maxWidth="xl">
                 <Typography variant="h3" gutterBottom>
                     Les festivals

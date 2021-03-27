@@ -21,8 +21,11 @@ import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
+import { useSelector, useDispatch } from 'react-redux'
 import FestivalService from "../../services/festival/festival"
 import { DatePicker } from "../Ui/DatePicker"
+import filterGetCurrentFestival from "../../utils/filterCurrentFestival"
+import { switchCurrentFestival } from "../../redux/actions/festival/festivalActions"
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -65,10 +68,11 @@ const useStyles = makeStyles({
 });
 
 export function Festival({ festival }) {
+    const festivalReducer = useSelector(state => state.festivalReducer)
+    const dispatch = useDispatch()
+
     const classes = useStyles();
     const [open, setOpen] = useState(false);
-
-
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -81,22 +85,16 @@ export function Festival({ festival }) {
 
     const handleSwitch = () => {
         setLoading(true)
-        let updatedFestival = {
+        let newCurrentFestival = {
             ...festival, estCourant: !estCourant,
             nbTableEntree: nbTableEntree,
             nbTableAccueil: nbTableAccueil,
             nbTableBuvette: nbTableBuvette
         }
-        FestivalService.updateFestival(updatedFestival)
-            .then((data) => {
-                console.log("ok")
-                setEstCourant(!estCourant)
-                setLoading(false)
-            })
-            .catch(err => {
-                console.log(err.message)
-                setLoading(false)
-            })
+
+        let previousCurrentFestival = filterGetCurrentFestival(festivalReducer.data)
+        dispatch(switchCurrentFestival(newCurrentFestival, previousCurrentFestival))
+
     }
 
     const [loading, setLoading] = useState(false);
@@ -180,21 +178,6 @@ export function Festival({ festival }) {
 
         setLoading(false)
 
-
-    }
-
-    const dataFestival = {
-        nom: nom,
-        selectedDate: selectedDate,
-        nbTableEntree: nbTableEntree,
-        nbTableAccueil: nbTableAccueil,
-        nbTableBuvette: nbTableBuvette,
-        prixTableEntree: prixTableEntree,
-        prixTableAccueil: prixTableAccueil,
-        prixTableBuvette: prixTableBuvette,
-        prixM2Entree: prixM2Entree,
-        prixM2Accueil: prixM2Accueil,
-        prixM2Buvette: prixM2Buvette
     }
 
     return (

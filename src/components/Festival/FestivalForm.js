@@ -22,7 +22,7 @@ import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { fetchFestivals } from "../../redux/actions/festival/festivalActions"
 import FestivalService from "../../services/festival/festival"

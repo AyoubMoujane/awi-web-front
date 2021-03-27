@@ -1,4 +1,4 @@
-import { FETCH_FESTIVALS_FAILURE, FETCH_FESTIVALS_REQUEST, FETCH_FESTIVALS_SUCCESS } from "./festivalTypes"
+import { FETCH_FESTIVALS_FAILURE, FETCH_FESTIVALS_REQUEST, FETCH_FESTIVALS_SUCCESS, SWITCH_FESTIVAL_FAILURE, SWITCH_FESTIVAL_REQUEST, SWITCH_FESTIVAL_SUCCESS } from "./festivalTypes"
 import FestivalService from '../../../services/festival/festival'
 
 export const fetchFestivalsRequest = () => {
@@ -21,6 +21,27 @@ export const fetchFestivalsFailure = (error) => {
     }
 }
 
+// export const switchCurrentFestivalRequest = (festival) => {
+//     return {
+//         type: SWITCH_FESTIVAL_REQUEST,
+//         payload: festival
+//     }
+// }
+
+// export const switchCurrentFestivalSuccess = (festivals) => {
+//     return {
+//         type: SWITCH_FESTIVAL_SUCCESS,
+//         payload: festivals
+//     }
+// }
+
+// export const switchCurrentFestivalFailure = (error) => {
+//     return {
+//         type: SWITCH_FESTIVAL_FAILURE,
+//         payload: error
+//     }
+// }
+
 export const fetchFestivals = () => {
     return function (dispatch) {
         dispatch(fetchFestivalsRequest())
@@ -32,6 +53,20 @@ export const fetchFestivals = () => {
             .catch(err => {
                 const error = "Example error message"
                 dispatch(fetchFestivalsFailure(error))
+            })
+    }
+}
+
+export const switchCurrentFestival = (newCurrentFestival, previousCurrentFestival) => {
+    return function (dispatch) {
+        let updatedPreviousCurrentFestival = { ...previousCurrentFestival, estCourant: false }
+        FestivalService.switchCurrentFestival(updatedPreviousCurrentFestival, newCurrentFestival)
+            .then((data) => {
+                dispatch(fetchFestivals())
+            })
+            .catch(err => {
+                console.log("error")
+                return
             })
     }
 }
