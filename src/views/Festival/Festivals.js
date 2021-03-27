@@ -21,9 +21,6 @@ export function Festivals() {
 
     return (
         <div>
-            <Button onClick={filterGetCurrentFestival}>
-                Test
-        </Button>
             <Container maxWidth="xl">
                 <Typography variant="h3" gutterBottom>
                     Les festivals
