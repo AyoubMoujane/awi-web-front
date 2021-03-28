@@ -138,7 +138,7 @@ export function SideBar() {
               <MenuIcon />
             </IconButton>
             <Button ><Link to={"/suiviExposant"}>Suivi des exposants</Link></Button>
-            <Button ><Link to={"/"}>Réservations</Link></Button>
+            <Button ><Link to={"/reservations"}>Réservations</Link></Button>
             <Button ><Link to={"/"}>Liste des jeux</Link></Button>
             <Button ><Link to={"/"}>Facturation</Link></Button>
             <Button ><Link to={"/zones"}>Zones du festival</Link></Button>

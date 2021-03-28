@@ -8,9 +8,9 @@ import { ParticipantsView } from "./views/Participant/ParticipantsView"
 import { ZonesView } from "./views/Zone/ZonesView"
 import { OrganisatorView } from "./views/Organisateur/OrganisatorView"
 import { SuiviExposantView } from "./views/Participant/SuiviExposantView"
-// import Jeu from "./views/Jeux/Jeu"
+import { ReservationView } from "./views/Reservation/reservationView"
+import { JeuExposeView } from "./views/jeuExpose/jeuExposeView"
 import Jeu from "./views/Jeux/Jeu"
-// import Zone from "./views/Zone/Zone"
 
 
 
@@ -89,8 +89,20 @@ const routes = [
         'path': '/suiviExposant',
         'component': SuiviExposantView,
         'roles': ['ROLE_ADMIN']
+    },
+    {
+        'name': 'reservations',
+        'path': '/reservations',
+        'component': ReservationView,
+        'roles': ['ROLE_ADMIN']
     }
-   
+    ,
+    // {
+    //     'name': 'jeuxExposes',
+    //     'path': '/jeuxExposes',
+    //     'component': jeuExposeView,
+    //     'roles': ['ROLE_ADMIN']
+    // }
 
 ]
 
