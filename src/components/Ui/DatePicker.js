@@ -9,22 +9,23 @@ import {
 
 import { format } from 'date-fns'
 
-export function DatePicker({dateFestival, onDateChange}) {
+export function DatePicker({date, onChange, label}) {
 
     const handleChange = (date) => {
         const dateSelected =  date? format(date, 'yyyy-MM-dd') : null
-        onDateChange(dateSelected)
+        onChange(dateSelected)
     };
 
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Grid container justify="space-around">
                 <KeyboardDatePicker
+                    size="small"
                     margin="normal"
                     id="date-picker-dialog"
-                    label="Date"
+                    label={label}
                     format="yyyy-MM-dd"
-                    value={dateFestival}
+                    value={date}
                     onChange={handleChange}
                     KeyboardButtonProps={{
                         'aria-label': 'change date',

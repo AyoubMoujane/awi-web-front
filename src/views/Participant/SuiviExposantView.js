@@ -10,12 +10,16 @@ import SuiviExposantService from '../../services/suiviExposant/suiviExposant'
 export function SuiviExposantView () {
 
     const [suivisExposants, setSuivisExposants] = useState(null)
+    const [statusExposant, setStatusExposant] = useState(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
-
+    const data = {
+        idFestival : 7
+    } 
+    
     const fetchSuiviExposant = useCallback(() => {
         setLoading(true)
-        SuiviExposantService.getAllSuivisExposants().then(
+        SuiviExposantService.getAllSuivisExposants(data).then(
             response => {
                 setSuivisExposants(response.data)
                 setLoading(false)
@@ -27,9 +31,24 @@ export function SuiviExposantView () {
         )
     })
 
-    console.log(suivisExposants)
+    const fetchStatusExposant = useCallback(() => {
+        setLoading(true)
+        // SuiviExposantService.getStatusExposant().then(
+        //     response => {
+        //         setStatusExposant(response.data)
+        //         setLoading(false)
+        //     },
+        //     error => {
+        //         setError(error.response.data.message)
+        //         setLoading(false)
+        //     }
+        // )
+    })
 
-    useEffect(fetchSuiviExposant, [])
+    useEffect(function () {
+        fetchSuiviExposant()
+        fetchStatusExposant()
+    }, [])
 
     return (
         <div>
@@ -40,7 +59,7 @@ export function SuiviExposantView () {
                 {loading ?
                     <CircularProgress />
                     :
-                    <SuiviExposantList suivisExposants={suivisExposants}/>
+                    <SuiviExposantList suivisExposants={suivisExposants} statusExposant={statusExposant}/>
                 }
             </Container>
         </div>

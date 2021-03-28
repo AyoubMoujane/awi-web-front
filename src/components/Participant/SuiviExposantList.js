@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { SuiviExposantItem } from './SuiviExposantItem'
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -14,10 +14,14 @@ const useStyles = makeStyles({
     table: {
         minWidth: 650,
     },
+    box: {
+        width: "50%",
+        height: "50%"
+    }
 });
 
 
-export function SuiviExposantList({ suivisExposants }) {
+export function SuiviExposantList({ suivisExposants, statusExposant}) {
 
     const classes = useStyles();
 
@@ -28,17 +32,18 @@ export function SuiviExposantList({ suivisExposants }) {
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Editeurs</TableCell>
-                            <TableCell align="right">Commentaires</TableCell>
-                            <TableCell align="right">Suivi des échanges</TableCell>
-                            <TableCell align="right">Tables</TableCell>
-                            <TableCell align="right">m2</TableCell>
-                            <TableCell align="right">Factures</TableCell>
-                            <TableCell align="right">Total (€)</TableCell>
+                            <TableCell style={{ width: 50 }}>Exposants</TableCell>
+                            <TableCell style={{ width: 300 }}>Commentaires</TableCell>
+                            <TableCell style={{ width: 500 }}>Suivi des échanges</TableCell>
+                            <TableCell style={{ width: 10 }}>Tables</TableCell>
+                            <TableCell style={{ width: 10 }}>m2</TableCell>
+                            <TableCell style={{ width: 50 }}>Factures</TableCell>
+                            <TableCell style={{ width: 20 }}>Total (€)</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {suivisExposants ? suivisExposants.map(suiviExposant => <SuiviExposantItem key={suiviExposant._id} suiviExposant={suiviExposant}/>) : null}
+                        {suivisExposants ? suivisExposants.map(suiviExposant => <SuiviExposantItem key={suiviExposant.idParticipant} suiviExposant={suiviExposant} statusExposant={statusExposant}/>
+                        ) : null}
                     </TableBody>
                 </Table>
             </TableContainer>

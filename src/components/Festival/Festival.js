@@ -235,7 +235,7 @@ export function Festival({ festival }) {
                 <DialogTitle id="form-dialog-title"><TextField id="standard-full-width" label="Nom du festival" fullWidth value={nom} onChange={(e) => setNom(e.target.value)} /></DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        <DatePicker dateFestival={selectedDate} onDateChange={handleDateChange}/>
+                        <DatePicker date={selectedDate} onChange={handleDateChange} label="date"/>
                     </DialogContentText>
                     <Grid container spacing={3}>
 
