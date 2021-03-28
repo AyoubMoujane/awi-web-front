@@ -57,6 +57,7 @@ class Festival {
     idFestival : int
     nomFestival : string
     date : Date
+    estCourant : bool
     #idEspace : int
 }
 

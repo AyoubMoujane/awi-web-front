@@ -22,9 +22,9 @@ import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import { makeStyles } from '@material-ui/core/styles';
-// import { DatePicker } from '../Ui/DatePicker'
+import { useDispatch } from 'react-redux'
 
-
+import { fetchFestivals } from "../../redux/actions/festival/festivalActions"
 import FestivalService from "../../services/festival/festival"
 
 const useStyles = makeStyles((theme) => ({
@@ -37,13 +37,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export function FestivalForm({ fetchFestivals }) {
+export function FestivalForm() {
+
+  const dispatch = useDispatch()
 
   const classes = useStyles();
 
   const [nom, setNom] = useState('Festival du Jeu Montpellier')
   const [selectedDate, setSelectedDate] = useState(Date.now);
-  const [estCourant, setEstCourant] = useState(true)
+  const [estCourant, setEstCourant] = useState(false)
   const [nbTableEntree, setNbTableEntree] = useState('')
   const [nbTableAccueil, setNbTableAccueil] = useState('')
   const [nbTableBuvette, setNbTableBuvette] = useState('')
@@ -66,9 +68,6 @@ export function FestivalForm({ fetchFestivals }) {
     setSelectedDate(date);
   };
 
-
-
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -77,7 +76,7 @@ export function FestivalForm({ fetchFestivals }) {
     setOpen(false);
     setNom('Festival du Jeu Montpellier')
     setSelectedDate(Date.now)
-    setEstCourant(true)
+    setEstCourant(false)
     setNbTableEntree('')
     setNbTableAccueil('')
     setNbTableBuvette('')
@@ -99,7 +98,7 @@ export function FestivalForm({ fetchFestivals }) {
       festival
     ).then(
       () => {
-        fetchFestivals()
+        dispatch(fetchFestivals())
         handleClose()
       },
       error => {

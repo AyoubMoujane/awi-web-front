@@ -19,11 +19,20 @@ class FestivalService {
             )
     }
 
-    updateFestival(data){
+    updateFestival(data) {
 
         return axios
             .put(`${API_URL}/festivals/${data.idFestival}`,
                 data,
+                { headers: authHeader() }
+            )
+    }
+
+    switchCurrentFestival(previousCurrentFestival, newCurrentFestival) {
+
+        return axios
+            .put(`${API_URL}/festivals/custom/switchCurrent`,
+                { previousCurrentFestival, newCurrentFestival },
                 { headers: authHeader() }
             )
     }
