@@ -6,6 +6,7 @@ import Container from '@material-ui/core/Container'
 import { SuiviExposantList } from '../../components/Participant/SuiviExposantList'
 
 import SuiviExposantService from '../../services/suiviExposant/suiviExposant'
+import StatusExposantService from '../../services/statusExposant/statusExposant'
 
 export function SuiviExposantView () {
 
@@ -14,7 +15,7 @@ export function SuiviExposantView () {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
     const data = {
-        idFestival : 7
+        idFestival : 8
     } 
     
     const fetchSuiviExposant = useCallback(() => {
@@ -33,22 +34,23 @@ export function SuiviExposantView () {
 
     const fetchStatusExposant = useCallback(() => {
         setLoading(true)
-        // SuiviExposantService.getStatusExposant().then(
-        //     response => {
-        //         setStatusExposant(response.data)
-        //         setLoading(false)
-        //     },
-        //     error => {
-        //         setError(error.response.data.message)
-        //         setLoading(false)
-        //     }
-        // )
+        StatusExposantService.getStatusExposant().then(
+            response => {
+                setStatusExposant(response.data)
+                setLoading(false)
+            },
+            error => {
+                setError(error.response.data.message)
+                setLoading(false)
+            }
+        )
     })
 
     useEffect(function () {
         fetchSuiviExposant()
         fetchStatusExposant()
     }, [])
+
 
     return (
         <div>

@@ -21,10 +21,6 @@ class SuiviExposantService {
             { headers: authHeader() });
     }
 
-    getStatusExposant() {
-        return axios.get(`${API_URL}/festival/suiviExposant/statusExposant`, { headers: authHeader() });
-    }
-
 }
 
 export default new SuiviExposantService();

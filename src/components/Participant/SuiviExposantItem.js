@@ -11,6 +11,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 
 import { DatePicker } from "../Ui/DatePicker"
@@ -27,19 +28,21 @@ export function SuiviExposantItem({ suiviExposant, statusExposant }) {
     const [reservation, setReservation] = useState(null)
     const [espacesReserves, setEspacesReserves] = useState(null)
 
+    const participant = suiviExposant.participant
+
     const [commentaire, setCommentaire] = useState(suiviExposant.commentaire)
     const [premierContact, setPremierContact] = useState(suiviExposant.premierContact);
-    const [deuxiemeContact, setDeuxiemeContact] = useState(suiviExposant.deuxiemeContact);
+    const [secondContact, setSecondContact] = useState(suiviExposant.secondContact);
     const [troisiemeContact, setTroisiemeContact] = useState(suiviExposant.troisiemeContact);
     const [benevoles, setBenevoles] = useState(suiviExposant.besoinBenevol)
     const [place, setPlace] = useState(suiviExposant.place)
+    const [status, setStatus] = useState(suiviExposant.statusExposant.nomStatus)
 
 
     const data = {
         idReservation: 1,
-        idFestival: 7
+        idFestival: 8
     }
-
 
     //TODO : voir ou mettre la fonction getReservation
 
@@ -72,30 +75,90 @@ export function SuiviExposantItem({ suiviExposant, statusExposant }) {
         )
     }
 
-    
+
     useEffect(function () {
         findReservation()
         findEspacesReserves()
     }, [])
 
-
-    console.log(espacesReserves)
-
     return (
 
         <TableRow key={suiviExposant.idParticipant}>
             <TableCell component="th" scope="row" style={{ width: 50 }}>
-                <Link component="button" variant="body2">{suiviExposant.idParticipant}</Link>
+                <Link component="button" variant="body2">{participant.nomParticipant}</Link>
             </TableCell>
             <TableCell style={{ width: 400 }}>
                 <Container >
-                    <TextField key={suiviExposant.idParticipant} label="commentaires sur le suivi de l'exposant" size="small" value={suiviExposant.commentaires} fullWidth />
+                    <TextField key={suiviExposant.idParticipant} label="commentaires sur le suivi de l'exposant" size="small" value={commentaire} onChange={(e) => setCommentaire(e.target.value)} fullWidth disabled />
                 </Container>
             </TableCell>
             <TableCell style={{ width: 500 }}>
+                <Grid container spacing={1}>
+                    <Grid item xs={4}>
+                        <DatePicker key={`${suiviExposant.idParticipant}premier`} date={premierContact} onChange={setPremierContact} label="premier contact" />
+                    </Grid>
+                    <Grid item xs={4}>
+                        <DatePicker key={`${suiviExposant.idParticipant}deuxieme`} date={secondContact} onChange={setSecondContact} label="deuxieme contact" />
+                    </Grid>
+                    <Grid item xs={4}>
+                        <DatePicker key={`${suiviExposant.idParticipant}troisieme`} date={troisiemeContact} onChange={setTroisiemeContact} label="troisieme contact" />
+                    </Grid>
+                    <Grid item xs={4}>
+                        { <FormControl>
+                            <InputLabel>Status de l'exposant</InputLabel>
+                            <Select
+                                value={status}
+                                fullWidth
+                                onChange={(e) => setStatus(e.target.value)}
+                            >
+                                {statusExposant.map((status) => (
+                                    <MenuItem key={status.idStatusExposant} value={status.nomStatus} >
+                                        {status.nomStatus}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl> }
+                    </Grid>
+                    <Grid item xs={4}>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    color="primary"
+                                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                                    checked={benevoles}
+                                    onChange={(e) => setBenevoles(e.target.checked)}
+                                />
+                            }
+                            label="Bénévols ?"
+                        />
+                    </Grid>
+                    <Grid item xs={4}>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    color="primary"
+                                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                                    checked={place}
+                                    onChange={(e) => setPlace(e.target.checked)}
+                                />
+                            }
+                            label="Placé sur le plan ?"
+                        />
+                    </Grid>
+                    {/* <Grid item xs={12}>
+                    <FormControl>
+                        <InputLabel>Status de l'exposant</InputLabel>
+                        <Select id={suiviExposant.idParticipant}>
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Grid> */}
 
-                <SuiviEchanges suiviExposant={suiviExposant} reservation={reservation} />
 
+                </Grid>
+                {/* <SuiviEchanges suiviExposant={suiviExposant} reservation={reservation} /> */}
             </TableCell>
             <TableCell >Tables</TableCell>
             <TableCell >m2</TableCell>
@@ -105,7 +168,7 @@ export function SuiviExposantItem({ suiviExposant, statusExposant }) {
     );
 }
 
-
+/*
 
 function SuiviEchanges({ suiviExposant }) {
 
@@ -120,15 +183,6 @@ function SuiviEchanges({ suiviExposant }) {
     return (
         <div>
             <Grid container spacing={1}>
-                {/* <Grid item xs={4}>
-                    <DatePicker key={`${suiviExposant.idParticipant}premier`} date={suiviExposant.premierContact} label="premier contact" />
-                </Grid>
-                <Grid item xs={4}>
-                    <DatePicker key={`${suiviExposant.idParticipant}deuxieme`} date={suiviExposant.secondContact} label="deuxieme contact" />
-                </Grid>
-                <Grid item xs={4}>
-                    <DatePicker key={`${suiviExposant.idParticipant}troisieme`} date={suiviExposant.troisiemeContact} label="troisieme contact" />
-                </Grid> */}
                 <Grid item xs={4}>
                     <FormControlLabel
                         control={
@@ -136,6 +190,8 @@ function SuiviEchanges({ suiviExposant }) {
                                 defaultChecked
                                 color="primary"
                                 inputProps={{ 'aria-label': 'secondary checkbox' }}
+                                value={suiviExposant.besoinBenevol}
+                                onChange={(e) => setBenevoles(e.target.value)}
                             />
                         }
                         label="Bénévols ?"
@@ -148,21 +204,13 @@ function SuiviEchanges({ suiviExposant }) {
                                 defaultChecked
                                 color="primary"
                                 inputProps={{ 'aria-label': 'secondary checkbox' }}
+                                value={suiviExposant.place}
+                                onChange={(e) => setPlace(e.target.value)}
                             />
                         }
                         label="Placé sur le plan ?"
                     />
                 </Grid>
-                {/* <Grid item xs={12}>
-                    <FormControl>
-                        <InputLabel>Status de l'exposant</InputLabel>
-                        <Select id={suiviExposant.idParticipant}>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Grid> */}
 
 
             </Grid>
@@ -170,7 +218,7 @@ function SuiviEchanges({ suiviExposant }) {
     )
 
 }
-
+*/
 
 /*
 
