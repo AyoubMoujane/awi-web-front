@@ -110,18 +110,18 @@ export function Festival({ festival }) {
     const [prixM2Entree, setPrixM2Entree] = useState('')
     const [prixM2Accueil, setPrixM2Accueil] = useState('')
     const [prixM2Buvette, setPrixM2Buvette] = useState('')
-    const [estCourant, setEstCourant] = useState(festival.estCourant)
+    const [estCourant] = useState(festival.estCourant)
 
     // variables calculées
-    const [tableReserveEntree, setTableReserveEntree] = useState(0)
-    const [tableReserveAccueil, setTableReserveAccueil] = useState(0)
-    const [tableReserveBuvette, setTableReserveBuvette] = useState(0)
-    const [m2reserveEntree, setm2reserveEntree] = useState(0)
-    const [m2reserveAccueil, setm2reserveAccueil] = useState(0)
-    const [m2reserveBuvette, setm2reserveBuvette] = useState(0)
-    const [tableRestanteEntree, setTableRestanteEntree] = useState(0)
-    const [tableRestanteAccueil, setTableRestanteAccueil] = useState(0)
-    const [tableRestanteBuvette, setTableRestanteBuvette] = useState(0)
+    const [tableReserveEntree] = useState(0)
+    const [tableReserveAccueil] = useState(0)
+    const [tableReserveBuvette] = useState(0)
+    const [m2reserveEntree] = useState(0)
+    const [m2reserveAccueil] = useState(0)
+    const [m2reserveBuvette] = useState(0)
+    const [tableRestanteEntree] = useState(0)
+    const [tableRestanteAccueil] = useState(0)
+    const [tableRestanteBuvette] = useState(0)
 
 
     const handleDateChange = (date) => {

@@ -61,9 +61,6 @@ export function FestivalForm() {
 
   const [open, setOpen] = React.useState(false);
 
-
-
-
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
@@ -248,7 +245,6 @@ export function FestivalForm() {
                 Enregistrer
               </Button>
             </DialogActions>
-
           </form>
         </DialogContent>
       </Dialog>

@@ -4,11 +4,9 @@ import { FestivalList } from "../../components/Festival/FestivalList"
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography'
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Button from '@material-ui/core/Button';
 
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchFestivals } from "../../redux/actions/festival/festivalActions"
-import filterGetCurrentFestival from "../../utils/filterCurrentFestival"
 
 export function Festivals() {
 

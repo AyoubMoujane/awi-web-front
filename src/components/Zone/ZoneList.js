@@ -1,11 +1,11 @@
 import React from 'react'
 import { Zone } from './Zone'
 
-export function ZoneList({zones}) {
+export function ZoneList({ zones }) {
 
     return (
         <div>
-            {zones.map(zone => <Zone key={zone.idZone} zone={zone}/>)}
+            {zones.map(zone => <Zone key={zone.idZone} zone={zone} />)}
         </div>
     )
 }

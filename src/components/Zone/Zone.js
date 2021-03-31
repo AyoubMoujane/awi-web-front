@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
 export function Zone({ zone }) {
 
     const classes = useStyles();
@@ -38,54 +37,53 @@ export function Zone({ zone }) {
 
     return (
         <div className={classes.root}>
-            
-                <Box component="span" m={1}>
-                    <Accordion>
-                        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-                            <Typography className={classes.heading}>Zone - {zone.nomZone} - {nbJeux} jeux </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography>
-                                <TableContainer component={Paper}>
-                                    <Table className={classes.table} aria-label="simple table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell>Nom du jeu</TableCell>
-                                                <TableCell align="right">Editeur</TableCell>
-                                                <TableCell align="right">Nb Joueur</TableCell>
-                                                <TableCell align="right">Age min</TableCell>
-                                                <TableCell align="right">Type</TableCell>
-                                                <TableCell align="right">Avant-Prem</TableCell>
-                                                <TableCell align="right">Placé ?</TableCell>
-                                                <TableCell align="right">Reçu ?</TableCell>
-                                                <TableCell align="right">Animateurs</TableCell>
+            <Box component="span" m={1}>
+                <Accordion>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+                        <Typography className={classes.heading}>Zone - {zone.nomZone} - {nbJeux} jeux </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Typography>
+                            <TableContainer component={Paper}>
+                                <Table className={classes.table} aria-label="simple table">
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Nom du jeu</TableCell>
+                                            <TableCell align="right">Editeur</TableCell>
+                                            <TableCell align="right">Nb Joueur</TableCell>
+                                            <TableCell align="right">Age min</TableCell>
+                                            <TableCell align="right">Type</TableCell>
+                                            <TableCell align="right">Avant-Prem</TableCell>
+                                            <TableCell align="right">Placé ?</TableCell>
+                                            <TableCell align="right">Reçu ?</TableCell>
+                                            <TableCell align="right">Animateurs</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {zone.jeux.map((jeuReserve) => (
+                                            <TableRow key={jeuReserve.jeu.idJeu}>
+                                                <TableCell component="th" scope="row">{jeuReserve.jeu.nomJeu}</TableCell>
+                                                <TableCell align="right">{jeuReserve.jeu.editeur}</TableCell>
+                                                <TableCell align="right">{jeuReserve.jeu.nbJoueurMin}-{jeuReserve.jeu.nbJoueurMax}</TableCell>
+                                                <TableCell align="right">{jeuReserve.jeu.type}</TableCell>
+                                                <TableCell align="right">{jeuReserve.jeu.prototype}</TableCell>
+                                                <TableCell align="right"></TableCell>
+                                                <TableCell align="right"></TableCell>
+                                                <TableCell align="right"></TableCell>
+                                                <TableCell align="right"></TableCell>
                                             </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-                                            {zone.jeux.map((jeu) => (
-                                                <TableRow key={jeu.idJeu}>
-                                                    <TableCell component="th" scope="row">{jeu.nomJeu}</TableCell>
-                                                    <TableCell align="right">{jeu.editeur}</TableCell>
-                                                    <TableCell align="right">{jeu.nbJoueurMin}-{jeu.nbJoueurMax}</TableCell>
-                                                    <TableCell align="right">{jeu.type}</TableCell>
-                                                    <TableCell align="right">{jeu.prototype}</TableCell>
-                                                    <TableCell align="right"></TableCell>
-                                                    <TableCell align="right"></TableCell>
-                                                    <TableCell align="right"></TableCell>
-                                                    <TableCell align="right"></TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </TableContainer>
-                            </Typography>
-                        </AccordionDetails>
-                        <Container maxWidth="sm">
-                        <TextField id="standard-basic" label="Nombre de jeux" value = {nbJeux} disabled/>
-                        </Container>
-                    </Accordion>
-                </Box>
-         
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </Typography>
+                    </AccordionDetails>
+                    <Container maxWidth="sm">
+                        <TextField id="standard-basic" label="Nombre de jeux" value={nbJeux} disabled />
+                    </Container>
+                </Accordion>
+            </Box>
+
         </div>
     )
 }

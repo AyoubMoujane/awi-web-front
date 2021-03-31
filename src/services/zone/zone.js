@@ -10,6 +10,14 @@ class ZoneService {
         return axios.get(`${API_URL}/zones`, { headers: authHeader() });
     }
 
+    getCurrentFestivalZones() {
+        return axios.get(`${API_URL}/zones/custom/courant`, { headers: authHeader() });
+    }
+
+    create(nomZone, festivalFK) {
+        return axios.post(`${API_URL}/zones`, { nomZone, festivalFK }, { headers: authHeader() })
+    }
+
 }
 
 export default new ZoneService();
