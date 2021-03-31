@@ -21,27 +21,6 @@ export const fetchFestivalsFailure = (error) => {
     }
 }
 
-// export const switchCurrentFestivalRequest = (festival) => {
-//     return {
-//         type: SWITCH_FESTIVAL_REQUEST,
-//         payload: festival
-//     }
-// }
-
-// export const switchCurrentFestivalSuccess = (festivals) => {
-//     return {
-//         type: SWITCH_FESTIVAL_SUCCESS,
-//         payload: festivals
-//     }
-// }
-
-// export const switchCurrentFestivalFailure = (error) => {
-//     return {
-//         type: SWITCH_FESTIVAL_FAILURE,
-//         payload: error
-//     }
-// }
-
 export const fetchFestivals = () => {
     return function (dispatch) {
         dispatch(fetchFestivalsRequest())
