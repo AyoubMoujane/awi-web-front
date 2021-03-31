@@ -15,8 +15,6 @@ export function Festivals() {
     const festivalReducer = useSelector(state => state.festivalReducer)
     const dispatch = useDispatch()
 
-
-
     useEffect(() => dispatch(fetchFestivals()), [])
 
     return (
