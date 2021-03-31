@@ -103,7 +103,7 @@ const routes = [
         'path': '/jeuxExposes',
         'component': JeuExposeView,
         'roles': ['ROLE_ADMIN']
-    }
+    },
 
     {
         'name': 'dashBoardReservation',
