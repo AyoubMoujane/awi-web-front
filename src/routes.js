@@ -11,6 +11,7 @@ import { SuiviExposantView } from "./views/Participant/SuiviExposantView"
 import { ReservationView } from "./views/Reservation/reservationView"
 import { JeuExposeView } from "./views/jeuExpose/jeuExposeView"
 import Jeu from "./views/Jeux/Jeu"
+import { DashBoardReservation } from './views/Reservation/DashboardReservation'
 
 
 
@@ -103,6 +104,14 @@ const routes = [
         'component': JeuExposeView,
         'roles': ['ROLE_ADMIN']
     }
+
+    {
+        'name': 'dashBoardReservation',
+        'path': '/dashBoardReservation',
+        'component': DashBoardReservation,
+        'roles': ['ROLE_ADMIN']
+    }
+    ,
 
 ]
 

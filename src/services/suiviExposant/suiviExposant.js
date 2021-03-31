@@ -7,21 +7,13 @@ const API_URL = config.API_URL
 class SuiviExposantService {
 
     getAllSuivisExposants(data) {
-        return axios.get(`${API_URL}/festival/suiviExposant/${data.idFestival}`, { headers: authHeader() });
+        return axios.get(`${API_URL}/suiviExposant/festival/${data.idFestival}`, { headers: authHeader() });
     }
 
-    getReservation(data) {
-        return axios.get(`${API_URL}/festival/suiviExposant/reservation/${data.idReservation}`, { headers: authHeader() });
-    }
-
-    getEspacesReserves(data) {
-        return axios.get(`${API_URL}/festival/suiviExposant/espacesReserves/`,
-            { params: { idFestival: data.idFestival, idReservation: data.idReservation } },
-            { headers: authHeader() });
-    }
-
-    getStatusExposant() {
-        return axios.get(`${API_URL}/festival/suiviExposant/statusExposant`, { headers: authHeader() });
+    updatePremierContact(data) {
+        return axios.put(`${API_URL}/suiviExposant/premierContact/${data.idFestival}&${data.idParticipant}`, 
+        data,
+        { headers: authHeader() })
     }
 
 }
