@@ -13,7 +13,6 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 export function ZonesView() {
     const [loading, setLoading] = useState(false)
     const [zones, setZone] = useState(null)
-    const [error, setError] = useState(null)
 
     const festivalReducer = useSelector(state => state.festivalReducer)
 
@@ -25,7 +24,6 @@ export function ZonesView() {
                 setLoading(false)
             },
             error => {
-                setError(error.response.data.message)
                 setLoading(false)
             }
         )
