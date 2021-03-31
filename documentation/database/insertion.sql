@@ -42,8 +42,8 @@ INSERT INTO `Participant` (`idParticipant`,`nomParticipant`, `editeurSeulement`)
 (NULL, 'Old Casa Games', '');
 
 /* ZONES */
-INSERT INTO `Zone` (`idZone`,`nomZone`) VALUES
-(NULL, 'Allée centrale'),
-(NULL, 'Zone A'),
-(NULL, 'Zone B'),
-(NULL, 'Zone C');
+INSERT INTO `Zone` (`idZone`,`nomZone`,`festivalFK`) VALUES
+(NULL, 'Allée centrale',1),
+(NULL, 'Zone A',1),
+(NULL, 'Zone B',1),
+(NULL, 'Zone C',2);

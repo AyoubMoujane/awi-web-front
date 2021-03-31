@@ -184,7 +184,13 @@ CREATE TABLE `FestivalDuJeu`.`ReservationEspace` (
 CREATE TABLE `FestivalDuJeu`.`Zone` (
   `idZone` INT NOT NULL AUTO_INCREMENT,
   `nomZone` VARCHAR(100),
-  PRIMARY KEY (`idZone`));
+  `festivalFK` INT NOT NULL,
+  PRIMARY KEY (`idZone`),
+  CONSTRAINT `festivalFK`
+    FOREIGN KEY(`festivalFK`)
+    REFERENCES `FestivalDuJeu`.`Festival`(`idFestival`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION);
 
 
 /* JEUEXPOSE */
