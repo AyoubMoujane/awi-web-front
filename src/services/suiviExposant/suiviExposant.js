@@ -6,7 +6,6 @@ const API_URL = config.API_URL
 
 class SuiviExposantService {
 
-
     getAllSuivisExposants(data) {
         return axios.get(`${API_URL}/festival/suiviExposant/${data.idFestival}`, { headers: authHeader() });
     }
@@ -17,7 +16,7 @@ class SuiviExposantService {
 
     getEspacesReserves(data) {
         return axios.get(`${API_URL}/festival/suiviExposant/espacesReserves/`,
-            { params: { idFestival : data.idFestival, idReservation : data.idReservation} }, 
+            { params: { idFestival: data.idFestival, idReservation: data.idReservation } },
             { headers: authHeader() });
     }
 

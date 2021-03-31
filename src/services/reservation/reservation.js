@@ -15,7 +15,6 @@ class ReservationService {
                 throw err
             })
     }
-   
 
     delete(id) {
         return axios
@@ -28,8 +27,6 @@ class ReservationService {
             })
     }
 
-
-
     get(id) {
         return axios
             .get(`${API_URL}/reservations/${id}`, { headers: authHeader() })
@@ -40,27 +37,28 @@ class ReservationService {
                 throw err
             })
     }
-    create(dateReservation,prix,remise,factureEnvoye,festival,participantReservation,dateModification) {
+
+    create(dateReservation, prix, remise, factureEnvoye, festival, participantReservation, dateModification) {
         return axios
-            .post(`${API_URL}/reservations`, { headers: authHeader(), dateReservation,prix,remise,factureEnvoye,festival,participantReservation, dateModification })
+            .post(`${API_URL}/reservations`, { headers: authHeader(), dateReservation, prix, remise, factureEnvoye, festival, participantReservation, dateModification })
             .then(response => {
                 return response.data;
             })
             .catch(err => {
                 throw err
             })
-      }
-    
-      update(idReservation,dateReservation,prix,remise,factureEnvoye,festival,participantReservation) {
+    }
+
+    update(idReservation, dateReservation, prix, remise, factureEnvoye, festival, participantReservation) {
         return axios
-            .put(`${API_URL}/reservations/`+idReservation, { headers: authHeader(), idReservation,idReservation,dateReservation,prix,remise,factureEnvoye,festival,participantReservation })
+            .put(`${API_URL}/reservations/` + idReservation, { headers: authHeader(), idReservation, idReservation, dateReservation, prix, remise, factureEnvoye, festival, participantReservation })
             .then(response => {
                 return response.data;
             })
             .catch(err => {
                 throw err
             })
-      }
+    }
 
 }
 

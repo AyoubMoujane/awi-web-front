@@ -6,14 +6,6 @@ const API_URL = config.API_URL
 
 class UserService {
 
-    // getOrganisatorHome() {
-    //     return axios.get(`${API_URL}/organisator/home`, { headers: authHeader() });
-    // }
-
-    // getAdminHome() {
-    //     return axios.get(`${API_URL}/admin/home`, { headers: authHeader() });
-    // }
-
     getAllOrganisators() {
         return axios.get(`${API_URL}/admin/organisators`, { headers: authHeader() })
     }

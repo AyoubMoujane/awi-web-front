@@ -10,9 +10,6 @@ import filterCurrentFestival from '../../utils/filterCurrentFestival'
 import RefreshIcon from '@material-ui/icons/Refresh';
 
 
-
-
-
 export function ZonesView() {
     const [loading, setLoading] = useState(false)
     const [zones, setZone] = useState(null)
