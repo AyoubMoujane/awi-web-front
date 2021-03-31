@@ -97,12 +97,12 @@ const routes = [
         'roles': ['ROLE_ADMIN']
     }
     ,
-    // {
-    //     'name': 'jeuxExposes',
-    //     'path': '/jeuxExposes',
-    //     'component': jeuExposeView,
-    //     'roles': ['ROLE_ADMIN']
-    // }
+    {
+        'name': 'jeuxExposes',
+        'path': '/jeuxExposes',
+        'component': JeuExposeView,
+        'roles': ['ROLE_ADMIN']
+    }
 
 ]
 

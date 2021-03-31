@@ -123,6 +123,7 @@ CREATE TABLE `FestivalDuJeu`.`Espace` (
 CREATE TABLE `FestivalDuJeu`.`Reservation` (
   `idReservation` INT NOT NULL AUTO_INCREMENT,
   `dateReservation` DATETIME,
+  `dateModification` DATETIME,
   `prix` FLOAT,
   `remise` FLOAT,
   `factureEnvoye` TINYINT(1),

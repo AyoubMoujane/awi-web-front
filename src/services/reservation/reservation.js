@@ -51,9 +51,9 @@ class ReservationService {
             })
       }
     
-      update(idReservation,dateReservation,prix,remise,factureEnvoye,festival,participantReservation) {
+      update(idReservation,dateReservation,prix,remise,factureEnvoye,festival,participantReservation,dateModification) {
         return axios
-            .put(`${API_URL}/reservations/`+idReservation, { headers: authHeader(), idReservation,idReservation,dateReservation,prix,remise,factureEnvoye,festival,participantReservation })
+            .put(`${API_URL}/reservations/`+idReservation, { headers: authHeader(), idReservation,dateReservation,prix,remise,factureEnvoye,festival,participantReservation,dateModification })
             .then(response => {
                 return response.data;
             })

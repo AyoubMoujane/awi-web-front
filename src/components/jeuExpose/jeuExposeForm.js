@@ -9,6 +9,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import FormGroup from '@material-ui/core/FormGroup';
 import JeuExposeService from '../../services/jeuExpose/jeuExpose'
+import Typography from '@material-ui/core/Typography';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -41,57 +43,63 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export function JeuExposeForm({fetchJeuxExposes}) {
+export function JeuExposeForm({jeuExpose,fetchJeuxExposes}) {
 
     const classes = useStyles();
 
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
-    const [idReservation, setIdReservation] = useState("")
-    const [idJeu, setIdJeu] = useState(0)
-    const [quantiteExpose, setQuantiteExpose] = useState(0)
-    const [quantiteDonation, setQuantiteDonation] = useState(0)
-    const [quantiteTombola, setQuantiteTombola] = useState(false)
-    const [estAmene, setEstAmene] = useState(false)
-    const [estRecu, setEstRecu] = useState(false)
-    const [estARenvoye, setEstARenvoye] = useState(false)
-    const [aEteRenvoye, setAEteRenvoye] = useState(false)
-    const [estPlace, setEstPlace] = useState(false)
-    const [zone, setZone] = useState('')
+    const [idReservation, setIdReservation] = useState(2)
+    const [idJeu, setIdJeu] = useState(1)
+    const [quantiteExpose, setQuantiteExpose] = useState(null)
+    const [quantiteDonation, setQuantiteDonation] = useState(null)
+    const [quantiteTombola, setQuantiteTombola] = useState(null)
+    const [zone, setZone] = useState(1)
+    const [state, setState] = useState({
+        estAmene: true,
+        estRecu: false,
+        estARenvoye: false,
+        aEteRenvoye: false,
+        estPlace: false,
+      });
 
-    const festival = 17
-    const participantReservation = 24    
 
-    const addJeuExpose = (jeu) => {
+    // TO DO : remplacer les valeurs en dur
+    const addJeuExpose = () => {
         setError(null)
         setLoading(true)
-        JeuExposeService.create(idReservation,idJeu,quantiteExpose,quantiteDonation,quantiteTombola,estAmene,estRecu,estARenvoye,aEteRenvoye,estPlace,zone).then(
+        JeuExposeService.create(idReservation,idJeu,quantiteExpose,quantiteDonation,quantiteTombola,state.estAmene,state.estRecu,state.estARenvoye,state.aEteRenvoye,state.estPlace,zone).then(
             () => {
-                fetchJeuxExposes()
-                // handleClose()
+                // fetchJeuxExposes()
             },
             error => {
                 console.log(error)
                 setError(error.response.data.message)
             }
         )
+            jeuExpose = {quantiteExpose,quantiteDonation,quantiteTombola, estAmene : state.estAmene,estRecu : state.estRecu,estARenvoye : state.estARenvoye,aEteRenvoye : state.aEteRenvoye,estPlace : state.estPlace}
         setLoading(false)
     }
 
 
     const handleSubmit = function (e) {
         e.preventDefault();
-        console.log(idReservation,idJeu,quantiteExpose,quantiteDonation,quantiteTombola,estAmene,estRecu,estARenvoye,aEteRenvoye,estPlace,zone)
-
+        console.log ("Création d'un jeu Exposé :")
+        console.log(idReservation,idJeu,quantiteExpose,quantiteDonation,quantiteTombola,state.estAmene,state.estRecu,state.estARenvoye,state.aEteRenvoye,state.estPlace,zone)
+        jeuExpose = {quantiteExpose,quantiteDonation,quantiteTombola, estAmene : state.estAmene,estRecu : state.estRecu,estARenvoye : state.estARenvoye,aEteRenvoye : state.aEteRenvoye,estPlace : state.estPlace}
+        addJeuExpose()
     }
     const handleSwitch = (event) => {
-        setEstAmene(event.target.checked);
+        setState({ ...state, [event.target.name]: event.target.checked });
       };
 
 
     return (
         <div>
-                        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+                <form className={classes.form} noValidate onSubmit={handleSubmit}>
+                        <Typography component="h1" variant="h5">
+                        Ajouter un jeu à la réservation
+                    </Typography>
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
                                     <TextField
@@ -132,7 +140,7 @@ export function JeuExposeForm({fetchJeuxExposes}) {
                                     <FormControlLabel                                     
                                         control={
                                           <Switch
-                                            checked={estAmene}
+                                            checked={state.estAmene}
                                             onChange={handleSwitch}
                                             name="estAmene"
                                             color="primary"       
@@ -143,7 +151,7 @@ export function JeuExposeForm({fetchJeuxExposes}) {
                                     <FormControlLabel                                     
                                         control={
                                           <Switch
-                                            checked={estRecu}
+                                            checked={state.estRecu}
                                             onChange={handleSwitch}
                                             name="estRecu"
                                             color="primary"       
@@ -154,7 +162,7 @@ export function JeuExposeForm({fetchJeuxExposes}) {
                                     <FormControlLabel                                     
                                         control={
                                           <Switch
-                                            checked={estARenvoye}
+                                            checked={state.estARenvoye}
                                             onChange={handleSwitch}
                                             name="estARenvoye"
                                             color="primary"       
@@ -165,7 +173,7 @@ export function JeuExposeForm({fetchJeuxExposes}) {
                                     <FormControlLabel                                     
                                         control={
                                           <Switch
-                                            checked={aEteRenvoye}
+                                            checked={state.aEteRenvoye}
                                             onChange={handleSwitch}
                                             name="aEteRenvoye"
                                             color="primary"       
@@ -176,7 +184,7 @@ export function JeuExposeForm({fetchJeuxExposes}) {
                                     <FormControlLabel                                     
                                         control={
                                           <Switch
-                                            checked={estPlace}
+                                            checked={state.estPlace}
                                             onChange={handleSwitch}
                                             name="estPlace"
                                             color="primary"       
@@ -200,8 +208,9 @@ export function JeuExposeForm({fetchJeuxExposes}) {
                                 color="primary"
                                 className={classes.submit}
                                 disabled={loading}
+                                onClick = {handleSubmit}
                             >
-                                Enregistrer
+                                Enregistrer Jeu
                         </Button>
                         </form>
         </div>

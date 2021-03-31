@@ -25,7 +25,10 @@ import Chip from '@material-ui/core/Chip';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
-
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
+import Tooltip from '@material-ui/core/Tooltip';
+import RemoveIcon from '@material-ui/icons/Remove';
 
 
 
@@ -33,6 +36,14 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ReservationService from "../../services/reservation/reservation"
 import JeuService from '../../services/jeu/jeu'
 import {JeuExposeForm} from '../jeuExpose/jeuExposeForm'
+import JeuExposeService from '../../services/jeuExpose/jeuExpose'
+import ZoneService from '../../services/zone/zone'
+import ParticipantService from '../../services/participant/participant'
+import compare from '../../utils/compare.js'
+
+
+
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -99,20 +110,44 @@ export function ReservationForm({fetchReservations}) {
 
     const classes = useStyles();
 
+    // Un jeu exposé
+    const [state, setState] = useState({
+        estAmene: true,
+        estRecu: false,
+        estARenvoye: false,
+        aEteRenvoye: false,
+        estPlace: false,
+      })
+    const [idReservation, setIdReservation] = useState(2)
+    const [idJeu, setIdJeu] = useState(1)
+    const [quantiteExpose, setQuantiteExpose] = useState(null)
+    const [quantiteDonation, setQuantiteDonation] = useState(null)
+    const [quantiteTombola, setQuantiteTombola] = useState(null)
+    const [zone, setZone] = useState(1)
+
+    // Liste de jeux, zones et partcipant
     const [jeux, setJeux] = useState([])
     const [jeuxAdded, setJeuxAdded] = useState([])
-    const [open, setOpen] = useState(false);
+    const [zones, setZones] = useState([])
+    const [participants, setParticipants] = useState([])
 
+    // Etats du form
+    const [open, setOpen] = useState(false);
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [ajouterJeu, setAjouterJeu] = useState(false)
+
+    // Une reservation
     const [dateReservation, setDateReservation] = useState("")
     const [prix, setPrix] = useState(0)
     const [remise, setRemise] = useState(0)
     const [factureEnvoye, setFactureEnvoye] = useState(false)
+    const [participant, setParticipant] = useState("")
     const dateModification = new Date()
-    const festival = 17
-    const participantReservation = 24
+    const festival = 1
+    const participantReservation = 1
 
+    // Les handle
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -131,7 +166,8 @@ export function ReservationForm({fetchReservations}) {
         setFactureEnvoye(false);
     };
 
-    const fetchJeux = useCallback(() => {
+    // Récupérer les jeux
+    const fetchData = useCallback(() => {
         JeuService.findAll().then(
             response => {
                 setJeux(response)
@@ -140,17 +176,53 @@ export function ReservationForm({fetchReservations}) {
                 setError(error.response)
             }
         )
+        ZoneService.getZones().then(
+            response => {
+                setZones(response.data)
+            },
+            error => {
+                setError(error.response)
+            }
+        )
+        ParticipantService.findAll()
+            .then(data => {
+                console.log(data)
+                setLoading(false)
+                data.sort(compare)
+                setParticipants(data)
+            })
+            .catch(err => {
+                console.log(err)
+                setLoading(false)
+            })
     })
-    useEffect(fetchJeux, [])
+    useEffect(fetchData, [])
     
-
-    const addReservation = (reservation) => {
+    // Ajout d'une réservation
+    const  addReservation = () => {
         setError(null)
         setLoading(true)
         ReservationService.create(dateReservation,prix,remise,factureEnvoye,festival,participantReservation, dateModification).then(
+            (res) => {
+                setIdReservation(res.idReservation)
+                //fetchReservations()
+                //handleClose()
+            },
+            error => {
+                console.log(error)
+                setError(error.response.data.message)
+            }
+        )
+        setLoading(false)
+    }
+    const addJeuExpose = () => {
+        setError(null)
+        setLoading(true)
+        console.log("idReservation :" + idReservation)
+        JeuExposeService.create(idReservation,idJeu,quantiteExpose,quantiteDonation,quantiteTombola,state.estAmene,state.estRecu,state.estARenvoye,state.aEteRenvoye,state.estPlace,zone).then(
             () => {
-                fetchReservations()
-                handleClose()
+                // fetchJeuxExposes()
+                
             },
             error => {
                 console.log(error)
@@ -161,13 +233,19 @@ export function ReservationForm({fetchReservations}) {
     }
 
 
-    const handleSubmit = function (e) {
+    const handleSubmit = async function(e) {
         e.preventDefault();
-        addReservation(dateReservation,prix,remise,factureEnvoye,festival,participantReservation,dateModification)
+        await addReservation(dateReservation,prix,remise,factureEnvoye,festival,participantReservation,dateModification)
+        addJeuExpose()
+        console.log("idReservation :" + idReservation + " idJeu :" +idJeu+ " idZone : "+ zone) 
+        
 
     }
     const handleSwitch = (event) => {
         setFactureEnvoye(event.target.checked);
+      };
+      const handleSwitchJeu = (event) => {
+        setState({ ...state, [event.target.name]: event.target.checked });
       };
       const handleChangeMultiple = (event) => {
         const { options } = event.target;
@@ -177,7 +255,6 @@ export function ReservationForm({fetchReservations}) {
             value.push(options[i].value);
           }
         }
-        //setPersonName(value);
       };
 
 
@@ -205,6 +282,22 @@ export function ReservationForm({fetchReservations}) {
                     </Typography>
                         <form className={classes.form} noValidate onSubmit={handleSubmit}>
                             <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id="standard-select-currency"
+                                    select
+                                    fullWidth
+                                    label="Participant"
+                                    onChange={(e) => setParticipant(e.target.value)}
+                                    >
+                                     {
+                                        participants.map((participant) => (
+                                        <MenuItem key={participant.idParticipant} value={participant.idParticipant}>
+                                          {participant.nomParticipant}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                                </Grid>
                                 <Grid item xs={12}>
                                     <TextField
                                         id="datetime-local"
@@ -222,6 +315,7 @@ export function ReservationForm({fetchReservations}) {
                                         onChange={(e) => setDateReservation(e.target.value)}
                                     />
                                 </Grid>
+                                
                                 <Grid item xs={12}>
                                     <TextField
                                         variant="outlined"
@@ -243,7 +337,7 @@ export function ReservationForm({fetchReservations}) {
                                         id="remise"
                                         onChange={(e) => setRemise(e.target.value)}
                                     />
-<FormControl className={classes.formControl}>
+{/* <FormControl className={classes.formControl}>
         <InputLabel id="demo-mutiple-chip-label">Les jeux</InputLabel>
         <Select
           labelId="demo-mutiple-chip-label"
@@ -268,8 +362,9 @@ export function ReservationForm({fetchReservations}) {
             </MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControl> */}
                                 </Grid>
+                                
                                 <Grid item xs={12}>
                                     <FormGroup row>
                                     <FormControlLabel                                     
@@ -285,7 +380,149 @@ export function ReservationForm({fetchReservations}) {
                                     />
                                     </FormGroup>
                                 </Grid>
-                                <JeuExposeForm></JeuExposeForm>
+                                {/* //////////// */}
+                                {ajouterJeu && (<div><Grid container justify="center">
+                                <Typography component="h7" variant="h6">Ajouter un jeu à la réservation</Typography>
+                                </Grid>
+                            <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id="standard-select-currency"
+                                    select
+                                    fullWidth
+                                    label="Jeu"
+                                    onChange={(e) => setIdJeu(e.target.value)}
+                                    >
+                                     {
+                                        jeux.map((jeu) => (
+                                        <MenuItem key={jeu.idJeu} value={jeu.idJeu}>
+                                          {jeu.nomJeu}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id="standard-select-currency"
+                                    select
+                                    fullWidth
+                                    label="Zone"
+                                    onChange={(e) => setZone(e.target.value)}
+                                    >
+                                     {
+                                        zones.map((zone) => (
+                                        <MenuItem key={zone.idZone} value={zone.idZone}>
+                                          {zone.nomZone}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                                </Grid>
+                                
+                                <Grid item xs={12}>
+                                    <TextField
+                                        label="Quantité exposée"
+                                        required
+                                        fullWidth
+                                        defaultValue= {1}
+                                        label="Quantité exposée"
+                                        fullWidth
+                                        autoFocus
+                                        onChange={(e) => setQuantiteExpose(e.target.value)}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="Quantité Donation"
+                                        label="Quantité Donation"
+                                        name="Quantité Donation"
+                                        onChange={(e) => setQuantiteDonation(e.target.value)}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        name="Quantité Tombola"
+                                        label="Quantité Tombola"
+                                        id="quantiteTombola"
+                                        onChange={(e) => setQuantiteTombola(e.target.value)}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <FormGroup row>
+                                    <FormControlLabel                                     
+                                        control={
+                                          <Switch
+                                            checked={state.estAmene}
+                                            onChange={handleSwitchJeu}
+                                            name="estAmene"
+                                            color="primary"       
+                                          />
+                                        }
+                                        label="Amené par l'exposant ?"
+                                    />
+                                    <FormControlLabel                                     
+                                        control={
+                                          <Switch
+                                            checked={state.estRecu}
+                                            onChange={handleSwitchJeu}
+                                            name="estRecu"
+                                            color="primary"       
+                                          />
+                                        }
+                                        label="Jeu reçu ?"
+                                    />
+                                    <FormControlLabel                                     
+                                        control={
+                                          <Switch
+                                            checked={state.estARenvoye}
+                                            onChange={handleSwitchJeu}
+                                            name="estARenvoye"
+                                            color="primary"       
+                                          />
+                                        }
+                                        label="Jeu à renvoyé ?"
+                                    />
+                                    <FormControlLabel                                     
+                                        control={
+                                          <Switch
+                                            checked={state.aEteRenvoye}
+                                            onChange={handleSwitchJeu}
+                                            name="aEteRenvoye"
+                                            color="primary"       
+                                          />
+                                        }
+                                        label="Jeu a été renvoyé ?"
+                                    />
+                                    <FormControlLabel                                     
+                                        control={
+                                          <Switch
+                                            checked={state.estPlace}
+                                            onChange={handleSwitchJeu}
+                                            name="estPlace"
+                                            color="primary"       
+                                          />
+                                        }
+                                        label="Jeu placé sur le plan ?"
+                                    />
+                                    </FormGroup>
+                                </Grid> 
+                            </Grid> </div>)}
+
+                                <Grid container justify="center">
+                                    <Grid item>
+                                     <Tooltip title="Ajouter un jeu" aria-label="add" placement="top-end">
+                                        <Fab color="primary">
+                                       <AddIcon onClick={()=>setAjouterJeu(!ajouterJeu)} />
+                                        </Fab>
+                                    </Tooltip>
+                                    </Grid>
+                                </Grid>
+                                
                             </Grid>
                             <br/>
                             <Box>

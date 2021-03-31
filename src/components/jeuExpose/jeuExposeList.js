@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { JeuExpose } from './JeuExpose'
+import { JeuExpose } from './jeuExpose'
 import List from '@material-ui/core/List';
 
 export function JeuExposeList({jeuxExposes,fetchJeuxExposes}) {
