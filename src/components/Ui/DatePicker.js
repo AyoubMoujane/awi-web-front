@@ -22,7 +22,6 @@ export function DatePicker({date, onChange, label}) {
                 <KeyboardDatePicker
                     size="small"
                     margin="normal"
-                    id="date-picker-dialog"
                     label={label}
                     format="yyyy-MM-dd"
                     value={date}
