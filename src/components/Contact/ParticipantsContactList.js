@@ -46,6 +46,10 @@ export default function ParticipantsContactList() {
             })
     }
 
+    const handleClick = () => {
+
+    }
+
     useEffect(fetchParticipants, []);
 
     function compare(a, b) {

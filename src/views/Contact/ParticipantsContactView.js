@@ -62,7 +62,6 @@ export function ParticipantsContactView() {
 
     return (
         <div>
-            <p>ParticipantsContactView</p>
 
             <ParticipantsContactList></ParticipantsContactList>
 
