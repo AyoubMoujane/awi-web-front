@@ -10,6 +10,7 @@ import { OrganisatorView } from "./views/Organisateur/OrganisatorView"
 import { SuiviExposantView } from "./views/Participant/SuiviExposantView"
 import { ReservationView } from "./views/Reservation/reservationView"
 import { JeuExposeView } from "./views/jeuExpose/jeuExposeView"
+import { ParticipantsContactView } from "./views/Contact/ParticipantsContactView"
 import Jeu from "./views/Jeux/Jeu"
 import { DashBoardReservation } from './views/Reservation/DashboardReservation'
 
@@ -64,7 +65,7 @@ const routes = [
         'name': 'participants',
         'path': '/participants',
         'component': ParticipantsView,
-        'roles': ['ROLE_ADMIN','ROLE_ORGANISATOR']
+        'roles': ['ROLE_ADMIN', 'ROLE_ORGANISATOR']
     },
     {
 
@@ -110,8 +111,14 @@ const routes = [
         'path': '/dashBoardReservation',
         'component': DashBoardReservation,
         'roles': ['ROLE_ADMIN']
+    },
+
+    {
+        'name': 'participantsContact',
+        'path': '/participantsContact',
+        'component': ParticipantsContactView,
+        'roles': ['ROLE_ADMIN']
     }
-    ,
 
 ]
 
