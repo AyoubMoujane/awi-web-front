@@ -5,13 +5,13 @@ import CardContent from '@material-ui/core/CardContent';
 
 import AuthService from "../../services/authentification/auth";
 
-import { useDispatch } from 'react-redux'
-import { fetchFestivals } from "../../redux/actions/festival/festivalActions"
+// import { useDispatch } from 'react-redux'
+// import { fetchFestivals } from "../../redux/actions/festival/festivalActions"
 
 export function Profile() {
 
-    const dispatch = useDispatch()
-    useEffect(() => dispatch(fetchFestivals()), [])
+    // const dispatch = useDispatch()
+    // useEffect(() => dispatch(fetchFestivals()), [])
 
     const currentUser = AuthService.getCurrentUser()
 
