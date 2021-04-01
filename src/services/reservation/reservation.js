@@ -60,8 +60,9 @@ class ReservationService {
             })
     }
 
-    getReservation(data) {
-        return axios.get(`${API_URL}/festival/suiviExposant/reservation/${data.idReservation}`, { headers: authHeader() });
+    getReservationByExposant(data) {
+        return axios.get(`${API_URL}/reservationExposant/${data.festival}&${data.participantReservation}`, 
+        { headers: authHeader() });
     }
 
     getEspacesReservesForReservation(data) {

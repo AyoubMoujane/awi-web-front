@@ -21,6 +21,8 @@ import SuiviExposantService from '../../services/suiviExposant/suiviExposant'
 
 export function SuiviExposantItem({ suiviExposant, statusExposant }) {
 
+
+
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
 
@@ -42,37 +44,12 @@ export function SuiviExposantItem({ suiviExposant, statusExposant }) {
     const [status, setStatus] = useState(suiviExposant.statusExposant.nomStatus)
 
 
-    const data = {
-        idReservation: 27,
-    }
-
-    //TODO : voir ou mettre la fonction getReservation
-
-    // const findReservation = () => {
-    //     setLoading(true)
-    //     ReservationService.getReservation(data).then(
-    //         response => {
-    //             setReservation(response.data)
-    //             setLoading(false)
-    //         },
-    //         error => {
-    //             setError(error.response.data.message)
-    //             setLoading(false)
-    //         }
-    //     )
-    // }
-
-
-    const handleClick = (idParticipant) => {
-        <Redirect to="/dashBoardReservation/"idParticipant/>
-    }
-
     const handleChangeDate1 = (date) => {
         setLoading(true)
         setPremierContact(date)
 
         const data = {
-            idFestival: 8,
+            idFestival: suiviExposant.idFestival,
             idParticipant: participant.idParticipant,
             premierContact: date
         }
@@ -81,17 +58,103 @@ export function SuiviExposantItem({ suiviExposant, statusExposant }) {
             .then(()=>{
                 setLoading(false)
             })
-    }   
-
-
-    const findEspacesReserves = () => {
+    } 
+    
+    const handleChangeDate2 = (date) => {
         setLoading(true)
-        ReservationService.getEspacesReservesForReservation(data).then(
+        setSecondContact(date)
+
+        const data = {
+            idFestival: suiviExposant.idFestival,
+            idParticipant: participant.idParticipant,
+            secondContact: date
+        }
+
+        SuiviExposantService.updateSecondContact(data)
+            .then(()=>{
+                setLoading(false)
+            })
+    } 
+
+    const handleChangeDate3 = (date) => {
+        setLoading(true)
+        setTroisiemeContact(date)
+
+        const data = {
+            idFestival: suiviExposant.idFestival,
+            idParticipant: participant.idParticipant,
+            troisiemeContact: date
+        }
+
+        SuiviExposantService.updateTroisiemeContact(data)
+            .then(()=>{
+                setLoading(false)
+            })
+    } 
+
+    const handleChangeStatus = (status) => {
+        setLoading(true)
+        setStatus(status)
+
+        const data = {
+            idFestival: suiviExposant.idFestival,
+            idParticipant: participant.idParticipant,
+            status: status
+        }
+
+        SuiviExposantService.updateStatus(data)
+            .then(()=>{
+                setLoading(false)
+            })
+    } 
+
+    const handleChangePlace = (place) => {
+        setLoading(true)
+        setPlace(place)
+
+        const data = {
+            idFestival: suiviExposant.idFestival,
+            idParticipant: participant.idParticipant,
+            place: place
+        }
+
+        SuiviExposantService.updatePlace(data)
+            .then(()=>{
+                setLoading(false)
+            })
+    }
+    
+
+    const handleChangeBenevol = (benevoles) => {
+        setLoading(true)
+        setBenevoles(benevoles)
+
+        const data = {
+            idFestival: suiviExposant.idFestival,
+            idParticipant: participant.idParticipant,
+            besoinBenevol: benevoles
+        }
+
+        SuiviExposantService.updateBesoinBenevol(data)
+            .then(()=>{
+                setLoading(false)
+            })
+    }
+
+
+
+    const findReservation = () => {
+
+        setLoading(true)
+
+        const data = {
+            festival: suiviExposant.idFestival,
+            participantReservation: suiviExposant.idParticipant
+        }
+
+        ReservationService.getReservationByExposant(data).then(
             response => {
-                setEspacesReserves(response.data)
-                setNbTotalTables(ReservationService.calculTotalNbTables(espacesReserves))
-                setNbTotalM2(ReservationService.calculTotalM2(espacesReserves))
-                setPrixTotal(ReservationService.calculPrixTotal(espacesReserves))
+                setReservation(response.data)
                 setLoading(false)
             },
             error => {
@@ -102,15 +165,44 @@ export function SuiviExposantItem({ suiviExposant, statusExposant }) {
     }
 
 
+
+
+    async function findEspacesReserves () {
+
+        setLoading(true)
+
+        await findReservation()
+        
+
+        ReservationService.getEspacesReservesForReservation(reservation).then(
+            response => {
+                const data = response.data
+                setEspacesReserves(data)
+                setNbTotalTables(ReservationService.calculTotalNbTables(data))
+                setNbTotalM2(ReservationService.calculTotalM2(data))
+                setPrixTotal(ReservationService.calculPrixTotal(data))
+                setLoading(false)
+            },
+            error => {
+                setError(error.response.data.message)
+                setLoading(false)
+            }
+        )
+    }
+
+
+
+
     useEffect(function () {
         findEspacesReserves()
     }, [])
+
 
     return (
             
                 <TableRow key={suiviExposant.idParticipant}>
                     <TableCell component="th" scope="row" style={{ width: 50 }}>
-                        <Link component="button" variant="body2" onClick={handleClick(participant.idParticipant)}>{participant.nomParticipant}</Link>
+                        <Link component="button" variant="body2" >{participant.nomParticipant}</Link>
                     </TableCell>
                     <TableCell style={{ width: 400 }}>
                         <Container >
@@ -123,21 +215,22 @@ export function SuiviExposantItem({ suiviExposant, statusExposant }) {
                                 <DatePicker key={`${suiviExposant.idParticipant}premier`} date={premierContact} onChange={handleChangeDate1} label="premier contact" />
                             </Grid>
                             <Grid item xs={4}>
-                                <DatePicker key={`${suiviExposant.idParticipant}deuxieme`} date={secondContact} onChange={setSecondContact} label="deuxieme contact" />
+                                <DatePicker key={`${suiviExposant.idParticipant}deuxieme`} date={secondContact} onChange={handleChangeDate2} label="deuxieme contact" />
                             </Grid>
                             <Grid item xs={4}>
-                                <DatePicker key={`${suiviExposant.idParticipant}troisieme`} date={troisiemeContact} onChange={setTroisiemeContact} label="troisieme contact" />
+                                <DatePicker key={`${suiviExposant.idParticipant}troisieme`} date={troisiemeContact} onChange={handleChangeDate3} label="troisieme contact" />
                             </Grid>
                             <Grid item xs={4}>
                                 {<FormControl>
                                     <InputLabel>Status de l'exposant</InputLabel>
                                     <Select
-                                        value={status}
+                                        id={participant.idParticipant}
+                                        value={statusExposant.nomStatus}
                                         fullWidth
-                                        onChange={(e) => setStatus(e.target.value)}
+                                        onChange={(e) => handleChangeStatus(e.target.value)}
                                     >
                                         {statusExposant.map((status) => (
-                                            <MenuItem key={status.idStatusExposant} value={status.nomStatus} >
+                                            <MenuItem key={status.idStatusExposant} value={status.idStatusExposant}>
                                                 {status.nomStatus}
                                             </MenuItem>
                                         ))}
@@ -151,7 +244,7 @@ export function SuiviExposantItem({ suiviExposant, statusExposant }) {
                                             color="primary"
                                             inputProps={{ 'aria-label': 'secondary checkbox' }}
                                             checked={benevoles}
-                                            onChange={(e) => setBenevoles(e.target.checked)}
+                                            onChange={(e) => handleChangeBenevol(e.target.checked)}
                                         />
                                     }
                                     label="Bénévols ?"
@@ -164,7 +257,7 @@ export function SuiviExposantItem({ suiviExposant, statusExposant }) {
                                             color="primary"
                                             inputProps={{ 'aria-label': 'secondary checkbox' }}
                                             checked={place}
-                                            onChange={(e) => setPlace(e.target.checked)}
+                                            onChange={(e) => handleChangePlace(e.target.checked)}
                                         />
                                     }
                                     label="Placé sur le plan ?"
