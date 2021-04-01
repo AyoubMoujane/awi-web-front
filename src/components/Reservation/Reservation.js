@@ -129,6 +129,9 @@ export function Reservation({ reservation, fetchReservations }) {
                         primary={reservation.Participant.nomParticipant}
                     />
                     <ListItemText
+                        primary={reservation.idReservation}
+                    />
+                    <ListItemText
                         primary={reservation.dateReservation}
                     />
                     <ListItemText

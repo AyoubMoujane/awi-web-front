@@ -29,11 +29,16 @@ import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 import RemoveIcon from '@material-ui/icons/Remove';
+import filterCurrentFestival from '../../utils/filterCurrentFestival'
+import { useSelector } from 'react-redux'
 
 
 
 
 import ReservationService from "../../services/reservation/reservation"
+import ReservationEspaceService from "../../services/reservationEspace/reservationEspace"
+import FestivalService from "../../services/festival/festival"
+
 import JeuService from '../../services/jeu/jeu'
 import {JeuExposeForm} from '../jeuExpose/jeuExposeForm'
 import JeuExposeService from '../../services/jeuExpose/jeuExpose'
@@ -109,6 +114,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export function ReservationForm({fetchReservations}) {
 
     const classes = useStyles();
+    const festivalReducer = useSelector(state => state.festivalReducer)
+
 
     // Un jeu exposé
     const [state, setState] = useState({
@@ -118,8 +125,8 @@ export function ReservationForm({fetchReservations}) {
         aEteRenvoye: false,
         estPlace: false,
       })
-    const [idReservation, setIdReservation] = useState(2)
-    const [idJeu, setIdJeu] = useState(1)
+    const [idReservation, setIdReservation] = useState(null)
+    const [idJeu, setIdJeu] = useState(null)
     const [quantiteExpose, setQuantiteExpose] = useState(null)
     const [quantiteDonation, setQuantiteDonation] = useState(null)
     const [quantiteTombola, setQuantiteTombola] = useState(null)
@@ -130,6 +137,8 @@ export function ReservationForm({fetchReservations}) {
     const [jeuxAdded, setJeuxAdded] = useState([])
     const [zones, setZones] = useState([])
     const [participants, setParticipants] = useState([])
+    const [espaces, setEspaces] = useState([])
+
 
     // Etats du form
     const [open, setOpen] = useState(false);
@@ -144,8 +153,12 @@ export function ReservationForm({fetchReservations}) {
     const [factureEnvoye, setFactureEnvoye] = useState(false)
     const [participant, setParticipant] = useState("")
     const dateModification = new Date()
-    const festival = 1
-    const participantReservation = 1
+    const festival = 8 //filterCurrentFestival(festivalReducer.data).idFestival
+
+    // Une reservation
+    const [idEspace, setIdEspace] = useState("")
+    const [nbTable, setNbTable] = useState(0)
+    const [nbM2, setNbM2] = useState(0)
 
     // Les handle
     const handleClickOpen = () => {
@@ -195,32 +208,46 @@ export function ReservationForm({fetchReservations}) {
                 console.log(err)
                 setLoading(false)
             })
+        FestivalService.get(festival)
+            .then(data => {
+
+                setEspaces(data.espaces)
+            })
+            .catch(err => {
+                console.log(err)
+                setLoading(false)
+            })
+        
     })
     useEffect(fetchData, [])
     
     // Ajout d'une réservation
-    const  addReservation = () => {
+    const  addReservation = async () => {
         setError(null)
         setLoading(true)
-        ReservationService.create(dateReservation,prix,remise,factureEnvoye,festival,participantReservation, dateModification).then(
+        ReservationService.create(dateReservation,prix,remise,factureEnvoye,festival,participant, dateModification).then(
             (res) => {
+                console.log("Après création, idReservation : " +res.idReservation)
                 setIdReservation(res.idReservation)
-                //fetchReservations()
-                //handleClose()
+                addJeuExpose(res.idReservation)
+                addReservationEspace(res.idReservation)
+                fetchReservations()
+                handleClose()
             },
             error => {
                 console.log(error)
-                setError(error.response.data.message)
+                setError(error.message)
+                return error
             }
         )
         setLoading(false)
     }
-    const addJeuExpose = () => {
+    const addJeuExpose = (idReservation) => {
         setError(null)
         setLoading(true)
-        console.log("idReservation :" + idReservation)
         JeuExposeService.create(idReservation,idJeu,quantiteExpose,quantiteDonation,quantiteTombola,state.estAmene,state.estRecu,state.estARenvoye,state.aEteRenvoye,state.estPlace,zone).then(
             () => {
+                
                 // fetchJeuxExposes()
                 
             },
@@ -231,13 +258,31 @@ export function ReservationForm({fetchReservations}) {
         )
         setLoading(false)
     }
+    const addReservationEspace = (idReservation) => {
+        setError(null)
+        setLoading(true)
+        ReservationEspaceService.create(idReservation,idEspace,nbTable,nbM2).then(
+            () => {
+                
+            },
+            error => {
+                console.log(error)
+                setError(error.response)
+            }
+        )
+        setLoading(false)
+    }
 
 
-    const handleSubmit = async function(e) {
+    const handleSubmit = async  (e)=> {
         e.preventDefault();
-        await addReservation(dateReservation,prix,remise,factureEnvoye,festival,participantReservation,dateModification)
-        addJeuExpose()
-        console.log("idReservation :" + idReservation + " idJeu :" +idJeu+ " idZone : "+ zone) 
+        console.log("addReservation: " + addReservation)
+        console.log( "date : " +dateReservation + "idParticipant = "+participant)
+        addReservation()
+  
+
+        
+        //handleClose()
         
 
     }
@@ -247,15 +292,7 @@ export function ReservationForm({fetchReservations}) {
       const handleSwitchJeu = (event) => {
         setState({ ...state, [event.target.name]: event.target.checked });
       };
-      const handleChangeMultiple = (event) => {
-        const { options } = event.target;
-        const value = [];
-        for (let i = 0, l = options.length; i < l; i += 1) {
-          if (options[i].selected) {
-            value.push(options[i].value);
-          }
-        }
-      };
+
 
 
     return (
@@ -337,32 +374,6 @@ export function ReservationForm({fetchReservations}) {
                                         id="remise"
                                         onChange={(e) => setRemise(e.target.value)}
                                     />
-{/* <FormControl className={classes.formControl}>
-        <InputLabel id="demo-mutiple-chip-label">Les jeux</InputLabel>
-        <Select
-          labelId="demo-mutiple-chip-label"
-          id="demo-mutiple-chip"
-          multiple
-          value={jeuxAdded}
-          fullWidth
-          onChange={handleChange}
-          input={<Input id="select-multiple-chip" />}
-          renderValue={(selected) => (
-            <div className={classes.chips}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} className={classes.chip} />
-              ))}
-            </div>
-          )}
-          MenuProps={MenuProps}
-        >
-          {jeux.map((jeu) => (
-            <MenuItem key={jeu.nomJeu} value={jeu.nomJeu} >
-              {jeu.nomJeu}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl> */}
                                 </Grid>
                                 
                                 <Grid item xs={12}>
@@ -382,7 +393,7 @@ export function ReservationForm({fetchReservations}) {
                                 </Grid>
                                 {/* //////////// */}
                                 {ajouterJeu && (<div><Grid container justify="center">
-                                <Typography component="h7" variant="h6">Ajouter un jeu à la réservation</Typography>
+                                <Typography component="h7" variant="h6">Jeu</Typography>
                                 </Grid>
                             <Grid container spacing={2}>
                             <Grid item xs={12}>
@@ -511,11 +522,56 @@ export function ReservationForm({fetchReservations}) {
                                     />
                                     </FormGroup>
                                 </Grid> 
-                            </Grid> </div>)}
+                            </Grid>
+                            <Grid container justify="center">
+                                <Typography component="h7" variant="h6">Espace</Typography>
+                                </Grid>
+                                <Grid item xs={12}>
+                                <TextField
+                                    id="standard-select-currency"
+                                    select
+                                    fullWidth
+                                    label="Espace"
+                                    onChange={(e) => setIdEspace(e.target.value)}
+                                    >
+                                     {
+                                        espaces.map((espace) => (
+                                        <MenuItem key={espace.idEspace} value={espace.idEspace}>
+                                          {espace.idEspace}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        name="remise"
+                                        label="Nombre de table"
+                                        id="nbTable"
+                                        onChange={(e) => setNbTable(e.target.value)}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        name="remise"
+                                        label="Nombre de m²"
+                                        id="nbM2"
+                                        onChange={(e) => setNbM2(e.target.value)}
+                                    />
+                                </Grid>
+
+                            
+                            
+                             </div>)}
 
                                 <Grid container justify="center">
                                     <Grid item>
-                                     <Tooltip title="Ajouter un jeu" aria-label="add" placement="top-end">
+                                     <Tooltip title="Jeu" aria-label="add" placement="top-end">
                                         <Fab color="primary">
                                        <AddIcon onClick={()=>setAjouterJeu(!ajouterJeu)} />
                                         </Fab>

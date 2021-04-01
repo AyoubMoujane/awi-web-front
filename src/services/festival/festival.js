@@ -9,6 +9,17 @@ class FestivalService {
     getFestivals() {
         return axios.get(`${API_URL}/festivals`, { headers: authHeader() });
     }
+    
+    get(id) {
+        return axios
+            .get(`${API_URL}/festivals/${id}`, { headers: authHeader() })
+            .then(response => {
+                return response.data;
+            })
+            .catch(err => {
+                throw err
+            })
+    }
 
     setFestival(data) {
 
