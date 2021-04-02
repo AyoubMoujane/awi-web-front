@@ -7,7 +7,7 @@ pipeline {
     }
     environment {
         HOME= '.'
-        CI = 'true'
+        CI = 'false'
         registry = "ayoubmoujane/awi-web-front"
     }
     stages {
