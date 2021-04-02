@@ -25,17 +25,7 @@ const bool = [
   }
 ];
 
-const typeJeu = [
-  {
-    value: 'Famille',
-    label: 'Famille',
-  },
-  {
-    value: 'Arcade',
-    label: 'Arcade',
-  }
-];
-const editeurs = ['Bla', 'Bli', 'Blo']
+
 
 const useStyles = makeStyles({
   root: {
@@ -67,6 +57,19 @@ export default function JeuDetail(props) {
 
   const [isLoading, setIsLoading] = useState(true)
   const [jeu, setJeu] = useState(null)
+  const [nomJeu, setNom] = useState('')
+  const [nbJoueurMin, setNbJoueurMin] = useState(1)
+  const [nbJoueurMax, setNbJoueurMax] = useState(1)
+  const [age, setAge] = useState(4)
+  const [duree, setDuree] = useState(30)
+  const [prototype, setPrototype] = useState(false)
+  const [type, setType] = useState('')
+  const [editeur, setEditeur] = useState(null)
+  const [consigne, setConsigne] = useState('')
+  const [editeurs, setEditeurs] = useState([])
+  const [jeuTypes, setJeuTypes] = useState([])
+  const paperStyle = { padding: 20, height: '100vh', width: 500, margin: "20px auto" }
+  const btnstyle = { margin: '8px 0' }
 
   const classes = useStyles();
   const fetchJeu = () => {
@@ -81,23 +84,28 @@ export default function JeuDetail(props) {
         console.log(err)
         setIsLoading(false)
       })
+      JeuService.getEditeurs()
+      .then(data => {
+          setEditeurs(data)          
+      })
+      .catch(err => {
+          console.log(err)
+      })
+      JeuService.getJeuType()
+      .then(data => {
+          setJeuTypes(data)        
+      })
+      .catch(err => {
+          console.log(err)
+      })
   }
   useEffect(fetchJeu, []);
 
-  const [nomJeu, setNom] = useState('')
-  const [nbJoueurMin, setNbJoueurMin] = useState(1)
-  const [nbJoueurMax, setNbJoueurMax] = useState(1)
-  const [age, setAge] = useState(4)
-  const [duree, setDuree] = useState(30)
-  const [prototype, setPrototype] = useState(false)
-  const [type, setType] = useState('')
-  const [editeur, setEditeur] = useState(null)
-  const [consigne, setConsigne] = useState('')
-  const paperStyle = { padding: 20, height: '100vh', width: 500, margin: "20px auto" }
-  const btnstyle = { margin: '8px 0' }
+  
 
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     JeuService.update(jeu.idJeu, nomJeu, nbJoueurMin, nbJoueurMax, age, duree, consigne, prototype, 1, 1)
       .then(data => {
         console.log(data)
@@ -121,7 +129,7 @@ export default function JeuDetail(props) {
                 <h2>Jeu</h2>
               </Grid>
               <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
-                <TextField id="standard-basic" label="Nom du jeu" onChange={(e) => setNom(e.target.value)} defaultValue={jeu.nomJeu} />
+                <TextField id="standard-basic" label="Nom du jeu" defaultValue={jeu.nomJeu} onChange={(e) => setNom(e.target.value)} />
                 <TextField
                   id="standard-number"
                   label="Nombre de joueur min"
@@ -183,11 +191,12 @@ export default function JeuDetail(props) {
                   onChange={(e) => setType(e.target.value)}
                   defaultValue={jeu.type}
                 >
-                  {typeJeu.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
+                  {
+            jeuTypes.map((jeu) => (
+            <MenuItem key={jeu.idTypeJeu} value={jeu.idTypeJeu}>
+              {jeu.nomType}
+            </MenuItem>
+          ))}
                 </TextField>
                 <TextField
                   id="standard-select-currency"
@@ -196,11 +205,11 @@ export default function JeuDetail(props) {
                   onChange={(e) => setEditeur(e.target.value)}
                   defaultValue={jeu.editeur}
                 >
-                  {editeurs.map((option) => (
-                    <MenuItem key={option} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
+                  {editeurs.map((edit) => (
+            <MenuItem key={edit.idParticipant} value={edit.idParticipant}>
+              {edit.nomParticipant}
+            </MenuItem>
+          ))}
                 </TextField>
                 <TextField
                   id="standard-basic"
