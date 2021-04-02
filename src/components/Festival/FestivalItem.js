@@ -128,6 +128,16 @@ export function Festival({ festival }) {
         setSelectedDate(date);
     };
 
+    // async function ComputeData(reservations){
+    //     let data = {
+    //         nbTableReserve = 0,
+    //         nbM2Reserve = 0,
+    //         nbRestant =0
+    //     }
+    //     reservations.map((reservation)=> {
+
+    //     })
+    // }
 
     useEffect(function () {
         festival.espaces.map((espace) => {
@@ -148,6 +158,8 @@ export function Festival({ festival }) {
             }
 
         })
+
+        // ComputeData(festival.reservations)
 
         setSelectedDate(festival.dateFestival)
         setNom(festival.nomFestival)
