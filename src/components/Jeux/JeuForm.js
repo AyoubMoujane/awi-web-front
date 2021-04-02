@@ -133,18 +133,6 @@ const fetch = () => {
             }}
             onChange={(e) => setDuree(e.target.value)}
           />
-          <TextField
-          id="standard-select-currency"
-          select
-          label="Prototype"
-          onChange={(e) => setPrototype(e.target.value)}
-        >
-          {bool.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
         <FormControl component="fieldset">
       <FormLabel component="legend">Avant-Première ?</FormLabel>
       <RadioGroup aria-label="gender" name="gender1" value={prototype} onChange={handleChange}>

@@ -7,7 +7,7 @@ const API_URL = config.API_URL
 class ZoneService {
 
     getZones() {
-        return axios.get(`${API_URL}/zones`, { headers: authHeader() });
+        return axios.get(`${API_URL}/zones/custom/courant`, { headers: authHeader() });
     }
 
     getCurrentFestivalZones() {

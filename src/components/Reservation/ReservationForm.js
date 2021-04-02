@@ -153,7 +153,7 @@ export function ReservationForm({fetchReservations}) {
     const [factureEnvoye, setFactureEnvoye] = useState(false)
     const [participant, setParticipant] = useState("")
     const dateModification = new Date()
-    const festival = 8 //filterCurrentFestival(festivalReducer.data).idFestival
+    const festival = filterCurrentFestival(festivalReducer.data).idFestival
 
     // Une reservation
     const [idEspace, setIdEspace] = useState("")
@@ -212,6 +212,7 @@ export function ReservationForm({fetchReservations}) {
             .then(data => {
 
                 setEspaces(data.espaces)
+                console.log(data)
             })
             .catch(err => {
                 console.log(err)
@@ -392,7 +393,8 @@ export function ReservationForm({fetchReservations}) {
                                     </FormGroup>
                                 </Grid>
                                 {/* //////////// */}
-                                {ajouterJeu && (<div><Grid container justify="center">
+                                {/* {ajouterJeu && (<div> */}
+                                <Grid container justify="center">
                                 <Typography component="h7" variant="h6">Jeu</Typography>
                                 </Grid>
                             <Grid container spacing={2}>
@@ -537,7 +539,7 @@ export function ReservationForm({fetchReservations}) {
                                      {
                                         espaces.map((espace) => (
                                         <MenuItem key={espace.idEspace} value={espace.idEspace}>
-                                          {espace.idEspace}
+                                          {espace.TypeEspace.nomEspace}
                                         </MenuItem>
                                     ))}
                                 </TextField>
@@ -567,16 +569,16 @@ export function ReservationForm({fetchReservations}) {
 
                             
                             
-                             </div>)}
+                             {/* </div>)} */}
 
                                 <Grid container justify="center">
-                                    <Grid item>
+                                    {/* <Grid item>
                                      <Tooltip title="Jeu" aria-label="add" placement="top-end">
                                         <Fab color="primary">
                                        <AddIcon onClick={()=>setAjouterJeu(!ajouterJeu)} />
                                         </Fab>
                                     </Tooltip>
-                                    </Grid>
+                                    </Grid> */}
                                 </Grid>
                                 
                             </Grid>

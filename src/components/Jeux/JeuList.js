@@ -88,7 +88,7 @@ export default function CustomizedTables() {
             <StyledTableCell align="right">Min joueurs</StyledTableCell>
             <StyledTableCell align="right">Max joueurs</StyledTableCell>
             <StyledTableCell align="right">Durée</StyledTableCell>
-            <StyledTableCell align="right">Avant-première</StyledTableCell>
+            {/* <StyledTableCell align="right">Avant-première</StyledTableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -103,7 +103,7 @@ export default function CustomizedTables() {
               <StyledTableCell align="right">{row.nbJoueurMin}</StyledTableCell>
               <StyledTableCell align="right">{row.nbJoueurMax}</StyledTableCell>
               <StyledTableCell align="right">{row.duree}</StyledTableCell>
-              <StyledTableCell align="right">{row.prototype}</StyledTableCell>
+              {/* <StyledTableCell align="right">{row.prototype}</StyledTableCell> */}
 
             </StyledTableRow>
           ))}
