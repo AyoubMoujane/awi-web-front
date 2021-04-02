@@ -4,6 +4,8 @@ import List from '@material-ui/core/List';
 
 export function ReservationList({reservations, fetchReservations}) {
 
+    // console.log(reservations)
+
     return (
         <div>
                 <List>

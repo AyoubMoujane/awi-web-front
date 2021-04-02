@@ -65,6 +65,11 @@ class ReservationService {
         { headers: authHeader() });
     }
 
+    getReservationByFestival(data) {
+        return axios.get(`${API_URL}/reservationExposantByFestival/${data.festival}`, 
+        { headers: authHeader() });
+    }
+
     getEspacesReservesForReservation(data) {
 
         return axios.get(`${API_URL}/espaceReserve/${data.idReservation}`, { headers: authHeader() })

@@ -5,10 +5,13 @@ import Typography from '@material-ui/core/Typography'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container'
 import ReservationService from '../../services/reservation/reservation'
-
-
+import { useSelector, useDispatch } from 'react-redux'
+import filterCurrentFestival from '../../utils/filterCurrentFestival'
 
 export function ReservationView() {
+
+    const festivalReducer = useSelector(state => state.festivalReducer)
+    const dispatch = useDispatch()
 
     const [reservations, setReservations] = useState([])
     const [loading, setLoading] = useState(false)
@@ -17,10 +20,15 @@ export function ReservationView() {
 
 
     const fetchReservations = useCallback(() => {
+
+        const data = {
+            festival : filterCurrentFestival(festivalReducer.data).idFestival
+        }
+
         setLoading(true)
-        ReservationService.findAll().then(
+        ReservationService.getReservationByFestival(data).then(
             response => {
-                setReservations(response)
+                setReservations(response.data)
                 setLoading(false)
             },
             error => {
@@ -31,7 +39,10 @@ export function ReservationView() {
     })
 
 
+
+
     useEffect(fetchReservations, [])
+
 
     return (
         <div>
