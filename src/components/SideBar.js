@@ -201,13 +201,13 @@ export function SideBar() {
                 <ListItemText primary='Éditeurs/Exposants' />
               </ListItem>
             </Link>
-            <Link color="black" to={"/contacts"}>
+            <Link color="black" to={"/"}>
               <ListItem button key='contacts'>
                 <ListItemIcon><PermContactCalendarIcon /></ListItemIcon>
                 <ListItemText primary='Contacts' />
               </ListItem>
             </Link>
-            <Link color="black" to={"/types"}>
+            <Link color="black" to={"/"}>
               <ListItem button key='types'>
                 <ListItemIcon><CategoryIcon /></ListItemIcon>
                 <ListItemText primary='Type de jeux' />
